@@ -15,6 +15,12 @@ export default {
       }
     },
     {
+      title: 'Campaign',
+      name: 'campaign',
+      type: 'reference',
+      to: [{type: 'campaign'}]
+    },
+    {
       title: 'Title',
       name: 'title',
       type: 'string'
@@ -23,18 +29,6 @@ export default {
       title: 'Body',
       name: 'body',
       type: 'blockContent'
-    },
-    {
-      title: 'Campaign',
-      name: 'campaign',
-      type: 'reference',
-      to: [{type: 'campaign'}]
-    },
-    {
-      title: 'Authors',
-      name: 'authors',
-      type: 'array',
-      of: [{type: 'reference', to: [{type: 'user'}]}]
     },
     {
       title: 'Slug',
@@ -58,9 +52,10 @@ export default {
       description: 'Use this field if article is a session'
     },
     {
-      title: 'Secret body',
-      name: 'secretBody',
-      type: 'blockContent'
+      title: 'Authors',
+      name: 'authors',
+      type: 'array',
+      of: [{type: 'reference', to: [{type: 'user'}]}]
     }
   ],
   preview: {
