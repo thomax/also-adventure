@@ -59,6 +59,7 @@ export default () =>
         .child(S.documentTypeList('post').title('Posts')),
       S.listItem()
         .title('All campaigns')
+        .icon(MdCampaign)
         .schemaType('campaign')
         .child(S.documentTypeList('campaign').title('Campaign')),
       S.listItem()

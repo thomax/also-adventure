@@ -11,9 +11,7 @@ export default {
       name: 'category',
       type: 'string',
       options: {
-        list: postCategories,
-        layout: 'radio',
-        direction: 'horizontal'
+        list: postCategories
       }
     },
     {
