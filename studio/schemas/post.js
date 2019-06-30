@@ -67,13 +67,14 @@ export default {
     select: {
       title: 'title',
       category: 'category',
-      image: 'mainImage'
+      image: 'mainImage',
+      campaignSlug: 'campaign.slug.current'
     },
     prepare(selection) {
-      const {title, category, image} = selection
+      const {title, category, image, campaignSlug} = selection
       return {
         title: title,
-        subtitle: `[${category}]`,
+        subtitle: `[${campaignSlug}/${category}]`,
         media: image
       }
     }

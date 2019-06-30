@@ -1,8 +1,10 @@
 import S from '@sanity/desk-tool/structure-builder'
 import MdSettings from 'react-icons/lib/md/settings'
-import MdPerson from 'react-icons/lib/md/person'
+import MdUser from 'react-icons/lib/md/person'
 import MdImage from 'react-icons/lib/md/palette'
 import MdCampaign from 'react-icons/lib/md/toys'
+import MdPost from 'react-icons/lib/md/book'
+import MdPosts from 'react-icons/lib/md/library-books'
 
 import shared from './schemas/shared'
 const postCategories = shared.postCategories
@@ -26,6 +28,40 @@ export default () =>
     .title('Content')
     .items([
       S.listItem()
+        .title('Posts by campaign')
+        .icon(MdPost)
+        .schemaType('campaign')
+        .child(
+          S.documentTypeList('campaign')
+            .title('Select campaign')
+            .filter('_type == "campaign"')
+            .child(campaignId =>
+              S.list()
+                .title('Categories')
+                .items(getItems(campaignId))
+            )
+        ),
+      S.listItem()
+        .title('All posts')
+        .icon(MdPosts)
+        .schemaType('post')
+        .child(S.documentTypeList('post').title('Posts')),
+      S.listItem()
+        .title('Users')
+        .icon(MdUser)
+        .schemaType('user')
+        .child(S.documentTypeList('user').title('Users')),
+      S.listItem()
+        .title('Campaigns')
+        .icon(MdCampaign)
+        .schemaType('campaign')
+        .child(S.documentTypeList('campaign').title('Campaigns')),
+      S.listItem()
+        .title('Images')
+        .icon(MdImage)
+        .schemaType('sanity.imageAsset')
+        .child(S.documentTypeList('sanity.imageAsset').title('Images')),
+      S.listItem()
         .title('Settings')
         .icon(MdSettings)
         .child(
@@ -33,38 +69,5 @@ export default () =>
             .id('siteSettings')
             .schemaType('siteSettings')
             .documentId('siteSettings')
-        ),
-      S.listItem()
-        .title('Posts')
-        .icon(MdCampaign)
-        .schemaType('campaign')
-        .child(
-          S.documentTypeList('campaign')
-            .title('Campaigns')
-            .filter('_type == "campaign"')
-            .child(campaignId =>
-              S.list()
-                .title('Posts')
-                .items(getItems(campaignId))
-            )
-        ),
-      S.listItem()
-        .title('Users')
-        .icon(MdPerson)
-        .schemaType('user')
-        .child(S.documentTypeList('user').title('Users')),
-      S.listItem()
-        .title('All posts')
-        .schemaType('post')
-        .child(S.documentTypeList('post').title('Posts')),
-      S.listItem()
-        .title('All campaigns')
-        .icon(MdCampaign)
-        .schemaType('campaign')
-        .child(S.documentTypeList('campaign').title('Campaign')),
-      S.listItem()
-        .title('Image gallery')
-        .icon(MdImage)
-        .schemaType('sanity.imageAsset')
-        .child(S.documentTypeList('sanity.imageAsset').title('Images'))
+        )
     ])
