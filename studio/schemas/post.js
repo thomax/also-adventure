@@ -68,14 +68,14 @@ export default {
   preview: {
     select: {
       title: 'title',
-      kind: 'kind',
+      category: 'category',
       image: 'mainImage'
     },
     prepare(selection) {
-      const {title, kind, image} = selection
+      const {title, category, image} = selection
       return {
         title: title,
-        subtitle: `[${kind}]`,
+        subtitle: `[${category}]`,
         media: image
       }
     }
