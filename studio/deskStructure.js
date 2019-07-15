@@ -8,7 +8,6 @@ import MdPosts from 'react-icons/lib/md/library-books'
 
 import shared from './schemas/shared'
 const postCategories = shared.postCategories
-console.log('asdf', postCategories)
 
 function getItems(campaignId) {
   return postCategories.map(category => {

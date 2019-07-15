@@ -1,3 +1,6 @@
+import shared from './shared'
+const systems = shared.systems
+
 export default {
   name: 'campaign',
   title: 'Campaign',
@@ -33,6 +36,14 @@ export default {
       name: 'gm',
       type: 'reference',
       to: [{type: 'user'}]
+    },
+    {
+      title: 'System',
+      name: 'system',
+      type: 'string',
+      options: {
+        list: systems
+      }
     }
   ],
   preview: {

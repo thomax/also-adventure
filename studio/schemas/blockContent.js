@@ -1,11 +1,17 @@
+import linkIcon from 'react-icons/lib/fa/paperclip'
 export default {
   title: 'Block Content',
   name: 'blockContent',
   type: 'array',
   of: [
     {
+      type: 'image',
+      options: {hotspot: true}
+    },
+    {
       title: 'Block',
       type: 'block',
+      of: [{type: 'image'}],
       styles: [
         {title: 'Normal', value: 'normal'},
         {title: 'H1', value: 'h1'},
@@ -25,24 +31,30 @@ export default {
               {
                 title: 'URL',
                 name: 'href',
-                type: 'url'
+                type: 'url',
+                validation: Rule => Rule.uri({allowRelative: true, scheme: ['https', 'http']})
               }
             ]
           },
           {
-            title: 'Internal link',
             name: 'internalLink',
-            type: 'reference',
-            to: [{type: 'article'}],
-            weak: true,
-            description: 'Locate an article you want to link to'
+            type: 'object',
+            title: 'Internal link',
+            blockEditor: {
+              icon: linkIcon
+            },
+            fields: [
+              {
+                name: 'reference',
+                type: 'reference',
+                title: 'Reference',
+                to: [{type: 'post'}],
+                weak: true
+              }
+            ]
           }
         ]
       }
-    },
-    {
-      type: 'image',
-      options: {hotspot: true}
     }
   ]
 }

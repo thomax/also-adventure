@@ -8,5 +8,13 @@ export default {
     {title: 'Group', plural: 'Groups', value: 'group'},
     {title: 'House rule', plural: 'House rules', value: 'house-rule'},
     {title: 'Background', plural: 'Background stuff', value: 'background'}
+  ],
+  systems: [
+    {title: 'D&D 3.5e', value: 'd&d3.5e'},
+    {title: 'Pathfinder', value: 'pathfinder'},
+    {title: 'D&D 4e', value: 'd&d4e'},
+    {title: 'D&D 5e', value: 'd&d5e'},
+    {title: 'Shadow of the Demon Lord', value: 'sotdl'},
+    {title: 'Fate', value: 'fate'}
   ]
 }

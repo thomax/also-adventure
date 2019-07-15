@@ -63,13 +63,14 @@ export default {
       title: 'title',
       category: 'category',
       image: 'mainImage',
+      order: 'order',
       campaignSlug: 'campaign.slug.current'
     },
     prepare(selection) {
-      const {title, category, image, campaignSlug} = selection
+      const {title, category, image, campaignSlug, order} = selection
       return {
         title: title,
-        subtitle: `[${campaignSlug}/${category}]`,
+        subtitle: [campaignSlug, category, order].filter(Boolean).join('/'),
         media: image
       }
     }
