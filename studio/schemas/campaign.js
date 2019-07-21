@@ -2,8 +2,8 @@ import shared from './shared'
 const systems = shared.systems
 
 export default {
-  name: 'campaign',
   title: 'Campaign',
+  name: 'campaign',
   type: 'document',
   fields: [
     {
@@ -49,7 +49,16 @@ export default {
   preview: {
     select: {
       title: 'title',
+      gm: 'gm.name',
+      system: 'system',
       media: 'mainImage'
+    },
+    prepare({title, gm, system, media}) {
+      return {
+        title,
+        media,
+        subtitle: [gm, system].filter(Boolean).join(' - ')
+      }
     }
   }
 }

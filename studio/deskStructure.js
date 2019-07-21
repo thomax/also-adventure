@@ -1,25 +1,50 @@
 import S from '@sanity/desk-tool/structure-builder'
+import sanityClient from 'part:@sanity/base/client'
 import MdSettings from 'react-icons/lib/md/settings'
 import MdUser from 'react-icons/lib/md/person'
 import MdImage from 'react-icons/lib/md/palette'
 import MdCampaign from 'react-icons/lib/md/toys'
+import MdCategory from 'react-icons/lib/md/folder'
 import MdPost from 'react-icons/lib/md/book'
 import MdPosts from 'react-icons/lib/md/library-books'
 
-import shared from './schemas/shared'
-const postCategories = shared.postCategories
-
-function getItems(campaignId) {
-  return postCategories.map(category => {
-    return S.listItem()
-      .title(category.plural)
-      .child(
-        S.documentList()
-          .title(category.plural)
-          .filter('_type == "post" && campaign._ref == $campaignId && category == $category')
-          .params({campaignId, category: category.value})
-      )
-  })
+function campaignPostsByCategory(campaignId) {
+  return sanityClient
+    .fetch(
+      '*[_type == "category"]|order(singular asc){..., "posts": *[_type == "post" && category._ref == ^._id && campaign._ref == $campaignId]}',
+      {campaignId}
+    )
+    .then(categories => {
+      console.log('categories', categories)
+      return S.list()
+        .title('Categories')
+        .items(
+          categories
+            .filter(cat => cat.posts.length > 0)
+            .map(category =>
+              S.listItem()
+                .title(`${category.title} [${category.posts.length}]`)
+                .child(
+                  S.list()
+                    .title(`${category.title}s`)
+                    .items(
+                      category.posts.map(post => {
+                        return S.listItem()
+                          .id(post._id)
+                          .title(post.title || 'untitled')
+                          .icon(MdPost)
+                          .child(
+                            S.editor()
+                              .id(post._id)
+                              .schemaType('post')
+                              .documentId(post._id)
+                          )
+                      })
+                    )
+                )
+            )
+        )
+    })
 }
 
 export default () =>
@@ -34,11 +59,7 @@ export default () =>
           S.documentTypeList('campaign')
             .title('Select campaign')
             .filter('_type == "campaign"')
-            .child(campaignId =>
-              S.list()
-                .title('Categories')
-                .items(getItems(campaignId))
-            )
+            .child(campaignId => campaignPostsByCategory(campaignId))
         ),
       S.listItem()
         .title('All posts')
@@ -55,6 +76,11 @@ export default () =>
         .icon(MdCampaign)
         .schemaType('campaign')
         .child(S.documentTypeList('campaign').title('Campaigns')),
+      S.listItem()
+        .title('Categories')
+        .icon(MdCategory)
+        .schemaType('category')
+        .child(S.documentTypeList('category').title('Categories')),
       S.listItem()
         .title('Images')
         .icon(MdImage)

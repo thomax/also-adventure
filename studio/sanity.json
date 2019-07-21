@@ -5,7 +5,7 @@
   },
   "api": {
     "projectId": "sajbthd8",
-    "dataset": "test"
+    "dataset": "production"
   },
   "plugins": [
     "@sanity/base",
@@ -16,7 +16,8 @@
     "@sanity/desk-tool",
     "dashboard-widget-structure-menu",
     "dashboard-widget-document-list",
-    "dashboard-widget-netlify"
+    "dashboard-widget-netlify",
+    "vision"
   ],
   "parts": [
     {

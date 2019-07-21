@@ -1,6 +1,3 @@
-import shared from './shared'
-const postCategories = shared.postCategories
-
 export default {
   name: 'post',
   title: 'Post',
@@ -9,10 +6,8 @@ export default {
     {
       title: 'Category',
       name: 'category',
-      type: 'string',
-      options: {
-        list: postCategories
-      }
+      type: 'reference',
+      to: [{type: 'category'}]
     },
     {
       title: 'Campaign',
@@ -56,12 +51,18 @@ export default {
       name: 'authors',
       type: 'array',
       of: [{type: 'reference', to: [{type: 'user'}]}]
+    },
+    {
+      title: 'Secret',
+      name: 'isSecret',
+      type: 'boolean',
+      description: 'Secret posts are only readable by the GM'
     }
   ],
   preview: {
     select: {
       title: 'title',
-      category: 'category',
+      category: 'category.singular',
       image: 'mainImage',
       order: 'order',
       campaignSlug: 'campaign.slug.current'
@@ -69,7 +70,7 @@ export default {
     prepare(selection) {
       const {title, category, image, campaignSlug, order} = selection
       return {
-        title: title,
+        title: title || 'untitled',
         subtitle: [campaignSlug, category, order].filter(Boolean).join('/'),
         media: image
       }
