@@ -54,10 +54,11 @@ export default {
       media: 'mainImage'
     },
     prepare({title, gm, system, media}) {
+      const systemTitle = system ? systems.find(sys => sys.value === system).title : null
       return {
         title,
         media,
-        subtitle: [gm, system].filter(Boolean).join(' - ')
+        subtitle: [gm, systemTitle].filter(Boolean).join(' - ')
       }
     }
   }

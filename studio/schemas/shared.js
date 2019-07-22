@@ -5,6 +5,8 @@ export default {
     {title: 'D&D 5e', value: 'd&d5e'},
     {title: 'Fate', value: 'fate'},
     {title: 'Pathfinder', value: 'pathfinder'},
-    {title: 'Shadow of the Demon Lord', value: 'sotdl'}
+    {title: 'Shadow of the Demon Lord', value: 'sotdl'},
+    {title: 'Warhammer', value: 'warhammer'},
+    {title: 'freeform', value: 'freeform'}
   ]
 }

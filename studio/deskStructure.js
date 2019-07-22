@@ -11,7 +11,7 @@ import MdPosts from 'react-icons/lib/md/library-books'
 function campaignPostsByCategory(campaignId) {
   return sanityClient
     .fetch(
-      '*[_type == "category"]|order(singular asc){..., "posts": *[_type == "post" && category._ref == ^._id && campaign._ref == $campaignId]}',
+      '*[_type == "category"]|order(singular asc){..., "posts": *[_type == "post" && category._ref == ^._id && campaign._ref == $campaignId]|order(order asc)}',
       {campaignId}
     )
     .then(categories => {
@@ -29,9 +29,11 @@ function campaignPostsByCategory(campaignId) {
                     .title(`${category.title}s`)
                     .items(
                       category.posts.map(post => {
+                        const order = post.order || post.order == 0 ? `${post.order}` : null
+                        const title = [order, post.title || 'untitled'].filter(Boolean).join(' - ')
                         return S.listItem()
                           .id(post._id)
-                          .title(post.title || 'untitled')
+                          .title(title)
                           .icon(MdPost)
                           .child(
                             S.editor()
