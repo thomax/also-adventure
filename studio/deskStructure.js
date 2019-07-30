@@ -1,3 +1,4 @@
+import React from 'react'
 import S from '@sanity/desk-tool/structure-builder'
 import sanityClient from 'part:@sanity/base/client'
 import MdSettings from 'react-icons/lib/md/settings'
@@ -15,7 +16,6 @@ function campaignPostsByCategory(campaignId) {
       {campaignId}
     )
     .then(categories => {
-      console.log('categories', categories)
       return S.list()
         .title('Categories')
         .items(
