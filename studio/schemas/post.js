@@ -44,7 +44,7 @@ export default {
       title: 'Order',
       name: 'order',
       type: 'number',
-      description: 'Use this field if article is a session'
+      description: 'A number. Use needed if this article is a session'
     },
     {
       title: 'Authors',

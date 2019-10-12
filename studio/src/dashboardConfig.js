@@ -1,6 +1,22 @@
+const {transformDocument} = require('./orbitalsTransformer')
 export default {
   widgets: [
-    {name: 'structure-menu'},
+    {
+      name: 'orbitals-2d',
+      layout: {
+        width: 'full',
+        height: 'small'
+      },
+      options: {
+        query:
+          '*[!(_id in path("_.listeners.**")) && !(_id in path("drafts.**"))]|order(_createdAt desc)[0..5]',
+        transformDocument: transformDocument,
+        attractorColor: '#101010',
+        attractorRadius: 20,
+        attractorOpacity: null,
+        attractorSides: 0
+      }
+    },
     {
       name: 'project-info',
       options: {
@@ -8,8 +24,6 @@ export default {
           {
             name: 'netlify',
             options: {
-              description:
-                'NOTE: Because these sites are static builds, they need to be re-deployed to see the changes when documents are published.',
               sites: [
                 {
                   buildHookId: '5d17ca16d90d5a0af32b71be',
