@@ -18,11 +18,17 @@ export default {
       title: 'Keywords',
       name: 'keywords',
       type: 'array',
-      of: [{ type: 'string' }],
+      of: [{type: 'string'}],
       description: 'Add keywords that describes your blog.',
       options: {
         layout: 'tags'
       }
+    },
+    {
+      title: 'Main Image',
+      name: 'mainImage',
+      type: 'image',
+      options: {hotspot: true}
     }
   ]
 }
