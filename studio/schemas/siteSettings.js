@@ -23,12 +23,6 @@ export default {
       options: {
         layout: 'tags'
       }
-    },
-    {
-      title: 'Main Image',
-      name: 'mainImage',
-      type: 'image',
-      options: {hotspot: true}
     }
   ]
 }
