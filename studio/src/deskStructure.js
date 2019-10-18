@@ -5,6 +5,7 @@ import MdSettings from 'react-icons/lib/md/settings'
 import MdImage from 'react-icons/lib/md/palette'
 import MdCampaign from 'react-icons/lib/md/toys'
 import MdCategory from 'react-icons/lib/md/folder'
+import MdUser from 'react-icons/lib/md/person'
 import MdPost from 'react-icons/lib/md/book'
 import MdPosts from 'react-icons/lib/md/library-books'
 
@@ -48,47 +49,82 @@ function campaignPostsByCategory(campaignId) {
     })
 }
 
-export default () =>
-  S.list()
-    .title('Content')
-    .items([
-      S.listItem()
-        .title('Posts by campaign')
-        .icon(MdPost)
-        .schemaType('campaign')
-        .child(
-          S.documentTypeList('campaign')
-            .title('Select campaign')
-            .filter('_type == "campaign"')
-            .child(campaignId => campaignPostsByCategory(campaignId))
-        ),
-      S.listItem()
-        .title('All posts')
-        .icon(MdPosts)
-        .schemaType('post')
-        .child(S.documentTypeList('post').title('Posts')),
-      S.listItem()
-        .title('Campaigns')
-        .icon(MdCampaign)
-        .schemaType('campaign')
-        .child(S.documentTypeList('campaign').title('Campaigns')),
-      S.listItem()
-        .title('Categories')
-        .icon(MdCategory)
-        .schemaType('category')
-        .child(S.documentTypeList('category').title('Categories')),
-      S.listItem()
-        .title('Images')
-        .icon(MdImage)
-        .schemaType('sanity.imageAsset')
-        .child(S.documentTypeList('sanity.imageAsset').title('Images')),
-      S.listItem()
-        .title('Settings')
-        .icon(MdSettings)
-        .child(
-          S.editor()
-            .id('siteSettings')
-            .schemaType('siteSettings')
-            .documentId('siteSettings')
-        )
-    ])
+const fetchSystemGroups = () => {
+  return sanityClient.fetch('*[_type=="system.group"]')
+}
+
+export default () => {
+  return fetchSystemGroups().then(systemGroups => {
+    return S.list()
+      .title('Content')
+      .items([
+        S.listItem()
+          .title('Posts by campaign')
+          .icon(MdPost)
+          .schemaType('campaign')
+          .child(
+            S.documentTypeList('campaign')
+              .title('Select campaign')
+              .filter('_type == "campaign"')
+              .child(campaignId => campaignPostsByCategory(campaignId))
+          ),
+        S.listItem()
+          .title('All posts')
+          .icon(MdPosts)
+          .schemaType('post')
+          .child(S.documentTypeList('post').title('Posts')),
+        S.listItem()
+          .title('Campaigns')
+          .icon(MdCampaign)
+          .schemaType('campaign')
+          .child(S.documentTypeList('campaign').title('Campaigns')),
+        S.listItem()
+          .title('Categories')
+          .icon(MdCategory)
+          .schemaType('category')
+          .child(S.documentTypeList('category').title('Categories')),
+        S.listItem()
+          .title('Images')
+          .icon(MdImage)
+          .schemaType('sanity.imageAsset')
+          .child(S.documentTypeList('sanity.imageAsset').title('Images')),
+        S.listItem()
+          .title('Users')
+          .icon(MdUser)
+          .schemaType('user')
+          .child(S.documentTypeList('user').title('Users')),
+        S.listItem()
+          .title('Settings')
+          .icon(MdSettings)
+          .child(
+            S.editor()
+              .id('siteSettings')
+              .schemaType('siteSettings')
+              .documentId('siteSettings')
+          ),
+        S.listItem()
+          .title('System Groups')
+          .icon(MdSettings)
+          .child(
+            S.list()
+              .title(`All the groups`)
+              .items(
+                systemGroups.map(systemGroup =>
+                  S.listItem()
+                    .title(systemGroup._id)
+                    .icon(MdSettings)
+                    .child(
+                      S.component()
+                        .title(systemGroup._id)
+                        .component(
+                          <div>
+                            <pre>{JSON.stringify(systemGroup, null, 2)}</pre>
+                          </div>
+                        )
+                    )
+                )
+              )
+          )
+      ])
+  })
+}

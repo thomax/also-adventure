@@ -4,18 +4,6 @@ export default {
   type: 'document',
   fields: [
     {
-      title: 'Category',
-      name: 'category',
-      type: 'reference',
-      to: [{type: 'category'}]
-    },
-    {
-      title: 'Campaign',
-      name: 'campaign',
-      type: 'reference',
-      to: [{type: 'campaign'}]
-    },
-    {
       title: 'Title',
       name: 'title',
       type: 'string'
@@ -33,6 +21,18 @@ export default {
         source: 'title',
         maxLength: 96
       }
+    },
+    {
+      title: 'Category',
+      name: 'category',
+      type: 'reference',
+      to: [{type: 'category'}]
+    },
+    {
+      title: 'Campaign',
+      name: 'campaign',
+      type: 'reference',
+      to: [{type: 'campaign'}]
     },
     {
       title: 'Main Image',
@@ -75,4 +75,7 @@ export default {
       }
     }
   }
+  // initialValue: {
+  //   title: 'waffles are good'
+  // }
 }

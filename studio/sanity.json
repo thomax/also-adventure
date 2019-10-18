@@ -17,8 +17,8 @@
     "dashboard-widget-structure-menu",
     "dashboard-widget-document-list",
     "dashboard-widget-netlify",
-    "vision",
-    "dashboard-widget-orbitals-2d"
+    "dashboard-widget-orbitals-2d",
+    "@sanity/vision"
   ],
   "parts": [
     {
@@ -32,6 +32,10 @@
     {
       "implements": "part:@sanity/dashboard/config",
       "path": "./src/dashboardConfig.js"
+    },
+    {
+      "name": "part:@sanity/base/initial-value-templates",
+      "path": "./src/initialValueTemplates.js"
     }
   ]
 }
