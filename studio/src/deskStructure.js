@@ -8,49 +8,63 @@ import MdCategory from 'react-icons/lib/md/folder'
 import MdUser from 'react-icons/lib/md/person'
 import MdPost from 'react-icons/lib/md/book'
 import MdPosts from 'react-icons/lib/md/library-books'
-
-function campaignPostsByCategory(campaignId) {
-  return sanityClient
-    .fetch(
-      '*[_type == "category"]|order(singular asc){..., "posts": *[_type == "post" && category._ref == ^._id && campaign._ref == $campaignId]|order(order asc)}',
-      {campaignId}
-    )
-    .then(categories => {
-      return S.list()
-        .title('Categories')
-        .items(
-          categories
-            .filter(cat => cat.posts.length > 0)
-            .map(category =>
-              S.listItem()
-                .title(`${category.title} [${category.posts.length}]`)
-                .child(
-                  S.list()
-                    .title(`${category.title}s`)
-                    .items(
-                      category.posts.map(post => {
-                        const order = post.order || post.order === 0 ? `${post.order}` : null
-                        const title = [order, post.title || 'untitled'].filter(Boolean).join(' - ')
-                        return S.listItem()
-                          .id(post._id)
-                          .title(title)
-                          .icon(MdPost)
-                          .child(
-                            S.editor()
-                              .id(post._id)
-                              .schemaType('post')
-                              .documentId(post._id)
-                          )
-                      })
-                    )
-                )
-            )
-        )
-    })
-}
+import MdShip from 'react-icons/lib/md/directions-boat'
 
 const fetchSystemGroups = () => {
   return sanityClient.fetch('*[_type=="system.group"]')
+}
+
+const fetchCategoriesWithPosts = campaignId => {
+  return sanityClient.fetch(
+    '*[_type == "category"]|order(singular asc){..., "posts": *[_type == "post" && category._ref == ^._id && campaign._ref == $campaignId]|order(order asc)}',
+    {campaignId}
+  )
+}
+
+function campaignPostsByCategory(campaignId) {
+  return fetchCategoriesWithPosts(campaignId).then(categories => {
+    return S.list()
+      .title('Categories')
+      .initialValueTemplates([
+        S.initialValueTemplateItem('post-by-campaign', {
+          campaignId
+        })
+      ])
+      .items(
+        categories
+          .filter(cat => cat.posts.length > 0)
+          .map(category =>
+            S.listItem()
+              .title(`${category.title} [${category.posts.length}]`)
+              .child(
+                S.list()
+                  .title(`${category.title}s`)
+                  .initialValueTemplates([
+                    S.initialValueTemplateItem('post-by-campaign-and-category', {
+                      campaignId,
+                      categoryId: category._id
+                    })
+                  ])
+                  .items(
+                    category.posts.map(post => {
+                      const order = post.order || post.order === 0 ? `${post.order}` : null
+                      const title = [order, post.title || 'untitled'].filter(Boolean).join(' - ')
+                      return S.listItem()
+                        .id(post._id)
+                        .title(title)
+                        .icon(MdPost)
+                        .child(
+                          S.editor()
+                            .id(post._id)
+                            .schemaType('post')
+                            .documentId(post._id)
+                        )
+                    })
+                  )
+              )
+          )
+      )
+  })
 }
 
 export default () => {
@@ -93,6 +107,31 @@ export default () => {
           .icon(MdUser)
           .schemaType('user')
           .child(S.documentTypeList('user').title('Users')),
+
+        S.listItem()
+          .title('Spaceships')
+          .icon(MdShip)
+          .child(
+            S.list()
+              .title('Ships')
+              .items([
+                S.listItem()
+                  .title('Ships')
+                  .child(S.documentTypeList('ship').title('Ships')),
+                S.listItem()
+                  .title('Shipyards')
+                  .child(S.documentTypeList('shipyard').title('Shipyards')),
+                S.listItem()
+                  .title('Ship Templates')
+                  .child(S.documentTypeList('shipTemplate').title('Ship Templates')),
+                S.listItem()
+                  .title('Ship Modules')
+                  .child(S.documentTypeList('shipModule').title('Ship Module')),
+                S.listItem()
+                  .title('Ship Features')
+                  .child(S.documentTypeList('shipFeature').title('Ship Feature'))
+              ])
+          ),
         S.listItem()
           .title('Settings')
           .icon(MdSettings)
