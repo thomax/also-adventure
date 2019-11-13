@@ -3,6 +3,8 @@
 
 # Dependency directories
 /node_modules
+web/node_modules
+web_old/node_modules
 
 # lerna files
 /lerna-debug.log
@@ -10,3 +12,4 @@
 # Lock files
 /package-lock.json
 /yarn.lock
+
