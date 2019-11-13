@@ -46,6 +46,13 @@ export default [
   }),
 
   T.template({
+    id: 'shipWeapon',
+    title: 'Ship Weapon',
+    schemaType: 'shipWeapon',
+    value: {}
+  }),
+
+  T.template({
     id: 'post-by-campaign',
     title: 'Post by campaign',
     schemaType: 'post',

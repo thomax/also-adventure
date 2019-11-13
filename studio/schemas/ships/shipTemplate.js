@@ -27,6 +27,12 @@ export default {
       type: 'number'
     },
     {
+      title: 'Bonus weapon modules',
+      name: 'bonusWeaponModules',
+      type: 'number',
+      description: 'Some ships get extra modules solely for weapons'
+    },
+    {
       title: 'Energy Points',
       name: 'energyPoints',
       type: 'number'

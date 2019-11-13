@@ -12,16 +12,24 @@ export default {
       title: 'Stat affected',
       name: 'statAffected',
       type: 'string'
+    },
+    {
+      title: 'Multiplier',
+      name: 'multiplier',
+      type: 'string'
     }
   ],
   preview: {
     select: {
       amount: 'amount',
-      statAffected: 'statAffected'
+      statAffected: 'statAffected',
+      multiplier: 'multiplier'
     },
-    prepare({amount, statAffected}) {
+    prepare({amount, statAffected, multiplier}) {
       return {
-        title: `${amount} ${statAffected}`
+        title: multiplier
+          ? `${amount} x ${multiplier} ${statAffected}`
+          : `${amount} ${statAffected}`
       }
     }
   }

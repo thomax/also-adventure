@@ -20,8 +20,8 @@ export default {
       to: [{type: 'shipTemplate'}]
     },
     {
-      title: 'Constructed by',
-      name: 'constructedBy',
+      title: 'Constructed by shipyard',
+      name: 'shipyard',
       type: 'reference',
       to: [{type: 'shipyard'}]
     },
@@ -30,6 +30,13 @@ export default {
       name: 'modules',
       type: 'array',
       of: [{type: 'reference', to: {type: 'shipModule'}}]
+    },
+    {
+      title: 'Weapons',
+      name: 'weapons',
+      type: 'array',
+      of: [{type: 'reference', to: {type: 'shipWeapon'}}],
+      description: 'Weapons counts as modules'
     },
     {
       title: 'Features',

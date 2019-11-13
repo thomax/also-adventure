@@ -128,6 +128,9 @@ export default () => {
                   .title('Ship Modules')
                   .child(S.documentTypeList('shipModule').title('Ship Module')),
                 S.listItem()
+                  .title('Ship Weapons')
+                  .child(S.documentTypeList('shipWeapon').title('Ship Weapon')),
+                S.listItem()
                   .title('Ship Features')
                   .child(S.documentTypeList('shipFeature').title('Ship Feature'))
               ])
