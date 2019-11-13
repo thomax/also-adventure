@@ -1,0 +1,11 @@
+.root {
+  background: #c9ccbc;
+  margin: 0;
+  padding: 1em;
+  min-height: 100%;
+  box-sizing: border-box;
+
+  @nest & > div > pre {
+    margin: 0;
+  }
+}

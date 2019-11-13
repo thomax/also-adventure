@@ -9,6 +9,10 @@ import MdUser from 'react-icons/lib/md/person'
 import MdPost from 'react-icons/lib/md/book'
 import MdPosts from 'react-icons/lib/md/library-books'
 import MdShip from 'react-icons/lib/md/directions-boat'
+import EyeIcon from 'part:@sanity/base/eye-icon'
+import EditIcon from 'part:@sanity/base/edit-icon'
+
+import SpaceshipSummary from './previews/spaceship/SpaceshipSummary'
 
 const fetchSystemGroups = () => {
   return sanityClient.fetch('*[_type=="system.group"]')
@@ -97,11 +101,11 @@ export default () => {
           .icon(MdCategory)
           .schemaType('category')
           .child(S.documentTypeList('category').title('Categories')),
-        S.listItem()
-          .title('Images')
-          .icon(MdImage)
-          .schemaType('sanity.imageAsset')
-          .child(S.documentTypeList('sanity.imageAsset').title('Images')),
+        // S.listItem()
+        //   .title('Images')
+        //   .icon(MdImage)
+        //   .schemaType('sanity.imageAsset')
+        //   .child(S.documentTypeList('sanity.imageAsset').title('Images')),
         S.listItem()
           .title('Users')
           .icon(MdUser)
@@ -113,11 +117,26 @@ export default () => {
           .icon(MdShip)
           .child(
             S.list()
-              .title('Ships')
+              .title('Ship content')
               .items([
                 S.listItem()
                   .title('Ships')
-                  .child(S.documentTypeList('ship').title('Ships')),
+                  .child(
+                    S.documentTypeList('ship')
+                      .title('Ships')
+                      .child(documentId =>
+                        S.document()
+                          .documentId(documentId)
+                          .schemaType('ship')
+                          .views([
+                            S.view.form().icon(EditIcon),
+                            S.view
+                              .component(SpaceshipSummary)
+                              .icon(EyeIcon)
+                              .title('Preview')
+                          ])
+                      )
+                  ),
                 S.listItem()
                   .title('Shipyards')
                   .child(S.documentTypeList('shipyard').title('Shipyards')),
