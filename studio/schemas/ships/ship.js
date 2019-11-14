@@ -9,6 +9,14 @@ export default {
       type: 'string'
     },
     {
+      title: 'Image',
+      name: 'image',
+      type: 'image',
+      options: {
+        hotspot: true
+      }
+    },
+    {
       title: 'Problem',
       name: 'problem',
       type: 'string'

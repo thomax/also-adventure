@@ -31,5 +31,17 @@ export default {
       type: 'array',
       of: [{type: 'bonus'}]
     }
-  ]
+  ],
+  preview: {
+    select: {
+      name: 'name',
+      price: 'price'
+    },
+    prepare({name, price}) {
+      return {
+        title: name,
+        subtitle: `${price}% baseprice`
+      }
+    }
+  }
 }

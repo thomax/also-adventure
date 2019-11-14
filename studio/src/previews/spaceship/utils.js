@@ -25,12 +25,14 @@ export function calculateShip(doc) {
     armor,
     speed,
     baseprice,
+    bonusWeaponModules,
     name: templateName
   } = template
   const ship = {
     name,
     templateName,
     modules,
+    bonusWeaponModules,
     problem,
     hullPoints,
     energyPoints,

@@ -1,5 +1,4 @@
 .root {
-  background: #c9ccbc;
   margin: 0;
   padding: 1em;
   min-height: 100%;
@@ -8,4 +7,46 @@
   @nest & > div > pre {
     margin: 0;
   }
+}
+
+.warningBorder {
+  border: 2px solid red;
+}
+
+.table {
+  float: left;
+  max-width: 60%;
+  border: 5px solid white;
+  border-radius: 8px;
+  @nest & > thead > tr > th {
+    padding: 8px;
+    text-align: left;
+    vertical-align: top;
+    background-color: #0e5459;
+    color: white;
+  }
+
+  @nest & > tbody tr:nth-child(odd) {
+    background-color: #b8c9dc;
+  }
+
+  @nest & > tbody tr:nth-child(even) {
+    background-color: rgba(10,100,200, 0.2);
+  }
+
+  @nest & > tbody > tr > th {
+    padding: 8px;
+    font-size: 0.8em;
+    text-transform: uppercase;
+    text-align: left;
+    border-top: 1px solid rgba(70,100,200, 0.2);
+  }
+
+  @nest & > tbody > tr > td {
+    padding: 8px;
+    border-top: 1px solid rgba(70,100,200, 0.2);
+  }
+
+
+
 }

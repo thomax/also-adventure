@@ -101,11 +101,11 @@ export default () => {
           .icon(MdCategory)
           .schemaType('category')
           .child(S.documentTypeList('category').title('Categories')),
-        // S.listItem()
-        //   .title('Images')
-        //   .icon(MdImage)
-        //   .schemaType('sanity.imageAsset')
-        //   .child(S.documentTypeList('sanity.imageAsset').title('Images')),
+        S.listItem()
+          .title('Images')
+          .icon(MdImage)
+          .schemaType('sanity.imageAsset')
+          .child(S.documentTypeList('sanity.imageAsset').title('Images')),
         S.listItem()
           .title('Users')
           .icon(MdUser)
