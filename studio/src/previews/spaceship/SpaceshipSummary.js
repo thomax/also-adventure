@@ -6,7 +6,7 @@ import Spinner from 'part:@sanity/components/loading/spinner'
 import client from 'part:@sanity/base/client'
 
 import styles from './SpaceshipSummary.module.css'
-import {transformToShip} from './utils'
+import {calculateShip} from './utils'
 
 const shipQuery = `
   *[_id==$documentId][0]{
@@ -25,14 +25,15 @@ export default class SpaceshipSummary extends React.Component {
     published: PropTypes.object
   }
 
-  state = {ship: null, materializedDocument: null}
+  state = {ship: null, materializedDocument: null, pricesItemized: null}
 
   componentDidMount() {
     const {draft, published} = this.props
     const doc = draft || published
     const documentId = doc._id
     client.fetch(shipQuery, {documentId}).then(materialized => {
-      this.setState({materializedDocument: materialized, ship: transformToShip(materialized)})
+      const {ship, pricesItemized} = calculateShip(materialized)
+      this.setState({materializedDocument: materialized, ship, pricesItemized})
     })
   }
 

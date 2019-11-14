@@ -1,3 +1,5 @@
+import {arabicToRoman} from '../../src/previews/spaceship/utils'
+
 export default {
   name: 'shipTemplate',
   title: 'Ship Template',
@@ -11,10 +13,8 @@ export default {
     {
       title: 'Size',
       name: 'size',
-      type: 'string',
-      options: {
-        list: ['I', 'II', 'III', 'IV', 'V']
-      }
+      type: 'number',
+      validation: Rule => Rule.min(1).max(5)
     },
     {
       title: 'Maneuverability',
@@ -84,7 +84,7 @@ export default {
     prepare({name, size, baseprice}) {
       return {
         title: name,
-        subtitle: `${size} - ${baseprice / 1000}k birr`
+        subtitle: `${arabicToRoman(size)} - ${baseprice / 1000}k birr`
       }
     }
   }
