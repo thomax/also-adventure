@@ -46,6 +46,13 @@ export default [
   }),
 
   T.template({
+    id: 'shipyard',
+    title: 'Shipyard',
+    schemaType: 'shipyard',
+    value: {}
+  }),
+
+  T.template({
     id: 'shipWeapon',
     title: 'Ship Weapon',
     schemaType: 'shipWeapon',

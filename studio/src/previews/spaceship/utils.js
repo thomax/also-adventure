@@ -59,58 +59,66 @@ export function calculateShip(doc) {
       name: shipyard.name,
       price: priceTag(shipyard.price, false, ship.baseprice)
     })
-    shipyard.bonuses.forEach(bonus => {
-      const {statAffected, amount, multiplier} = bonus
-      ship[statAffected] = ship[statAffected] + multiplier ? amount * ship[multiplier] : amount
-    })
+    if (shipyard.bonuses) {
+      shipyard.bonuses.forEach(bonus => {
+        const {statAffected, amount, multiplier} = bonus
+        ship[statAffected] = ship[statAffected] + multiplier ? amount * ship[multiplier] : amount
+      })
+    }
   }
 
   // installedModules
-  ship.installedModules.forEach(module => {
-    const {price, bonuses} = module
-    ship.additionalPrice = ship.additionalPrice + priceTag(price, true, ship.baseprice)
-    pricesItemized.push({
-      item: 'module',
-      name: module.name,
-      price: priceTag(price, true, ship.baseprice)
-    })
-
-    if (bonuses) {
-      bonuses.forEach(bonus => {
-        const {statAffected, amount, multiplier} = bonus
-        ship[statAffected] = ship[statAffected] + multiplier ? amount * ship[multiplier] : amount
+  if (installedWeapons) {
+    installedModules.forEach(module => {
+      const {price, bonuses} = module
+      ship.additionalPrice = ship.additionalPrice + priceTag(price, true, ship.baseprice)
+      pricesItemized.push({
+        item: 'module',
+        name: module.name,
+        price: priceTag(price, true, ship.baseprice)
       })
-    }
-  })
+
+      if (bonuses) {
+        bonuses.forEach(bonus => {
+          const {statAffected, amount, multiplier} = bonus
+          ship[statAffected] = ship[statAffected] + multiplier ? amount * ship[multiplier] : amount
+        })
+      }
+    })
+  }
 
   // installedFeatures
-  ship.installedFeatures.forEach(feature => {
-    const {price, bonuses} = feature
-    ship.additionalPrice = ship.additionalPrice + priceTag(price, false, ship.baseprice)
-    pricesItemized.push({
-      item: 'feature',
-      name: feature.name,
-      price: priceTag(price, false, ship.baseprice)
-    })
-    if (bonuses) {
-      bonuses.forEach(bonus => {
-        const {statAffected, amount, multiplier} = bonus
-        ship[statAffected] = ship[statAffected] + multiplier ? amount * ship[multiplier] : amount
+  if (installedFeatures) {
+    installedFeatures.forEach(feature => {
+      const {price, bonuses} = feature
+      ship.additionalPrice = ship.additionalPrice + priceTag(price, false, ship.baseprice)
+      pricesItemized.push({
+        item: 'feature',
+        name: feature.name,
+        price: priceTag(price, false, ship.baseprice)
       })
-    }
-  })
+      if (bonuses) {
+        bonuses.forEach(bonus => {
+          const {statAffected, amount, multiplier} = bonus
+          ship[statAffected] = ship[statAffected] + multiplier ? amount * ship[multiplier] : amount
+        })
+      }
+    })
+  }
 
   // installedWeapons
-  ship.installedWeapons.forEach(weapon => {
-    const {price} = weapon
-    ship.additionalPrice = ship.additionalPrice + priceTag(price, true, ship.baseprice)
-    pricesItemized.push({
-      item: 'weapon',
-      name: weapon.name,
-      price: priceTag(price, true, ship.baseprice)
+  if (installedWeapons) {
+    installedWeapons.forEach(weapon => {
+      const {price} = weapon
+      ship.additionalPrice = ship.additionalPrice + priceTag(price, true, ship.baseprice)
+      pricesItemized.push({
+        item: 'weapon',
+        name: weapon.name,
+        price: priceTag(price, true, ship.baseprice)
+      })
     })
-  })
-  return {ship, pricesItemized}
+    return {ship, pricesItemized}
+  }
 }
 
 export function arabicToRoman(number) {

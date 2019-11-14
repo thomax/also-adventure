@@ -28,7 +28,7 @@ export default class SpaceshipSummary extends React.Component {
 
   state = {ship: null, materializedDocument: null, pricesItemized: null}
 
-  componentDidMount() {
+  materializeShip() {
     const {draft, published} = this.props
     const doc = draft || published
     const documentId = doc._id
@@ -37,6 +37,14 @@ export default class SpaceshipSummary extends React.Component {
       const {ship, pricesItemized} = calculateShip(materialized)
       this.setState({materializedDocument: materialized, ship, pricesItemized})
     })
+  }
+
+  componentDidMount() {
+    this.materializeShip()
+  }
+
+  componentWillUpdate() {
+    this.materializeShip()
   }
 
   render() {

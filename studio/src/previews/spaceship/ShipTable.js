@@ -39,8 +39,7 @@ export default function ShipTable(props) {
           bonusWeaponModules ? bonusWeaponModules + ' can only be weapons' : ''
         }`
       : null
-  console.log('moduleCount', moduleCount)
-  console.log('maxModules', maxModules)
+
   return (
     <table className={styles.table} cellSpacing={0}>
       <thead>
@@ -84,15 +83,15 @@ export default function ShipTable(props) {
         </tr>
         <tr>
           <th>Modules</th>
-          <td>{installedModules.map(module => module.name).join(', ')}</td>
+          <td>{(installedModules || []).map(module => module.name).join(', ')}</td>
         </tr>
         <tr>
           <th>Weapons</th>
-          <td>{installedWeapons.map(weapon => weapon.name).join(', ')}</td>
+          <td>{(installedWeapons || []).map(weapon => weapon.name).join(', ')}</td>
         </tr>
         <tr>
           <th>Features</th>
-          <td>{installedFeatures.map(feature => feature.name).join(', ')}</td>
+          <td>{(installedFeatures || []).map(feature => feature.name).join(', ')}</td>
         </tr>
         <tr>
           <th>Problem</th>
