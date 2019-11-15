@@ -44,23 +44,16 @@
   max-width: 60%;
   margin-right: 5px;
   border-radius: 2px;
-  border: 2px solid white;
+  border: 2px solid rgb(214, 214, 214, 0.4);
 
   @nest & > thead > tr > th {
     padding: 8px;
     text-align: left;
     vertical-align: top;
-    background-color: gray;
+    background-color: rgb(70, 70, 70, 0.4);
     color: white;
   }
 
-  @nest & > tbody tr:nth-child(odd) {
-    background-color: #b8c9dc;
-  }
-
-  @nest & > tbody tr:nth-child(even) {
-    background-color: rgba(10,100,200, 0.2);
-  }
 
   @nest & > tbody > tr > th {
     padding: 8px;
