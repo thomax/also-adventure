@@ -10,11 +10,13 @@ export function calculateShip(doc) {
     name,
     problem,
     template,
+    image,
     modules: installedModules,
     shipyard,
     weapons: installedWeapons,
     features: installedFeatures
   } = doc
+
   const {
     modules,
     hullPoints,
@@ -39,6 +41,7 @@ export function calculateShip(doc) {
     energyPoints,
     maneuverability,
     size,
+    image,
     signature,
     armor,
     speed,

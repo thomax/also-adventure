@@ -13,17 +13,19 @@ function addItemPrices(pricesItemized) {
 export default function ShipReceiptTable(props) {
   const {pricesItemized, baseprice} = props
   const totalPrice = baseprice + addItemPrices(pricesItemized)
+  const alignRight = {textAlign: 'right'}
   return (
     <table className={styles.table} cellSpacing={0}>
       <thead>
         <tr>
-          <th colSpan={2}>Receipt</th>
+          <th>Item</th>
+          <th style={alignRight}>Birr</th>
         </tr>
       </thead>
       <tbody>
         <tr>
           <th>Base price</th>
-          <td style={{textAlign: 'right'}}>{numeral(baseprice).format('0,0')}</td>
+          <td style={alignRight}>{numeral(baseprice).format('0,0')}</td>
         </tr>
 
         {pricesItemized.map((priceItem, index) => {
@@ -31,13 +33,13 @@ export default function ShipReceiptTable(props) {
           return (
             <tr key={`${item}-${index}`}>
               <th>{name}</th>
-              <td style={{textAlign: 'right'}}>{numeral(price).format('0,0')}</td>
+              <td style={alignRight}>{numeral(price).format('0,0')}</td>
             </tr>
           )
         })}
         <tr>
           <th>Total</th>
-          <td style={{textAlign: 'right'}}>{numeral(totalPrice).format('0,0')}</td>
+          <td style={alignRight}>{numeral(totalPrice).format('0,0')}</td>
         </tr>
       </tbody>
     </table>

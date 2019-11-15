@@ -10,19 +10,47 @@
 }
 
 .warningBorder {
-  border: 2px solid red;
+  border: 5px solid red;
+  padding: 10px;
+  margin: 2px;
+}
+
+.brand {
+  margin: 0px;
+}
+
+.image {
+  margin: 0px;
+  padding: 5px;
+  border-radius: 2px;
+  box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+}
+
+.modulesTable {
+  margin: 10px 0px 10px 0px;
+  border: 1px solid rgb(169, 169, 169, 0.2);
+  border-radius: 2px;
+  padding: 8px;
+
+
+  @nest & > tbody > tr > th {
+    text-align: left;
+  }
+
 }
 
 .table {
   float: left;
   max-width: 60%;
-  border: 5px solid white;
-  border-radius: 8px;
+  margin-right: 5px;
+  border-radius: 2px;
+  border: 2px solid white;
+
   @nest & > thead > tr > th {
     padding: 8px;
     text-align: left;
     vertical-align: top;
-    background-color: #0e5459;
+    background-color: gray;
     color: white;
   }
 
@@ -46,7 +74,5 @@
     padding: 8px;
     border-top: 1px solid rgba(70,100,200, 0.2);
   }
-
-
 
 }
