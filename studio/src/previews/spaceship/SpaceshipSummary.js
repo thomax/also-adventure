@@ -2,6 +2,7 @@
 
 import React from 'react'
 import PropTypes from 'prop-types'
+import sleep from 'sleep-promise'
 import Spinner from 'part:@sanity/components/loading/spinner'
 import client from 'part:@sanity/base/client'
 
@@ -20,6 +21,12 @@ const shipQuery = `
     features[]->{name, description, price, bonuses}
   }`
 
+function serializeInput(props) {
+  const {draft, published} = props
+  const doc = draft || published
+  return JSON.stringify(doc)
+}
+
 export default class SpaceshipSummary extends React.Component {
   static propTypes = {
     draft: PropTypes.object,
@@ -28,12 +35,14 @@ export default class SpaceshipSummary extends React.Component {
 
   state = {ship: null, materializedDocument: null, pricesItemized: null}
 
-  materializeShip() {
+  materializeShip = async () => {
     const {draft, published} = this.props
     const doc = draft || published
     const documentId = doc._id
 
-    client.fetch(shipQuery, {documentId}).then(materialized => {
+    await sleep(1) // sleep to ensure draft is available
+
+    return client.fetch(shipQuery, {documentId}).then(materialized => {
       const {ship, pricesItemized} = calculateShip(materialized)
       this.setState({materializedDocument: materialized, ship, pricesItemized})
     })
@@ -43,8 +52,13 @@ export default class SpaceshipSummary extends React.Component {
     this.materializeShip()
   }
 
-  componentWillUpdate() {
-    this.materializeShip()
+  componentDidUpdate(prevProps) {
+    const oldSerializedInput = serializeInput(prevProps)
+    const newSerializedInput = serializeInput(this.props)
+
+    if (oldSerializedInput !== newSerializedInput) {
+      this.materializeShip()
+    }
   }
 
   render() {

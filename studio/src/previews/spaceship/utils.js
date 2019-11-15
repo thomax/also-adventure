@@ -1,6 +1,6 @@
 function priceTag(price, isAbsolute, baseprice) {
-  if (!price && price !== 0) {
-    throw Error('Price is never undefined, you fool')
+  if (!price || price === 0) {
+    return 0
   }
   return isAbsolute ? price : (baseprice * price) / 100
 }
@@ -28,6 +28,7 @@ export function calculateShip(doc) {
     bonusWeaponModules,
     name: templateName
   } = template
+
   const ship = {
     name,
     templateName,
@@ -50,7 +51,6 @@ export function calculateShip(doc) {
   }
 
   const pricesItemized = []
-
   // shipyard
   if (shipyard) {
     ship.additionalPrice = ship.additionalPrice + priceTag(shipyard.price, false, ship.baseprice)
@@ -62,7 +62,11 @@ export function calculateShip(doc) {
     if (shipyard.bonuses) {
       shipyard.bonuses.forEach(bonus => {
         const {statAffected, amount, multiplier} = bonus
-        ship[statAffected] = ship[statAffected] + multiplier ? amount * ship[multiplier] : amount
+        if (multiplier) {
+          ship[statAffected] = ship[statAffected] + amount * ship[multiplier]
+        } else {
+          ship[statAffected] = ship[statAffected] + amount
+        }
       })
     }
   }
@@ -117,6 +121,7 @@ export function calculateShip(doc) {
         price: priceTag(price, true, ship.baseprice)
       })
     })
+
     return {ship, pricesItemized}
   }
 }

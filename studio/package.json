@@ -29,7 +29,8 @@
     "sanity-plugin-dashboard-widget-document-list": "^0.0.8",
     "sanity-plugin-dashboard-widget-netlify": "^1.0.1",
     "sanity-plugin-dashboard-widget-orbitals-2d": "^0.0.21",
-    "sanity-plugin-vision": "^2.0.7"
+    "sanity-plugin-vision": "^2.0.7",
+    "sleep-promise": "^8.0.1"
   },
   "devDependencies": {
     "babel-eslint": "^10.0.1",
