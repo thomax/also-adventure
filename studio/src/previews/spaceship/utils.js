@@ -88,7 +88,11 @@ export function calculateShip(doc) {
       if (bonuses) {
         bonuses.forEach(bonus => {
           const {statAffected, amount, multiplier} = bonus
-          ship[statAffected] = ship[statAffected] + multiplier ? amount * ship[multiplier] : amount
+          if (multiplier) {
+            ship[statAffected] = ship[statAffected] + amount * ship[multiplier]
+          } else {
+            ship[statAffected] = ship[statAffected] + amount
+          }
         })
       }
     })
@@ -107,7 +111,11 @@ export function calculateShip(doc) {
       if (bonuses) {
         bonuses.forEach(bonus => {
           const {statAffected, amount, multiplier} = bonus
-          ship[statAffected] = ship[statAffected] + multiplier ? amount * ship[multiplier] : amount
+          if (multiplier) {
+            ship[statAffected] = ship[statAffected] + amount * ship[multiplier]
+          } else {
+            ship[statAffected] = ship[statAffected] + amount
+          }
         })
       }
     })
