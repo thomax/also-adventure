@@ -85,7 +85,7 @@ export default function ShipTable(props) {
           </tr>
           <tr>
             <th>Cost</th>
-            <td>{numeral(baseprice + additionalPrice).format('0,0')} birr</td>
+            <td>{numeral(baseprice + additionalPrice).format('0,0')}</td>
           </tr>
         </tbody>
       </table>

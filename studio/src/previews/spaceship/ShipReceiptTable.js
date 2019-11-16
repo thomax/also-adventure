@@ -18,8 +18,7 @@ export default function ShipReceiptTable(props) {
     <table className={styles.table} cellSpacing={0}>
       <thead>
         <tr>
-          <th>Item</th>
-          <th style={alignRight}>Birr</th>
+          <th colSpan={2}>Item</th>
         </tr>
       </thead>
       <tbody>
