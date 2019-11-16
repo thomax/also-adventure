@@ -65,14 +65,14 @@ export default {
   ],
   orderings: [
     {
-      title: 'Size Asc',
-      name: 'sizeAsc',
-      by: [{field: 'size', direction: 'asc'}]
+      title: 'Baseprice Asc',
+      name: 'basepriceAsc',
+      by: [{field: 'baseprice', direction: 'asc'}]
     },
     {
-      title: 'Size Desc',
-      name: 'sizeDesc',
-      by: [{field: 'size', direction: 'desc'}]
+      title: 'Baseprice Desc',
+      name: 'basepriceDesc',
+      by: [{field: 'baseprice', direction: 'desc'}]
     }
   ],
   preview: {

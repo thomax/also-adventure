@@ -34,6 +34,19 @@ export default {
       of: [{type: 'bonus'}]
     }
   ],
+  orderings: [
+    {
+      title: 'Price Asc',
+      name: 'priceAsc',
+      by: [{field: 'price', direction: 'asc'}]
+    },
+    {
+      title: 'Price Desc',
+      name: 'priceDesc',
+      by: [{field: 'price', direction: 'desc'}]
+    }
+  ],
+
   preview: {
     select: {
       name: 'name',

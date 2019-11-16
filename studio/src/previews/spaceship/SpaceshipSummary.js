@@ -45,7 +45,7 @@ export default class SpaceshipSummary extends React.Component {
   state = {ship: null, materializedDocument: null, pricesItemized: null}
 
   materializeShip = async () => {
-    const {draft, published} = this.props
+    const {draft, published} = this.props.document
     const doc = draft || published
     const documentId = doc._id
 

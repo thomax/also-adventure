@@ -1,3 +1,15 @@
+const shipStats = [
+  'size',
+  'maneuverability',
+  'modules',
+  'bonusWeaponModules',
+  'energyPoints',
+  'hullPoints',
+  'signature',
+  'armor',
+  'speed'
+]
+
 export default {
   name: 'bonus',
   title: 'Bonus',
@@ -11,12 +23,18 @@ export default {
     {
       title: 'Stat affected',
       name: 'statAffected',
-      type: 'string'
+      type: 'string',
+      options: {
+        list: shipStats
+      }
     },
     {
       title: 'Multiplier',
       name: 'multiplier',
-      type: 'string'
+      type: 'string',
+      options: {
+        list: shipStats
+      }
     }
   ],
   preview: {
