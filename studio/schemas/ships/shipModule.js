@@ -1,3 +1,5 @@
+import {summarizeBonuses} from '../../src/previews/spaceship/utils'
+
 export default {
   name: 'shipModule',
   title: 'Ship Module',
@@ -28,9 +30,11 @@ export default {
   preview: {
     select: {
       name: 'name',
-      price: 'price'
+      price: 'price',
+      bonuses: 'bonuses'
     },
-    prepare({name, price}) {
+
+    prepare({name, price, bonuses}) {
       return {
         title: name,
         subtitle: price || price === 0 ? `${price / 1000}k birr` : 'price varies'

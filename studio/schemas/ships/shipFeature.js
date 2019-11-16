@@ -1,3 +1,5 @@
+import {summarizeBonuses} from '../../src/previews/spaceship/utils'
+
 export default {
   name: 'shipFeature',
   title: 'Ship Feature',
@@ -29,12 +31,21 @@ export default {
   preview: {
     select: {
       name: 'name',
-      price: 'price'
+      price: 'price',
+      bonuses: 'bonuses'
     },
-    prepare({name, price}) {
+    prepare({name, price, bonuses}) {
+      let subtitle = null
+
+      if (bonuses) {
+        subtitle = `${summarizeBonuses(bonuses)} [${price > 0 ? '+' : ''}${price}% baseprice]`
+      } else {
+        subtitle = price ? `${price > 0 ? '+' : ''}${price}% baseprice` : '+0% baseprice'
+      }
+
       return {
         title: name,
-        subtitle: price || price === 0 ? `${price}%` : 'price varies'
+        subtitle: subtitle
       }
     }
   }

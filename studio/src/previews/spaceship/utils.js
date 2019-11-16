@@ -140,3 +140,13 @@ export function calculateShip(doc) {
 export function arabicToRoman(number) {
   return ['', 'I', 'II', 'III', 'IV', 'V'][number]
 }
+
+export function summarizeBonuses(bonuses) {
+  return bonuses
+    .map(({amount, statAffected, multiplier}) =>
+      multiplier
+        ? `${amount > -1 ? '+' : ''}${amount} x ${multiplier} ${statAffected}`
+        : `${amount > -1 ? '+' : ''}${amount} ${statAffected}`
+    )
+    .join(', ')
+}
