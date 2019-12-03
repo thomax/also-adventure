@@ -18,7 +18,8 @@
     "dashboard-widget-document-list",
     "dashboard-widget-netlify",
     "dashboard-widget-orbitals-2d",
-    "@sanity/vision"
+    "@sanity/vision",
+    "media"
   ],
   "parts": [
     {
