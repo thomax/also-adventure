@@ -62,6 +62,17 @@ function campaignPostsByCategory(campaignId) {
                 S.documentList()
                   .title(`${category.title}s`)
                   .schemaType('post')
+                  .menuItems([
+                    ...S.documentTypeList('post').getMenuItems(),
+                    S.orderingMenuItem({
+                      title: 'Order ascending',
+                      by: [{field: 'order', direction: 'asc'}]
+                    }),
+                    S.orderingMenuItem({
+                      title: 'Order descending',
+                      by: [{field: 'order', direction: 'desc'}]
+                    })
+                  ])
                   .filter(
                     '_type == "post" && campaign._ref == $campaignId && category._ref == $categoryId'
                   )
