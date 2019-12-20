@@ -3,7 +3,7 @@
 import React from 'react'
 import numeral from 'numeral'
 import {arabicToRoman} from './utils'
-import styles from './SpaceshipSummary.module.css'
+import styles from './SpaceshipSummary.css'
 
 export default function ShipTable(props) {
   const {ship} = props

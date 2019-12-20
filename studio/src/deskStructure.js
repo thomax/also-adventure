@@ -1,4 +1,5 @@
 import React from 'react'
+import {merge, values} from 'lodash'
 import S from '@sanity/desk-tool/structure-builder'
 import sanityClient from 'part:@sanity/base/client'
 import MdSettings from 'react-icons/lib/md/settings'
@@ -13,60 +14,72 @@ import EyeIcon from 'part:@sanity/base/eye-icon'
 import EditIcon from 'part:@sanity/base/edit-icon'
 
 import SpaceshipSummary from './previews/spaceship/SpaceshipSummary'
+import ArticlePreview from './previews/article/ArticlePreview'
 
 const fetchSystemGroups = () => {
   return sanityClient.fetch('*[_type=="system.group"]')
 }
 
 const fetchCategoriesWithPosts = campaignId => {
-  return sanityClient.fetch(
-    '*[_type == "category"]|order(singular asc){..., "posts": *[_type == "post" && category._ref == ^._id && campaign._ref == $campaignId]|order(order asc)}',
-    {campaignId}
-  )
+  const query = `
+    *[_type == "category"]|order(singular asc){
+      ...,
+      "draftDocs": *[
+        _type == "post" &&
+        _id in path('drafts.**') &&
+        category._ref == ^._id &&
+        campaign._ref == $campaignId]{_id}|order(order asc),
+      "publishedDocs": *[
+        _type == "post" &&
+        !(_id in path('drafts.**')) &&
+        category._ref == ^._id &&
+        campaign._ref == $campaignId]{_id}|order(order asc)
+    }
+  `
+  return sanityClient.fetch(query, {campaignId})
 }
 
 function campaignPostsByCategory(campaignId) {
   return fetchCategoriesWithPosts(campaignId).then(categories => {
     return S.list()
       .title('Categories')
-      .initialValueTemplates([
-        S.initialValueTemplateItem('post-by-campaign', {
-          campaignId
-        })
-      ])
+      .initialValueTemplates([S.initialValueTemplateItem('post-by-campaign', {campaignId})])
       .items(
         categories
-          .filter(cat => cat.posts.length > 0)
-          .map(category =>
-            S.listItem()
-              .title(`${category.title} [${category.posts.length}]`)
-              .child(
-                S.list()
+          .filter(cat => cat.publishedDocs.length > 0)
+          .map(category => {
+            const {publishedDocs = [], draftDocs = []} = category
+            const uniquePosts = publishedDocs.concat(
+              draftDocs.filter(doc => {
+                const id = doc._id.replace('drafts.', '')
+                return !publishedDocs.some(doc => doc._id === id)
+              })
+            )
+            return S.listItem()
+              .id(category._id)
+              .title(`${category.title} [${uniquePosts.length}]`)
+              .child(id =>
+                S.documentList()
                   .title(`${category.title}s`)
-                  .initialValueTemplates([
-                    S.initialValueTemplateItem('post-by-campaign-and-category', {
-                      campaignId,
-                      categoryId: category._id
-                    })
-                  ])
-                  .items(
-                    category.posts.map(post => {
-                      const order = post.order || post.order === 0 ? `${post.order}` : null
-                      const title = [order, post.title || 'untitled'].filter(Boolean).join(' - ')
-                      return S.listItem()
-                        .id(post._id)
-                        .title(title)
-                        .icon(MdPost)
-                        .child(
-                          S.editor()
-                            .id(post._id)
-                            .schemaType('post')
-                            .documentId(post._id)
-                        )
-                    })
+                  .schemaType('post')
+                  .filter(
+                    '_type == "post" && campaign._ref == $campaignId && category._ref == $categoryId'
+                  )
+                  .params({campaignId, categoryId: category._id})
+                  .child(documentId =>
+                    S.document()
+                      .documentId(documentId)
+                      .schemaType('post')
+                      .views([
+                        S.view.form().icon(EditIcon),
+                        S.view
+                          .component(ArticlePreview)
+                          .icon(EyeIcon)
+                          .title('Preview')
+                      ])
                   )
               )
-          )
+          })
       )
   })
 }

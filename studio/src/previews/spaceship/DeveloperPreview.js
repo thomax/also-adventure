@@ -2,7 +2,7 @@
 
 import React from 'react'
 import Spinner from 'part:@sanity/components/loading/spinner'
-import styles from './DeveloperPreview.module.css'
+import styles from './DeveloperPreview.css'
 
 function DeveloperPreview(props) {
   const {history, draft, published} = props

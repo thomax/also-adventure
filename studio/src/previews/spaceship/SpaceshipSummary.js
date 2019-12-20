@@ -7,7 +7,7 @@ import Spinner from 'part:@sanity/components/loading/spinner'
 import client from 'part:@sanity/base/client'
 import imageUrlBuilder from '@sanity/image-url'
 
-import styles from './SpaceshipSummary.module.css'
+import styles from './SpaceshipSummary.css'
 import {calculateShip, arabicToRoman} from './utils'
 import ShipTable from './ShipTable'
 import ShipReceiptTable from './ShipReceiptTable'

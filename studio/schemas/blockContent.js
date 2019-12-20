@@ -21,7 +21,10 @@ export default {
       ],
       lists: [{title: 'Bullet', value: 'bullet'}],
       marks: {
-        decorators: [{title: 'Strong', value: 'strong'}, {title: 'Emphasis', value: 'em'}],
+        decorators: [
+          {title: 'Strong', value: 'strong'},
+          {title: 'Emphasis', value: 'em'}
+        ],
         annotations: [
           {
             title: 'URL',
@@ -49,7 +52,23 @@ export default {
                 type: 'reference',
                 title: 'Reference',
                 to: [{type: 'post'}],
-                weak: true
+                weak: true,
+                options: {
+                  filter: ({document}) => {
+                    const {campaign} = document
+                    if (!campaign) {
+                      return {
+                        filter: 'true'
+                      }
+                    }
+                    return {
+                      filter: 'campaign._ref == $campaignId',
+                      params: {
+                        campaignId: campaign._ref
+                      }
+                    }
+                  }
+                }
               }
             ]
           }
