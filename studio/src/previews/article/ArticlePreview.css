@@ -11,11 +11,11 @@
 
 
 .heading {
-  margin: -1em;
-  padding: 3em 1em 1em 2em;
+  margin: -1em 0em 0em -1em;
+  padding: 2em 1em 1em 3em;
 }
 
 .body {
   margin: 0;
-  padding: 1em;
+  padding: 2em;
 }
