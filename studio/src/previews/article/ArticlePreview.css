@@ -1,12 +1,22 @@
 .root {
   background: #444444;
   color:white ;
-  margin: 0;
-  padding: 1em;
   min-height: 100%;
   box-sizing: border-box;
 
   @nest & > div > pre {
     margin: 0;
   }
+}
+
+
+.heading {
+  background-color: pink;
+  margin: -1em;
+  padding: 3em 1em 1em 2em;
+}
+
+.body {
+  margin: 0;
+  padding: 1em;
 }
