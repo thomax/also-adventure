@@ -11,8 +11,14 @@
 
 
 .heading {
-  margin: -1em 0em 0em -1em;
-  padding: 2em 1em 1em 3em;
+  margin: 0;
+  padding: 2em 1em 1em 2em;
+}
+
+.title {
+  background-image: linear-gradient(to right, rgba(223, 223, 223, 0.7), rgba(200, 200, 200, 0.005));
+  color:#444444; ;
+  padding-left: 2px;
 }
 
 .body {

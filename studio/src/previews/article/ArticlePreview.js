@@ -89,16 +89,25 @@ export default class ArticlePreview extends React.Component {
     }
 
     const mainImageUrl = urlFor(post.mainImage)
-      .width(1200)
+      .width(1000)
       .url()
 
     return (
       <div className={styles.root}>
-        <div className={styles.heading} style={{backgroundImage: `url(${mainImageUrl})`}}>
-          <h1>{post.title}</h1>
-          {post.category && <h5>Category: {post.category.title}</h5>}
+        <div
+          className={styles.heading}
+          style={{
+            backgroundImage: `url(${mainImageUrl})`,
+            backgroundRepeat: 'no-repeat',
+            backgroundSize: 'cover'
+          }}
+        >
+          <h1 className={styles.title}>{post.title}</h1>
+          {post.category && <h5 className={styles.title}>Category: {post.category.title}</h5>}
           {post.authors && (
-            <h5>Written by: {post.authors.map(author => author.name).join(', ')}</h5>
+            <h5 className={styles.title}>
+              Written by: {post.authors.map(author => author.name).join(', ')}
+            </h5>
           )}
         </div>
         <div className={styles.body}>
