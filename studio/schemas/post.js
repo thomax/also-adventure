@@ -57,6 +57,12 @@ export default {
       name: 'isSecret',
       type: 'boolean',
       description: 'Secret posts are only readable by the GM'
+    },
+    {
+      title: 'Comments',
+      name: 'comments',
+      type: 'array',
+      of: [{type: 'comment'}]
     }
   ],
   preview: {

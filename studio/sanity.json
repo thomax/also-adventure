@@ -19,7 +19,8 @@
     "dashboard-widget-netlify",
     "dashboard-widget-orbitals-2d",
     "@sanity/vision",
-    "media"
+    "media",
+    "asset-source-unsplash"
   ],
   "parts": [
     {

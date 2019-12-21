@@ -58,6 +58,7 @@ function campaignPostsByCategory(campaignId) {
             return S.listItem()
               .id(category._id)
               .title(`${category.title} [${uniquePosts.length}]`)
+              .icon(MdCategory)
               .child(id =>
                 S.documentList()
                   .title(`${category.title}s`)

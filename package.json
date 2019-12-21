@@ -16,5 +16,13 @@
   "devDependencies": {
     "@sanity/cli": "^0.147.3",
     "lerna": "^3.13.1"
+  },
+  "dependencies": {
+    "@sanity/block-tools": "^0.147.6",
+    "@sanity/schema": "^0.147.6",
+    "@sanity/uuid": "^0.147.0",
+    "jsdom": "^15.2.1",
+    "windows-1252": "^1.0.0",
+    "xml-js": "^1.6.11"
   }
 }

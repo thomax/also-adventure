@@ -6,6 +6,7 @@ import campaign from './campaign'
 import category from './category'
 import post from './post'
 import user from './user'
+import comment from './comment'
 import siteSettings from './siteSettings'
 
 import ship from './ships/ship'
@@ -23,6 +24,7 @@ export default createSchema({
     blockContent,
     campaign,
     category,
+    comment,
     siteSettings,
     user,
     ship,
