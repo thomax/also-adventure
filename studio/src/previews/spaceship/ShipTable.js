@@ -1,32 +1,86 @@
 /* eslint-disable react/prop-types */
 
 import React from 'react'
-import numeral from 'numeral'
 import {arabicToRoman} from './utils'
 import styles from './SpaceshipSummary.css'
+
+const cargoCapacityBySize = {
+  1: 1,
+  2: 5,
+  3: 50,
+  4: 250,
+  5: 1000
+}
+
+const stasisHoldsBySize = {
+  1: 1,
+  2: 4,
+  3: 16,
+  4: 64,
+  5: 256
+}
+
+const escapePodsBySize = {
+  1: 0,
+  2: 1,
+  3: 2,
+  4: 4,
+  5: 16
+}
+
+const cabins = {
+  'Cabins - Coffins': {
+    1: 1,
+    2: 4,
+    3: 16,
+    4: 64,
+    5: 256
+  },
+  'Cabins - Standard': {
+    1: 0,
+    2: 1,
+    3: 4,
+    4: 16,
+    5: 64
+  },
+  'Cabins - Suite': {
+    1: 0,
+    2: 0,
+    3: 1,
+    4: 4,
+    5: 16
+  }
+}
 
 export default function ShipTable(props) {
   const {ship} = props
   const {
     name,
     templateName,
-    modules,
     problem,
     hullPoints,
     energyPoints,
     maneuverability,
     size,
-    bonusWeaponModules,
     signature,
     armor,
     speed,
-    baseprice,
-    additionalPrice,
     shipyard,
     installedModules,
     installedFeatures,
     installedWeapons
   } = ship
+
+  const numberOfCargoHolds = installedModules.filter(mod => mod.name === 'Cargo hold').length
+  const numberOfStasisHolds = installedModules.filter(mod => mod.name === 'Stasis hold').length
+  const numberOfEscapePods = installedModules.filter(mod => mod.name === 'Escape pods').length
+
+  const cabinsCoffin = installedModules.filter(mod => mod.name === 'Cabins - Coffins').length
+  const cabinsStandard = installedModules.filter(mod => mod.name === 'Cabins - Standard').length
+  const cabinsSuite = installedModules.filter(mod => mod.name === 'Cabins - Suite').length
+  const numberOfCabinsCoffin = cabins['Cabins - Coffins'][ship.size] * cabinsCoffin
+  const numberOfCabinsStandard = cabins['Cabins - Standard'][ship.size] * cabinsStandard
+  const numberOfCabinsSuite = cabins['Cabins - Suite'][ship.size] * cabinsSuite
 
   return (
     <div>
@@ -84,8 +138,29 @@ export default function ShipTable(props) {
             <td>{shipyard.name}</td>
           </tr>
           <tr>
-            <th>Cost</th>
-            <td>{numeral(baseprice + additionalPrice).format('0,0')}</td>
+            <th>Cabins</th>
+            <td>
+              {numberOfCabinsCoffin} coffins
+              <br />
+              {numberOfCabinsStandard} standard
+              <br />
+              {numberOfCabinsSuite} suites
+            </td>
+          </tr>
+          <tr>
+            <th>Escape pods</th>
+            <td>
+              {escapePodsBySize[ship.size] * numberOfEscapePods} pods [
+              {escapePodsBySize[ship.size] * numberOfEscapePods * 4} people]
+            </td>
+          </tr>
+          <tr>
+            <th>Stasis capacity</th>
+            <td>{stasisHoldsBySize[ship.size] * numberOfStasisHolds} people</td>
+          </tr>
+          <tr>
+            <th>Cargo capacity</th>
+            <td>{cargoCapacityBySize[ship.size] * numberOfCargoHolds} tons</td>
           </tr>
         </tbody>
       </table>

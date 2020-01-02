@@ -18,7 +18,7 @@ export default function ShipReceiptTable(props) {
     <table className={styles.table} cellSpacing={0}>
       <thead>
         <tr>
-          <th colSpan={2}>Item</th>
+          <th colSpan={2}>Price by item</th>
         </tr>
       </thead>
       <tbody>
