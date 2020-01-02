@@ -62,6 +62,12 @@ function campaignPostsByCategory(campaignId) {
               .child(id =>
                 S.documentList()
                   .title(`${category.title}s`)
+                  .initialValueTemplates([
+                    S.initialValueTemplateItem('post-by-campaign-and-category', {
+                      campaignId,
+                      categoryId: category._id
+                    })
+                  ])
                   .schemaType('post')
                   .menuItems([
                     ...S.documentTypeList('post').getMenuItems(),
