@@ -216,13 +216,6 @@ export default () => {
                     )
                 )
               )
-              .menuItems([
-                S.menuItem()
-                  .title('New Level 1 Item')
-                  .intent({type: 'create', params: {type: 'mydocument'}}),
-                S.menuItem()
-                  .title('Edit this Level 1 Item')
-                  .intent({type: 'edit', params: {type: 'mydocument', id: 'asdf'}})
           )
       ])
   })
