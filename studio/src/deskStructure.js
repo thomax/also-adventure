@@ -62,12 +62,6 @@ function campaignPostsByCategory(campaignId) {
               .child(id =>
                 S.documentList()
                   .title(`${category.title}s`)
-                  .initialValueTemplates([
-                    S.initialValueTemplateItem('post-by-campaign-and-category', {
-                      campaignId,
-                      categoryId: category._id
-                    })
-                  ])
                   .schemaType('post')
                   .menuItems([
                     ...S.documentTypeList('post').getMenuItems(),
@@ -96,6 +90,12 @@ function campaignPostsByCategory(campaignId) {
                           .title('Preview')
                       ])
                   )
+                  .initialValueTemplates([
+                    S.initialValueTemplateItem('post-by-campaign-and-category', {
+                      campaignId,
+                      categoryId: category._id
+                    })
+                  ])
               )
           })
       )
@@ -121,7 +121,22 @@ export default () => {
           .title('All posts')
           .icon(MdPosts)
           .schemaType('post')
-          .child(S.documentTypeList('post').title('Posts')),
+          .child(
+            S.documentTypeList('post')
+              .title('Posts')
+              .child(documentId =>
+                S.document()
+                  .documentId(documentId)
+                  .schemaType('post')
+                  .views([
+                    S.view.form().icon(EditIcon),
+                    S.view
+                      .component(ArticlePreview)
+                      .icon(EyeIcon)
+                      .title('Preview')
+                  ])
+              )
+          ),
         S.listItem()
           .title('Campaigns')
           .icon(MdCampaign)
@@ -216,6 +231,14 @@ export default () => {
                     )
                 )
               )
+              .menuItems([
+                S.menuItem()
+                  .title('New Level 1 Item')
+                  .intent({type: 'create', params: {type: 'mydocument'}}),
+                S.menuItem()
+                  .title('Edit this Level 1 Item')
+                  .intent({type: 'edit', params: {type: 'mydocument', id: 'asdf'}})
+              ])
           )
       ])
   })
