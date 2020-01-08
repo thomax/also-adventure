@@ -133,6 +133,12 @@ export default class SpaceshipSummary extends React.Component {
               <td>{weaponCount}</td>
             </tr>
             <tr>
+              <th>Total installed:</th>
+              <td>
+                {moduleCount + weaponCount}/{maxModules + bonusWeaponModules}
+              </td>
+            </tr>
+            <tr>
               <th>Maximum allowed:</th>
               <td>{maximumMessage}</td>
             </tr>

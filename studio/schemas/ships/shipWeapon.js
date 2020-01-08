@@ -65,7 +65,7 @@ export default {
     prepare({name, price}) {
       return {
         title: name,
-        subtitle: price || price === 0 ? `${price / 1000}k birr` : 'N/A'
+        subtitle: price || price === 0 ? `${price / 1000}k shirr` : 'N/A'
       }
     }
   }
