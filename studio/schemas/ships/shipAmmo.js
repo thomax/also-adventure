@@ -1,6 +1,6 @@
 export default {
-  name: 'shipWeapon',
-  title: 'Ship Weapon',
+  name: 'shipAmmo',
+  title: 'Ship Ammunition',
   type: 'document',
   fields: [
     {
@@ -14,10 +14,13 @@ export default {
       type: 'text'
     },
     {
-      title: 'Is ammunition',
-      name: 'isAmmo',
-      type: 'boolean',
-      description: 'E.g. mines and torpedoes'
+      title: 'Category',
+      name: 'category',
+      type: 'string',
+      options: {
+        list: ['Mine', 'Torpedo'],
+        layout: 'radio'
+      }
     },
     {
       title: 'Bonus',
@@ -69,6 +72,13 @@ export default {
           type: 'boolean'
         }
       ]
+    },
+    {
+      title: 'Space Required',
+      name: 'spaceRequired',
+      type: 'number',
+      description:
+        'One torpedo/mine module can hold 4 torpedoes or 8 mines or any combination of those'
     },
     {
       title: 'Price',

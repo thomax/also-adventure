@@ -1,3 +1,5 @@
+import {number} from 'prop-types'
+
 export default {
   name: 'ship',
   title: 'Ship',
@@ -51,6 +53,14 @@ export default {
       type: 'array',
       of: [{type: 'reference', to: {type: 'shipWeapon'}}],
       description: 'Weapons counts as modules'
+    },
+    {
+      title: 'Ammo',
+      name: 'ammo',
+      type: 'array',
+      of: [{type: 'ammoElement'}],
+      description:
+        'One torpedo/mine module can hold 4 torpedoes or 8 mines or any combination of those'
     },
     {
       title: 'Features',

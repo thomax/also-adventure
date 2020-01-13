@@ -14,6 +14,8 @@ import shipFeature from './ships/shipFeature'
 import shipModule from './ships/shipModule'
 import shipTemplate from './ships/shipTemplate'
 import shipWeapon from './ships/shipWeapon'
+import shipAmmo from './ships/shipAmmo'
+import ammoElement from './ships/ammoElement'
 import bonus from './ships/bonus'
 import shipyard from './ships/shipyard'
 
@@ -33,6 +35,8 @@ export default createSchema({
     shipTemplate,
     shipyard,
     shipWeapon,
+    shipAmmo,
+    ammoElement,
     bonus
   ])
 })

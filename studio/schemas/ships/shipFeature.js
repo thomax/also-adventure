@@ -22,6 +22,38 @@ export default {
       description: 'Percent increase from baseprice'
     },
     {
+      title: 'Tech',
+      name: 'tech',
+      type: 'object',
+      fields: [
+        {
+          title: 'Level',
+          name: 'level',
+          type: 'string',
+          options: {
+            list: [
+              {title: 'Primitive', value: 'P'},
+              {title: 'Ordinary', value: 'O'},
+              {title: 'Advanced', value: 'A'},
+              {title: 'Faction', value: 'F'},
+              {title: 'Portabl Builder', value: 'PB'}
+            ],
+            layout: 'radio'
+          }
+        },
+        {
+          title: 'Need license to purchase',
+          name: 'isLicensed',
+          type: 'boolean'
+        }
+      ]
+    },
+    {
+      title: 'Need license to purchase',
+      name: 'isLicensed',
+      type: 'boolean'
+    },
+    {
       title: 'Bonuses',
       name: 'bonuses',
       type: 'array',
@@ -32,9 +64,10 @@ export default {
     select: {
       name: 'name',
       price: 'price',
-      bonuses: 'bonuses'
+      bonuses: 'bonuses',
+      tech: 'tech'
     },
-    prepare({name, price, bonuses}) {
+    prepare({name, price, bonuses, tech = {}}) {
       let subtitle = null
 
       if (bonuses) {
@@ -44,7 +77,7 @@ export default {
       }
 
       return {
-        title: name,
+        title: `${name} [${tech.level}${tech.isLicensed ? '*' : ''}]`,
         subtitle: subtitle
       }
     }
