@@ -7,7 +7,8 @@ const shipStats = [
   'hullPoints',
   'signature',
   'armor',
-  'speed'
+  'speed',
+  'ammoCapacity'
 ]
 
 export default {

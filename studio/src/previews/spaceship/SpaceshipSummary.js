@@ -18,9 +18,10 @@ const shipQuery = `
   *[_id==$documentId][0]{
     name, problem, image,
     shipyard->{name, description, price, bonuses, system},
-    template->{armor, baseprice, energyPoints, hullPoints, maneuverability, modules, name, signature, size, speed, bonusWeaponModules},
+    template->{armor, baseprice, energyPoints, hullPoints, maneuverability, modules, name, signature, size, speed, ammoCapacity, bonusWeaponModules},
     modules[]->{name, description, price, bonuses},
     weapons[]->{name, description, price},
+    ammo[]{amount, ammoType->{name, price, spaceRequired}},
     features[]->{name, description, price, bonuses}
   }`
 
@@ -82,6 +83,8 @@ export default class SpaceshipSummary extends React.Component {
       installedWeapons,
       modules,
       bonusWeaponModules,
+      ammo,
+      ammoCapacity,
       size,
       name,
       templateName
@@ -92,10 +95,14 @@ export default class SpaceshipSummary extends React.Component {
     const maxModules = modules + FREE_MODULES
     const maxModulesAndWeapons = maxModules + bonusWeaponModules
 
+    const mineTorpoCount = ammo
+      .map(ammoItem => ammoItem.amount * ammoItem.ammoType.spaceRequired)
+      .reduce((a, b) => a + b, 0)
+    const tooManyMineTorpos = mineTorpoCount > ammoCapacity
+
     const tooManyModules = moduleCount > maxModules
     const tooManyWeaponsAndModules = moduleCount + weaponCount > maxModulesAndWeapons
     let moduleWarning = null
-
     if (tooManyModules || tooManyWeaponsAndModules) {
       moduleWarning = `Too many modules! You can have a maximum of ${maxModulesAndWeapons} installed.`
 
@@ -103,6 +110,12 @@ export default class SpaceshipSummary extends React.Component {
         moduleWarning = `${moduleWarning} ${bonusWeaponModules} of these slots can only be occupied by weapons`
       }
     }
+
+    let mineTorpoWarning = null
+    if (tooManyMineTorpos) {
+      mineTorpoWarning = `Too many units of mines/torpedoes! You can have a maximum of ${ammoCapacity} installed`
+    }
+
     let maximumMessage = `${maxModules} of any module`
     if (bonusWeaponModules > 0) {
       maximumMessage = `${maximumMessage} + ${bonusWeaponModules} weapons`
@@ -133,7 +146,7 @@ export default class SpaceshipSummary extends React.Component {
               <td>{weaponCount}</td>
             </tr>
             <tr>
-              <th>Total installed:</th>
+              <th>Total modules installed:</th>
               <td>
                 {moduleCount + weaponCount}/{maxModules + bonusWeaponModules}
               </td>
@@ -142,10 +155,17 @@ export default class SpaceshipSummary extends React.Component {
               <th>Maximum allowed:</th>
               <td>{maximumMessage}</td>
             </tr>
+            <tr>
+              <th>Mine/torpedo units:</th>
+              <td>
+                {mineTorpoCount}/{ammoCapacity}
+              </td>
+            </tr>
           </tbody>
         </table>
 
         {moduleWarning && <p className={styles.warningBorder}>{moduleWarning}</p>}
+        {mineTorpoWarning && <p className={styles.warningBorder}>{mineTorpoWarning}</p>}
 
         <ShipTable ship={ship} />
         <ShipReceiptTable pricesItemized={pricesItemized} baseprice={ship.baseprice} />

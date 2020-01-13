@@ -14,7 +14,8 @@ export function calculateShip(doc) {
     modules: installedModules,
     shipyard,
     weapons: installedWeapons,
-    features: installedFeatures
+    features: installedFeatures,
+    ammo
   } = doc
 
   const {
@@ -25,6 +26,7 @@ export function calculateShip(doc) {
     size,
     signature,
     armor,
+    ammoCapacity,
     speed,
     baseprice,
     bonusWeaponModules,
@@ -45,6 +47,8 @@ export function calculateShip(doc) {
     signature,
     armor,
     speed,
+    ammo: ammo || [],
+    ammoCapacity,
     baseprice,
     additionalPrice: 0,
     shipyard,
@@ -54,6 +58,7 @@ export function calculateShip(doc) {
   }
 
   const pricesItemized = []
+
   // shipyard
   if (shipyard) {
     ship.additionalPrice = ship.additionalPrice + priceTag(shipyard.price, false, ship.baseprice)
@@ -132,9 +137,23 @@ export function calculateShip(doc) {
         price: priceTag(price, true, ship.baseprice)
       })
     })
-
-    return {ship, pricesItemized}
   }
+
+  // ammo
+  if (ammo) {
+    ammo.forEach(ammoItem => {
+      const {amount, ammoType} = ammoItem
+      const price = amount * priceTag(ammoType.price, true, ship.baseprice)
+      ship.additionalPrice = ship.additionalPrice + price
+      pricesItemized.push({
+        item: 'ammo',
+        name: `${ammoType.name} x ${amount}`,
+        price: price
+      })
+    })
+  }
+
+  return {ship, pricesItemized}
 }
 
 export function arabicToRoman(number) {

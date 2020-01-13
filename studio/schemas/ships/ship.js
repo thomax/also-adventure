@@ -59,8 +59,7 @@ export default {
       name: 'ammo',
       type: 'array',
       of: [{type: 'ammoElement'}],
-      description:
-        'One torpedo/mine module can hold 4 torpedoes or 8 mines or any combination of those'
+      description: 'One mine/torpedo module can hold 4 units of ammo per ship size'
     },
     {
       title: 'Features',

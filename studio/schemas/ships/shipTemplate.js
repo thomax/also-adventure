@@ -14,7 +14,7 @@ export default {
       title: 'Size',
       name: 'size',
       type: 'number',
-      validation: Rule => Rule.min(1).max(5)
+      validation: Rule => Rule.min(1).max(9)
     },
     {
       title: 'Maneuverability',
@@ -55,6 +55,11 @@ export default {
     {
       title: 'Speed',
       name: 'speed',
+      type: 'number'
+    },
+    {
+      title: 'Ammo Capacity',
+      name: 'ammoCapacity',
       type: 'number'
     },
     {
