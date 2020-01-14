@@ -76,6 +76,18 @@ const cabins = {
   }
 }
 
+const prisonCapacityBySize = {
+  1: 0,
+  2: 1,
+  3: 4,
+  4: 16,
+  5: 64,
+  6: 256,
+  7: 1024,
+  8: 4096,
+  9: 16384
+}
+
 export default function ShipTable(props) {
   const {ship} = props
   const {
@@ -95,16 +107,17 @@ export default function ShipTable(props) {
     installedWeapons
   } = ship
 
+  const numberOfPrisons = installedModules.filter(mod => mod.name === 'Prison').length
   const numberOfCargoHolds = installedModules.filter(mod => mod.name === 'Cargo hold').length
   const numberOfStasisHolds = installedModules.filter(mod => mod.name === 'Stasis hold').length
   const numberOfEscapePods = installedModules.filter(mod => mod.name === 'Escape pods').length
-
   const cabinsCoffin = installedModules.filter(mod => mod.name === 'Cabins - Coffins').length
   const cabinsStandard = installedModules.filter(mod => mod.name === 'Cabins - Standard').length
   const cabinsSuite = installedModules.filter(mod => mod.name === 'Cabins - Suite').length
   const numberOfCabinsCoffin = cabins['Cabins - Coffins'][ship.size] * cabinsCoffin
   const numberOfCabinsStandard = cabins['Cabins - Standard'][ship.size] * cabinsStandard
   const numberOfCabinsSuite = cabins['Cabins - Suite'][ship.size] * cabinsSuite
+  const numberOfPrisonCells = prisonCapacityBySize[ship.size] * numberOfPrisons
 
   return (
     <div>
@@ -181,6 +194,10 @@ export default function ShipTable(props) {
           <tr>
             <th>Stasis capacity</th>
             <td>{stasisHoldsBySize[ship.size] * numberOfStasisHolds} people</td>
+          </tr>
+          <tr>
+            <th>Prison capacity</th>
+            <td>{numberOfPrisonCells} people</td>
           </tr>
           <tr>
             <th>Cargo capacity</th>
