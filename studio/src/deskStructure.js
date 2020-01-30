@@ -1,5 +1,4 @@
 import React from 'react'
-import {merge, values} from 'lodash'
 import S from '@sanity/desk-tool/structure-builder'
 import sanityClient from 'part:@sanity/base/client'
 import MdSettings from 'react-icons/lib/md/settings'
