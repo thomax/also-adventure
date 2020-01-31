@@ -2,21 +2,26 @@ const {transformDocument} = require('./orbitalsTransformer')
 export default {
   widgets: [
     {
-      name: 'orbitals-2d',
-      layout: {
-        width: 'full',
-        height: 'small'
-      },
-      options: {
-        query:
-          '*[!(_id in path("_.listeners.**")) && !(_id in path("drafts.**"))]|order(_createdAt desc)[0..5]',
-        transformDocument: transformDocument,
-        attractorColor: '#101010',
-        attractorRadius: 20,
-        attractorOpacity: null,
-        attractorSides: 0
-      }
+      name: 'document-chart',
+      options: {types: ['post', 'campaign', 'ship', 'sanity.imageAsset']},
+      layout: {width: 'full'}
     },
+    // {
+    //   name: 'orbitals-2d',
+    //   layout: {
+    //     width: 'full',
+    //     height: 'small'
+    //   },
+    //   options: {
+    //     query:
+    //       '*[!(_id in path("_.listeners.**")) && !(_id in path("drafts.**"))]|order(_createdAt desc)[0..5]',
+    //     transformDocument: transformDocument,
+    //     attractorColor: '#101010',
+    //     attractorRadius: 20,
+    //     attractorOpacity: null,
+    //     attractorSides: 0
+    //   }
+    // },
     {
       name: 'project-info',
       options: {

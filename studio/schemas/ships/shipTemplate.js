@@ -89,7 +89,7 @@ export default {
     prepare({name, size, baseprice}) {
       return {
         title: name,
-        subtitle: `${arabicToRoman(size)} - ${baseprice / 1000}k birr`
+        subtitle: `${arabicToRoman(size)} - ${baseprice / 1000}k shirr`
       }
     }
   }

@@ -157,7 +157,7 @@ export function calculateShip(doc) {
 }
 
 export function arabicToRoman(number) {
-  return ['', 'I', 'II', 'III', 'IV', 'V'][number]
+  return ['', 'I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX'][number]
 }
 
 export function summarizeBonuses(bonuses) {
