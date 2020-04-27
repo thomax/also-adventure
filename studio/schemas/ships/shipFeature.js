@@ -49,11 +49,6 @@ export default {
       ]
     },
     {
-      title: 'Need license to purchase',
-      name: 'isLicensed',
-      type: 'boolean'
-    },
-    {
       title: 'Bonuses',
       name: 'bonuses',
       type: 'array',
