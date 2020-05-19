@@ -4,6 +4,7 @@ export default {
   name: 'shipyard',
   title: 'Shipyard',
   type: 'document',
+  liveEdit: true,
   fields: [
     {
       title: 'Name',

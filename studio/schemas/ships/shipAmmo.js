@@ -2,6 +2,7 @@ export default {
   name: 'shipAmmo',
   title: 'Ship Ammunition',
   type: 'document',
+  liveEdit: true,
   fields: [
     {
       title: 'Name',

@@ -2,6 +2,7 @@ export default {
   name: 'shipWeapon',
   title: 'Ship Weapon',
   type: 'document',
+  liveEdit: true,
   fields: [
     {
       title: 'Name',

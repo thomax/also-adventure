@@ -4,6 +4,7 @@ export default {
   name: 'shipModule',
   title: 'Ship Module',
   type: 'document',
+  liveEdit: true,
   fields: [
     {
       title: 'Name',

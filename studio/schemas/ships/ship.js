@@ -1,9 +1,8 @@
-import {number} from 'prop-types'
-
 export default {
   name: 'ship',
   title: 'Ship',
   type: 'document',
+  liveEdit: true,
   fields: [
     {
       title: 'Name',

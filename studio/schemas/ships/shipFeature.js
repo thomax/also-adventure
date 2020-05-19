@@ -4,6 +4,7 @@ export default {
   name: 'shipFeature',
   title: 'Ship Feature',
   type: 'document',
+  liveEdit: true,
   fields: [
     {
       title: 'Name',

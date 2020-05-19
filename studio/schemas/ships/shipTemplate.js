@@ -4,6 +4,7 @@ export default {
   name: 'shipTemplate',
   title: 'Ship Template',
   type: 'document',
+  liveEdit: true,
   fields: [
     {
       title: 'Name',

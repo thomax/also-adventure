@@ -2,6 +2,7 @@ export default {
   name: 'post',
   title: 'Post',
   type: 'document',
+  liveEdit: true,
   fields: [
     {
       title: 'Title',
