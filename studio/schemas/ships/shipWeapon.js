@@ -59,7 +59,7 @@ export default {
               {title: 'Ordinary', value: 'O'},
               {title: 'Advanced', value: 'A'},
               {title: 'Faction', value: 'F'},
-              {title: 'Portabl Builder', value: 'PB'}
+              {title: 'Portal Builder', value: 'PB'}
             ],
             layout: 'radio'
           }
