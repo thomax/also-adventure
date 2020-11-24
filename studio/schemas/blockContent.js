@@ -1,4 +1,6 @@
-import linkIcon from 'react-icons/lib/fa/paperclip'
+//import linkIcon from 'react-icons/lib/fa/paperclip'
+import { FaPaperclip } from 'react-icons/'
+
 export default {
   title: 'Block Content',
   name: 'blockContent',
@@ -44,7 +46,7 @@ export default {
             type: 'object',
             title: 'Internal link',
             blockEditor: {
-              icon: linkIcon
+              icon: FaPaperclip
             },
             fields: [
               {

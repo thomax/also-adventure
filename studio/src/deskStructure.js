@@ -1,17 +1,9 @@
 import React from 'react'
 import S from '@sanity/desk-tool/structure-builder'
 import sanityClient from 'part:@sanity/base/client'
-import MdSettings from 'react-icons/lib/md/settings'
-import MdImage from 'react-icons/lib/md/palette'
-import MdCampaign from 'react-icons/lib/md/toys'
-import MdCategory from 'react-icons/lib/md/folder'
-import MdUser from 'react-icons/lib/md/person'
-import MdPost from 'react-icons/lib/md/book'
-import MdPosts from 'react-icons/lib/md/library-books'
-import MdShip from 'react-icons/lib/md/directions-boat'
+import { MdSettings, MdPalette, MdToys, MdFolder, MdPerson, MdBook, MdLibraryBooks, MdDirectionsBoat } from 'react-icons/md'
 import EyeIcon from 'part:@sanity/base/eye-icon'
 import EditIcon from 'part:@sanity/base/edit-icon'
-
 import SpaceshipSummary from './previews/spaceship/SpaceshipSummary'
 import ArticlePreview from './previews/article/ArticlePreview'
 
@@ -57,7 +49,7 @@ function campaignPostsByCategory(campaignId) {
             return S.listItem()
               .id(category._id)
               .title(`${category.title} [${uniquePosts.length}]`)
-              .icon(MdCategory)
+              .icon(MdFolder)
               .child(id =>
                 S.documentList()
                   .title(`${category.title}s`)
@@ -108,7 +100,7 @@ export default () => {
       .items([
         S.listItem()
           .title('Posts by campaign')
-          .icon(MdPost)
+          .icon(MdBook)
           .schemaType('campaign')
           .child(
             S.documentTypeList('campaign')
@@ -118,7 +110,7 @@ export default () => {
           ),
         S.listItem()
           .title('All posts')
-          .icon(MdPosts)
+          .icon(MdLibraryBooks)
           .schemaType('post')
           .child(
             S.documentTypeList('post')
@@ -138,28 +130,28 @@ export default () => {
           ),
         S.listItem()
           .title('Campaigns')
-          .icon(MdCampaign)
+          .icon(MdToys)
           .schemaType('campaign')
           .child(S.documentTypeList('campaign').title('Campaigns')),
         S.listItem()
           .title('Categories')
-          .icon(MdCategory)
+          .icon(MdFolder)
           .schemaType('category')
           .child(S.documentTypeList('category').title('Categories')),
         S.listItem()
           .title('Images')
-          .icon(MdImage)
+          .icon(MdPalette)
           .schemaType('sanity.imageAsset')
           .child(S.documentTypeList('sanity.imageAsset').title('Images')),
         S.listItem()
           .title('Users')
-          .icon(MdUser)
+          .icon(MdPerson)
           .schemaType('user')
           .child(S.documentTypeList('user').title('Users')),
 
         S.listItem()
           .title('Spaceships')
-          .icon(MdShip)
+          .icon(MdDirectionsBoat)
           .child(
             S.list()
               .title('Ship content')
