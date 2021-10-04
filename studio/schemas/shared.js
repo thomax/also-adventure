@@ -13,5 +13,9 @@ export default {
     {title: 'Starfinder', value: 'starfinder'},
     {title: 'Warhammer', value: 'warhammer'},
     {title: 'freeform', value: 'freeform'}
+  ],
+  talentTypes: [
+    {title: 'Grit', value: 'grit'},
+    {title: 'Hunter', value: 'hunter'}
   ]
 }

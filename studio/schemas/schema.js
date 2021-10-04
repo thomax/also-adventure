@@ -19,6 +19,9 @@ import ammoElement from './ships/ammoElement'
 import bonus from './ships/bonus'
 import shipyard from './ships/shipyard'
 
+import talent from './talents/talent'
+
+
 export default createSchema({
   name: 'default',
   types: schemaTypes.concat([
@@ -36,6 +39,7 @@ export default createSchema({
     shipyard,
     shipWeapon,
     shipAmmo,
+    talent,
     ammoElement,
     bonus
   ])

@@ -82,7 +82,4 @@ export default {
       }
     }
   }
-  // initialValue: {
-  //   title: 'waffles are good'
-  // }
 }

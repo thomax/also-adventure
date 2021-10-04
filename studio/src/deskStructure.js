@@ -7,8 +7,10 @@ import EditIcon from 'part:@sanity/base/edit-icon'
 import SpaceshipSummary from './previews/spaceship/SpaceshipSummary'
 import ArticlePreview from './previews/article/ArticlePreview'
 
+const client = sanityClient.withConfig({apiVersion: '2021-06-07'})
+
 const fetchSystemGroups = () => {
-  return sanityClient.fetch('*[_type=="system.group"]')
+  return client.fetch('*[_type=="system.group"]')
 }
 
 const fetchCategoriesWithPosts = campaignId => {
@@ -27,7 +29,7 @@ const fetchCategoriesWithPosts = campaignId => {
         campaign._ref == $campaignId]{_id}|order(order asc)
     }
   `
-  return sanityClient.fetch(query, {campaignId})
+  return client.fetch(query, {campaignId})
 }
 
 function campaignPostsByCategory(campaignId) {
@@ -133,6 +135,11 @@ export default () => {
           .icon(MdToys)
           .schemaType('campaign')
           .child(S.documentTypeList('campaign').title('Campaigns')),
+        S.listItem()
+          .title('Talents')
+          .icon(MdToys)
+          .schemaType('talent')
+          .child(S.documentTypeList('talent').title('Talents')),
         S.listItem()
           .title('Categories')
           .icon(MdFolder)

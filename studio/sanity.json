@@ -21,7 +21,8 @@
     "@sanity/vision",
     "media",
     "asset-source-unsplash",
-    "dashboard-widget-document-chart"
+    "dashboard-widget-document-chart",
+    "graph-view"
   ],
   "parts": [
     {

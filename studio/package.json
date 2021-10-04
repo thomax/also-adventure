@@ -13,15 +13,15 @@
     "test": "sanity check"
   },
   "dependencies": {
-    "@sanity/base": "^2.0.9",
-    "@sanity/block-content-to-react": "^2.0.7",
-    "@sanity/cli": "^2.0.9",
-    "@sanity/components": "^2.0.9",
-    "@sanity/core": "^2.0.9",
-    "@sanity/dashboard": "^2.0.9",
-    "@sanity/default-layout": "^2.0.9",
-    "@sanity/default-login": "^2.0.9",
-    "@sanity/desk-tool": "^2.0.9",
+    "@sanity/base": "^2.20.0",
+    "@sanity/block-content-to-react": "^3.0.0",
+    "@sanity/cli": "^2.20.0",
+    "@sanity/components": "^2.14.0",
+    "@sanity/core": "^2.20.0",
+    "@sanity/dashboard": "^2.20.0",
+    "@sanity/default-layout": "^2.20.0",
+    "@sanity/default-login": "^2.19.0",
+    "@sanity/desk-tool": "^2.20.0",
     "date-fns": "^1.30.1",
     "numeral": "^2.0.6",
     "prop-types": "^15.7.2",
@@ -33,9 +33,11 @@
     "sanity-plugin-dashboard-widget-document-list": "^0.0.8",
     "sanity-plugin-dashboard-widget-netlify": "^1.0.1",
     "sanity-plugin-dashboard-widget-orbitals-2d": "^0.0.21",
+    "sanity-plugin-graph-view": "^1.0.7",
     "sanity-plugin-media": "^0.2.4",
     "sanity-plugin-vision": "^2.0.7",
-    "sleep-promise": "^8.0.1"
+    "sleep-promise": "^8.0.1",
+    "styled-components": "^5.3.1"
   },
   "devDependencies": {
     "babel-eslint": "^10.0.1",
@@ -48,5 +50,8 @@
     "eslint-plugin-react": "^7.13.0",
     "eslint-plugin-standard": "^4.0.0",
     "prettier-eslint-cli": "^4.7.1"
+  },
+  "resolutions": {
+    "**/three": "0.119.1"
   }
 }

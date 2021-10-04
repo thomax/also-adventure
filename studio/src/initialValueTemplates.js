@@ -18,6 +18,13 @@ export default [
   }),
 
   T.template({
+    id: 'talent',
+    title: 'Talent',
+    schemaType: 'talent',
+    value: {}
+  }),
+
+  T.template({
     id: 'shipTemplate',
     title: 'Ship Template',
     schemaType: 'shipTemplate',
