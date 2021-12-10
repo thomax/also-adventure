@@ -1,5 +1,5 @@
 //import linkIcon from 'react-icons/lib/fa/paperclip'
-import { FaPaperclip } from 'react-icons/'
+import {FaPaperclip} from 'react-icons/fa'
 
 export default {
   title: 'Block Content',
