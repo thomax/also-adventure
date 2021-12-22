@@ -1,13 +1,22 @@
 import React from 'react'
 import S from '@sanity/desk-tool/structure-builder'
 import sanityClient from 'part:@sanity/base/client'
-import { MdSettings, MdPalette, MdToys, MdFolder, MdPerson, MdBook, MdLibraryBooks, MdDirectionsBoat } from 'react-icons/md'
+import {
+  MdSettings,
+  MdPalette,
+  MdToys,
+  MdFolder,
+  MdPerson,
+  MdBook,
+  MdLibraryBooks,
+  MdDirectionsBoat
+} from 'react-icons/md'
 import EyeIcon from 'part:@sanity/base/eye-icon'
 import EditIcon from 'part:@sanity/base/edit-icon'
 import SpaceshipSummary from './previews/spaceship/SpaceshipSummary'
 import ArticlePreview from './previews/article/ArticlePreview'
 
-const client = sanityClient.withConfig({apiVersion: '2021-06-07'})
+const client = sanityClient.withConfig({apiVersion: '2021-12-12'})
 
 const fetchSystemGroups = () => {
   return client.fetch('*[_type=="system.group"]')

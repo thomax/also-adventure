@@ -17,12 +17,10 @@
     "dashboard-widget-structure-menu",
     "dashboard-widget-document-list",
     "dashboard-widget-netlify",
-    "dashboard-widget-orbitals-2d",
     "@sanity/vision",
     "media",
     "asset-source-unsplash",
-    "dashboard-widget-document-chart",
-    "graph-view"
+    "dashboard-widget-document-chart"
   ],
   "parts": [
     {

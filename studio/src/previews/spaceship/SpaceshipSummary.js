@@ -4,13 +4,15 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import sleep from 'sleep-promise'
 import Spinner from 'part:@sanity/components/loading/spinner'
-import client from 'part:@sanity/base/client'
 import imageUrlBuilder from '@sanity/image-url'
 
 import styles from './SpaceshipSummary.css'
 import {calculateShip, arabicToRoman} from './utils'
 import ShipTable from './ShipTable'
 import ShipReceiptTable from './ShipReceiptTable'
+
+import sanityClient from 'part:@sanity/base/client'
+const client = sanityClient.withConfig({apiVersion: '2021-12-12'})
 
 const FREE_MODULES = 3 // grav projector, bridge, reactor
 
