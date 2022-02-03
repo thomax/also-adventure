@@ -111,24 +111,23 @@ export default class ArticlePreview extends React.Component {
       return <Spinner center message={`Loading post`} />
     }
 
-    const mainImageUrl = urlFor(post.mainImage)
-      .width(1000)
-      .url()
+    const mainImageStyle = post.mainImage
+      ? {
+          backgroundImage: `url(${urlFor(post.mainImage)
+            .width(1000)
+            .url()})`,
+          backgroundRepeat: 'no-repeat',
+          backgroundSize: 'cover'
+        }
+      : {}
 
     return (
       <div className={styles.root}>
-        <div
-          className={styles.heading}
-          style={{
-            backgroundImage: `url(${mainImageUrl})`,
-            backgroundRepeat: 'no-repeat',
-            backgroundSize: 'cover'
-          }}
-        >
+        <div className={styles.heading} style={mainImageStyle}>
           <h1 className={styles.title}>{post.title}</h1>
-          {post.category && <h5 className={styles.title}>Category: {post.category.title}</h5>}
+          {post.category && <h5 className={styles.subTitle}>Category: {post.category.title}</h5>}
           {post.authors && (
-            <h5 className={styles.title}>
+            <h5 className={styles.subTitle}>
               Written by: {post.authors.map(author => author.name).join(', ')}
             </h5>
           )}
