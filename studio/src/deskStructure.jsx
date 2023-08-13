@@ -1,6 +1,5 @@
 import React from 'react'
-import S from '@sanity/desk-tool/structure-builder'
-import sanityClient from 'part:@sanity/base/client'
+
 import {
   MdSettings,
   MdPalette,
@@ -11,18 +10,22 @@ import {
   MdLibraryBooks,
   MdDirectionsBoat
 } from 'react-icons/md'
-import EyeIcon from 'part:@sanity/base/eye-icon'
-import EditIcon from 'part:@sanity/base/edit-icon'
-import SpaceshipSummary from './previews/spaceship/SpaceshipSummary'
+
+import {EditIcon} from '@sanity/icons'
+import {EyeOpenIcon} from '@sanity/icons'
 import ArticlePreview from './previews/article/ArticlePreview'
+//import SpaceshipSummary from './previews/spaceship/SpaceshipSummary'
+import DeveloperPreview from './previews/spaceship/DeveloperPreview'
 
-const client = sanityClient.withConfig({apiVersion: '2021-12-12'})
+import {useClient} from 'sanity'
 
-const fetchSystemGroups = () => {
+const today = new Date().toISOString().split('T')[0]
+
+const fetchSystemGroups = client => {
   return client.fetch('*[_type=="system.group"]')
 }
 
-const fetchCategoriesWithPosts = campaignId => {
+const fetchCategoriesWithPosts = (campaignId, client) => {
   const query = `
     *[_type == "category"]|order(singular asc){
       ...,
@@ -41,11 +44,10 @@ const fetchCategoriesWithPosts = campaignId => {
   return client.fetch(query, {campaignId})
 }
 
-function campaignPostsByCategory(campaignId) {
-  return fetchCategoriesWithPosts(campaignId).then(categories => {
+function campaignPostsByCategory(S, campaignId, client) {
+  return fetchCategoriesWithPosts(campaignId, client).then(categories => {
     return S.list()
       .title('Categories')
-      .initialValueTemplates([S.initialValueTemplateItem('post-by-campaign', {campaignId})])
       .items(
         categories
           .filter(cat => cat.publishedDocs.length > 0)
@@ -88,24 +90,20 @@ function campaignPostsByCategory(campaignId) {
                         S.view.form().icon(EditIcon),
                         S.view
                           .component(ArticlePreview)
-                          .icon(EyeIcon)
+                          .icon(EyeOpenIcon)
                           .title('Preview')
                       ])
                   )
-                  .initialValueTemplates([
-                    S.initialValueTemplateItem('post-by-campaign-and-category', {
-                      campaignId,
-                      categoryId: category._id
-                    })
-                  ])
               )
           })
       )
   })
 }
 
-export default () => {
-  return fetchSystemGroups().then(systemGroups => {
+export default S => {
+  const client = useClient({apiVersion: today})
+
+  return fetchSystemGroups(client).then(systemGroups => {
     return S.list()
       .title('Content')
       .items([
@@ -117,7 +115,7 @@ export default () => {
             S.documentTypeList('campaign')
               .title('Select campaign')
               .filter('_type == "campaign"')
-              .child(campaignId => campaignPostsByCategory(campaignId))
+              .child(campaignId => campaignPostsByCategory(S, campaignId, client))
           ),
         S.listItem()
           .title('All posts')
@@ -134,7 +132,7 @@ export default () => {
                     S.view.form().icon(EditIcon),
                     S.view
                       .component(ArticlePreview)
-                      .icon(EyeIcon)
+                      .icon(EyeOpenIcon)
                       .title('Preview')
                   ])
               )
@@ -164,7 +162,6 @@ export default () => {
           .icon(MdPerson)
           .schemaType('user')
           .child(S.documentTypeList('user').title('Users')),
-
         S.listItem()
           .title('Spaceships')
           .icon(MdDirectionsBoat)
@@ -184,8 +181,8 @@ export default () => {
                           .views([
                             S.view.form().icon(EditIcon),
                             S.view
-                              .component(SpaceshipSummary)
-                              .icon(EyeIcon)
+                              .component(DeveloperPreview)
+                              .icon(EyeOpenIcon)
                               .title('Preview')
                           ])
                       )
@@ -234,9 +231,9 @@ export default () => {
                       S.component()
                         .title(systemGroup._id)
                         .component(
-                          <div>
+                          `<div>
                             <pre>{JSON.stringify(systemGroup, null, 2)}</pre>
-                          </div>
+                          </div>`
                         )
                     )
                 )

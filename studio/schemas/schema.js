@@ -1,6 +1,3 @@
-import createSchema from 'part:@sanity/base/schema-creator'
-import schemaTypes from 'all:part:@sanity/base/schema-type'
-
 import blockContent from './blockContent'
 import campaign from './campaign'
 import category from './category'
@@ -22,9 +19,7 @@ import shipyard from './ships/shipyard'
 import talent from './talents/talent'
 
 
-export default createSchema({
-  name: 'default',
-  types: schemaTypes.concat([
+export default [
     post,
     blockContent,
     campaign,
@@ -42,5 +37,4 @@ export default createSchema({
     talent,
     ammoElement,
     bonus
-  ])
-})
+  ]

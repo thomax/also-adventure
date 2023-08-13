@@ -1,18 +1,18 @@
 /* eslint-disable react/prop-types */
-
 import React from 'react'
 import PropTypes from 'prop-types'
 import sleep from 'sleep-promise'
-import Spinner from 'part:@sanity/components/loading/spinner'
-import imageUrlBuilder from '@sanity/image-url'
+import {Spinner} from '@sanity/ui'
 
-import styles from './SpaceshipSummary.css'
+import styles from './SpaceshipSummary.css?inline'
 import {calculateShip, arabicToRoman} from './utils'
 import ShipTable from './ShipTable'
 import ShipReceiptTable from './ShipReceiptTable'
 
-import sanityClient from 'part:@sanity/base/client'
-const client = sanityClient.withConfig({apiVersion: '2021-12-12'})
+import {useClient} from 'sanity'
+import imageUrlBuilder from '@sanity/image-url'
+
+const today = new Date().toISOString().split('T')[0]
 
 const FREE_MODULES = 3 // grav projector, bridge, reactor
 
@@ -27,9 +27,8 @@ const shipQuery = `
     features[]->{name, description, price, bonuses}
   }`
 
-const builder = imageUrlBuilder(client)
-
-function urlFor(source) {
+function urlFor(source, client) {
+  const builder = imageUrlBuilder(client)
   return builder.image(source)
 }
 
@@ -44,6 +43,8 @@ export default class SpaceshipSummary extends React.Component {
     draft: PropTypes.object,
     published: PropTypes.object
   }
+
+  client = useClient({apiVersion: today})
 
   state = {ship: null, materializedDocument: null, pricesItemized: null}
 
@@ -131,7 +132,7 @@ export default class SpaceshipSummary extends React.Component {
           </h2>
           <img
             className={styles.image}
-            src={urlFor(ship.image)
+            src={urlFor(ship.image, client)
               .width(400)
               .url()}
           />

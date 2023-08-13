@@ -2,7 +2,7 @@
 
 import React from 'react'
 import numeral from 'numeral'
-import styles from './SpaceshipSummary.css'
+import styles from './SpaceshipSummary.css?inline'
 
 function addItemPrices(pricesItemized) {
   let total = 0

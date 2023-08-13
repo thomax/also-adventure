@@ -45,9 +45,6 @@ export default {
             name: 'internalLink',
             type: 'object',
             title: 'Internal link',
-            blockEditor: {
-              icon: FaPaperclip
-            },
             fields: [
               {
                 name: 'reference',

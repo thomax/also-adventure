@@ -2,7 +2,7 @@
 
 import React from 'react'
 import {arabicToRoman} from './utils'
-import styles from './SpaceshipSummary.css'
+import styles from './SpaceshipSummary.css?inline'
 
 const cargoCapacityBySize = {
   1: 1,
