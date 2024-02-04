@@ -18,10 +18,17 @@
     "lerna": "^3.13.1"
   },
   "dependencies": {
+    "@babel/core": "^7.23.0",
+    "@babel/plugin-syntax-jsx": "^7.22.5",
+    "@babel/preset-typescript": "^7.23.0",
     "@sanity/block-tools": "^0.147.6",
     "@sanity/schema": "^0.147.6",
     "@sanity/uuid": "^0.147.0",
+    "babel-plugin-replace-ts-export-assignment": "^0.0.2",
+    "fast-glob": "^3.3.1",
+    "fs-extra": "^11.1.1",
     "jsdom": "^15.2.1",
+    "prettier": "^2.8.8",
     "windows-1252": "^1.0.0",
     "xml-js": "^1.6.11"
   }
