@@ -25,5 +25,5 @@ export const load = async ({ url }) => {
     }
   }
 
-  throw error(404, "Not found, possibly error while fetching data")
+  error(404, "Not found, possibly error while fetching data");
 }
