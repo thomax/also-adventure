@@ -22,6 +22,8 @@ export async function getPosts(options = {}) {
   const { campaignSlug, category } = options
   const campaignFilter = campaignSlug ? ` && campaign._ref in *[_type =="campaign" && slug.current == "${campaignSlug}"]._id` : ''
   const categoryFilter = category ? ` && category._ref in *[_type =="category" && singular == "${category}"]._id` : ''
+  // Limit to 20 posts if no campaign or category is selected
+  const limitFilter = (!campaignSlug && !category) ? '[0...20]' : ''
   const query = groq`*[
       _type == "post"
       && defined(slug.current)
@@ -33,8 +35,9 @@ export async function getPosts(options = {}) {
       ...,
       category->{title},
       campaign->{title},
-      authors[]->{_id,name}
-    } | order(order desc, _createdAt desc) `
+      authors[]->{_id,name},
+    } | order(order desc, _createdAt desc)
+    ${limitFilter}`
   return await client.fetch(query)
 }
 
@@ -53,14 +56,33 @@ export async function getPost(slug) {
 }
 
 export async function getCampaigns() {
-  return await client.fetch(
-    groq`*[_type == "campaign"]{title, "slug": slug.current}|order(title asc)`
-  ).catch(console.error)
+  const query = groq`*[_type == "campaign"]{
+    title,
+    system,
+    "gm": gm->name,
+    "slug": slug.current,
+    "postCount": count(
+      *[
+        _type == "post"
+        && !(_id in path('drafts.**'))
+        && campaign._ref == ^._id
+      ]),
+    "pcNames":
+      *[
+        _type == "post"
+        && !(_id in path('drafts.**'))
+        && category._ref in *[_type == "category" && singular == "pc"]._id
+        && campaign._ref == ^._id
+      ].title
+  }|order(title asc)`
+
+  return await client.fetch(query).catch(console.error)
 }
 
 export async function getCategories(options = {}) {
   const { campaignSlug } = options
   const campaignFilter = campaignSlug ? ` && campaign._ref in *[_type =="campaign" && slug.current == "${campaignSlug}"]._id` : ''
+
   const query = groq`*[
       _type == "category"
     ]{

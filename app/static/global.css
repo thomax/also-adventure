@@ -338,6 +338,56 @@ main {
 	}
 }
 
+/* Widget stuff */
+
+#widgetSection {
+	padding: 9px;
+	padding-bottom: 12px;
+	border: 1px solid #ced2d9;
+	border-radius: 3px;
+	margin-bottom: 1.3rem;
+}
+
+#pleaseApplyFilter {
+	font-size: 1.2rem;
+	font-weight: 600;
+	text-align: center;
+	color: red;
+}
+
+.dropdownSelect {
+	height: 40px;
+	font-size: 1rem;
+	padding: 5px 10px;  /* Padding inside the dropdown */
+	border: 1px solid #ccc;
+	border-radius: 4px; /* Rounded corners */
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* A slght box shadow */
+}
+
+#campaignInfo {
+	padding: 9px;
+	padding-bottom: 12px;
+	border: 1px solid #ced2d9;
+	border-radius: 3px;
+	margin-bottom: 1.3rem;
+	display: flex;
+	flex-direction: column;
+}
+
+#campaignInfo .row {
+    display: flex;
+    margin-bottom: 10px;
+}
+
+#campaignInfo .label {
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+#campaignInfo .value {
+    flex-grow: 1;
+}
+
 /* Card */
 
 .card {

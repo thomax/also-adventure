@@ -1,17 +1,20 @@
 <script>
 	import {browser} from '$app/environment'
 	import Select from './Select.svelte'
+	import {getSelectionIndices, updateQueryParams} from '../lib/utils/urlAccess'
 	export let campaigns = []
 	export let categories = []
 
-	let {selectedCampaignIndex, selectedCategoryIndex} = getSelections()
+	let {selectedCampaignIndex, selectedCategoryIndex} = getSelectionIndices(campaigns, categories)
 	let previousCampaignIndex = selectedCampaignIndex
 	let previousCategoryIndex = selectedCategoryIndex
 
 	$: {
 		if (browser) {
 			const selectedCampaign = campaigns[selectedCampaignIndex].slug
-			const selectedCategory = categories[selectedCategoryIndex].singular
+			const selectedCategory = categories[selectedCategoryIndex]?.singular
+
+			// keep track of previous choices and only update the URL if they change
 			if (
 				selectedCampaignIndex !== previousCampaignIndex ||
 				selectedCategoryIndex !== previousCategoryIndex
@@ -23,44 +26,24 @@
 		}
 	}
 
-	function updateQueryParams(selectedCampaign, selectedCategory) {
-		const url = new URL(window.location.href)
-		if (selectedCampaign) {
-			url.searchParams.set('campaign', selectedCampaign)
-		} else {
-			url.searchParams.delete('campaign')
-		}
-		if (selectedCategory) {
-			url.searchParams.set('category', selectedCategory)
-		} else {
-			url.searchParams.delete('category')
-		}
-		//window.history.pushState(null, null, url)
-		window.location.href = url
-	}
-
-	function getSelections() {
-		if (!browser) return {}
-		const url = new URL(window.location.href)
-		const selectedCampaign = url.searchParams.get('campaign')
-		const selectedCategory = url.searchParams.get('category')
-		const campaignIndex = campaigns.findIndex((campaign) => campaign.slug === selectedCampaign)
-		const categoryIndex = categories.findIndex((category) => category.singular === selectedCategory)
-		return {
-			selectedCampaignIndex: campaignIndex < 0 ? 0 : campaignIndex,
-			selectedCategoryIndex: categoryIndex < 0 ? 0 : categoryIndex
-		}
-	}
 </script>
 
 <div class="filter-widget-container">
 	<div class="div1">Campaign</div>
 	<div class="div2">Category</div>
 	<div class="div3">
-		<Select options={campaigns} bind:value={selectedCampaignIndex} />
+		{#if campaigns.length}
+			<Select options={campaigns} bind:value={selectedCampaignIndex} />
+		{:else}
+			No matching data
+		{/if}
 	</div>
 	<div class="div4">
-		<Select options={categories} bind:value={selectedCategoryIndex} />
+		{#if categories.length}
+			<Select options={categories} bind:value={selectedCategoryIndex} />
+		{:else}
+			No categories found for this campaign
+		{/if}
 	</div>
 </div>
 
