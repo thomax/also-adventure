@@ -5,6 +5,6 @@
 
 <select bind:value>
 	{#each options as option, optionIndex}
-		<option value={optionIndex}>{option.title}</option>
+		<option value={optionIndex}>{option.title}{option.postCount ? ` [${option.postCount}]` : ''}</option>
 	{/each}
 </select>
