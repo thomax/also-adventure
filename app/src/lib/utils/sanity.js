@@ -24,6 +24,7 @@ export async function getPosts(options = {}) {
   const categoryFilter = category ? ` && category._ref in *[_type =="category" && singular == "${category}"]._id` : ''
   // Limit to 20 posts if no campaign or category is selected
   const limitFilter = (!campaignSlug && !category) ? '[0...20]' : ''
+
   const query = groq`*[
       _type == "post"
       && defined(slug.current)
@@ -61,6 +62,7 @@ export async function getCampaigns() {
     system,
     "gm": gm->name,
     "slug": slug.current,
+    "mainImage": mainImage{asset->{path,url}},
     "postCount": count(
       *[
         _type == "post"
