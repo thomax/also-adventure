@@ -63,11 +63,3 @@
 		<Welcome />
 	{/if}
 </section>
-
-<style>
-	.row {
-		background-color: rgba(52, 53, 44, 0.2);
-		padding: 5px;
-		color: rgb(234, 243, 225);
-	}
-</style>

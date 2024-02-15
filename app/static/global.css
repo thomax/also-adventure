@@ -366,17 +366,20 @@ main {
 
 #campaignInfo {
 	padding: 9px;
-	padding-bottom: 12px;
+	padding-bottom: 0px;
 	border: 1px solid #ced2d9;
 	border-radius: 3px;
-	margin-bottom: 1.3rem;
+	margin-bottom: 1rem;
 	display: flex;
 	flex-direction: column;
 }
 
 #campaignInfo .row {
-    display: flex;
-    margin-bottom: 10px;
+	display: flex;
+	margin-bottom: 10px;
+	background-color: rgba(1, 22, 109, 0.4);
+	padding: 5px;
+	color: rgb(234, 243, 225);
 }
 
 #campaignInfo .label {
