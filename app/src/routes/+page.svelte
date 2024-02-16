@@ -2,7 +2,7 @@
 	import {onMount} from 'svelte'
 	import Post from '../components/Post.svelte'
 	import FilterWidget from '../components/FilterWidget.svelte'
-	import Welcome from '../components/Welcome.svelte'
+	import NoData from '../components/NoData.svelte'
 	import {getSelectedSlugs} from '../lib/utils/urlAccess'
 	export let data
 	const {selectedCampaign, selectedCategory} = getSelectedSlugs()
@@ -60,6 +60,6 @@
 			<div id="pleaseApplyFilter">Please select campaign and/or category to see more posts</div>
 		{/if}
 	{:else}
-		<Welcome />
+		<NoData />
 	{/if}
 </section>

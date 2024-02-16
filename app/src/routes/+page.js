@@ -1,15 +1,14 @@
 import { getPosts, getCampaigns, getCategories } from "../lib/utils/sanity.js"
+import { getSelectedSlugs } from "../lib/utils/urlAccess.js"
 import { error } from "@sveltejs/kit"
 
-export const load = async ({ url }) => {
-  let campaignSlug = url.searchParams.get('campaign')
-  let category = url.searchParams.get('category')
-  console.log(`Fetching data based on: Campaign: ${campaignSlug}, Category: ${category}`)
+export const load = async () => {
+  const { selectedCampaign, selectedCategory } = getSelectedSlugs()
 
-  const posts = await getPosts({ campaignSlug, category })
+  const posts = await getPosts({ campaignSlug: selectedCampaign, category: selectedCategory })
   const campaigns = await getCampaigns()
-  let categories = await getCategories({ campaignSlug })
-  if (campaignSlug) {
+  let categories = await getCategories({ campaignSlug: selectedCampaign })
+  if (selectedCampaign) {
     categories = categories.filter((cat) => cat.postCount > 0)
   }
 
