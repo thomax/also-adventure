@@ -1,9 +1,16 @@
-import imageUrlBuilder from "@sanity/image-url";
+import imageUrlBuilder from "@sanity/image-url"
 
-import { client } from "./sanity";
+import { client } from "./sanity"
 
-const builder = imageUrlBuilder(client);
+const builder = imageUrlBuilder(client)
 
-export function urlFor(source) {
-  return builder.image(source)
+function getWidth(options) {
+  const { isInline, width } = options
+  if (width) return width
+  return isInline ? 150 : 800
+}
+
+export function urlFor(source, options = {}) {
+  const width = getWidth(options)
+  return builder.image(source).width(width).fit('max').auto('format')
 }

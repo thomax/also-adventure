@@ -14,7 +14,7 @@ if (!PUBLIC_SANITY_PROJECT_ID || !PUBLIC_SANITY_DATASET) {
 export const client = createClient({
   projectId: PUBLIC_SANITY_PROJECT_ID,
   dataset: PUBLIC_SANITY_DATASET,
-  useCdn: false, // `false` if you want to ensure fresh data
+  useCdn: true, // `false` if you want to ensure fresh data
   apiVersion: "2024-01-31", // date of setup
 });
 
@@ -22,8 +22,8 @@ export async function getPosts(options = {}) {
   const { campaignSlug, category } = options
   const campaignFilter = campaignSlug ? ` && campaign._ref in *[_type =="campaign" && slug.current == "${campaignSlug}"]._id` : ''
   const categoryFilter = category ? ` && category._ref in *[_type =="category" && singular == "${category}"]._id` : ''
-  // Limit to 20 posts if no campaign or category is selected
-  const limitFilter = (!campaignSlug && !category) ? '[0...20]' : ''
+  // Limit to 10 posts if no campaign or category is selected
+  const limitFilter = (!campaignSlug && !category) ? '[0...10]' : ''
 
   const query = groq`*[
       _type == "post"

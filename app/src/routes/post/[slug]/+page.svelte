@@ -1,18 +1,21 @@
 <script>
 	import {PortableText} from '@portabletext/svelte'
-	import {formatDate} from '../../../lib/utils'
-	import {urlFor} from '../../../lib/utils/image'
-
+	import {formatDate} from '$lib/utils'
+	import {urlFor} from '$lib/utils/image'
+	import PortableTextImage from '../../../components/PortableTextImage.svelte'
 	export let data
+	let mainImageUrl
+
+	if (data.mainImage) {
+		mainImageUrl = urlFor(data.mainImage, {with: 1000}).url()
+	}
 </script>
 
 <section class="post">
-	{#if data.mainImage}
-		<img
-			class="post__cover"
-			src={urlFor(data.mainImage).url()}
-			alt="Cover image for {data.title}"
-		/>
+	{#if mainImageUrl}
+		<a href={mainImageUrl} rel="noopener noreferrer"
+			><img class="post__cover" src={mainImageUrl} alt="Cover image for {data.title}" />
+		</a>
 	{:else}
 		<div class="post__cover--none" />
 	{/if}
@@ -29,7 +32,12 @@
 			)}
 		</p>
 		<div class="post__content">
-			<PortableText value={data.body} />
+			<PortableText
+				value={data.body}
+				components={{
+					types: {image: PortableTextImage}
+				}}
+			/>
 		</div>
 	</div>
 </section>
