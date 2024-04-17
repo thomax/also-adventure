@@ -1,7 +1,7 @@
 <script>
 	import {browser} from '$app/environment'
 	import Select from './Select.svelte'
-	import {getSelectionIndices, updateQueryParams} from '../lib/utils/urlAccess'
+	import {getSelectionIndices, updateQueryParams} from '$lib/utils/urlAccess'
 	export let campaigns = []
 	export let categories = []
 
@@ -25,7 +25,6 @@
 			}
 		}
 	}
-
 </script>
 
 <div class="filter-widget-container">

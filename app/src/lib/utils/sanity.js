@@ -1,14 +1,14 @@
-import { createClient } from "@sanity/client";
+import { createClient } from "@sanity/client"
 
-import groq from "groq";
+import groq from "groq"
 
 import {
   PUBLIC_SANITY_DATASET,
   PUBLIC_SANITY_PROJECT_ID,
-} from "$env/static/public";
+} from "$env/static/public"
 
 if (!PUBLIC_SANITY_PROJECT_ID || !PUBLIC_SANITY_DATASET) {
-  throw new Error("Did you forget to run sanity init --env?");
+  throw new Error("Did you forget to run sanity init --env?")
 }
 
 export const client = createClient({
@@ -16,7 +16,7 @@ export const client = createClient({
   dataset: PUBLIC_SANITY_DATASET,
   useCdn: true, // `false` if you want to ensure fresh data
   apiVersion: "2024-01-31", // date of setup
-});
+})
 
 export async function getPosts(options = {}) {
   const { campaignSlug, category } = options
@@ -47,13 +47,13 @@ export async function getPost(slug) {
     groq`*[_type == "post" && slug.current == "${slug}"][0]{
       ...,
       category->{title},
-      campaign->{title},
+      campaign->{title, "slug": slug.current},
       authors[]->{name}
     }`,
     {
       slug,
     }
-  );
+  )
 }
 
 export async function getCampaigns() {

@@ -1,7 +1,7 @@
 import { browser } from '$app/environment'
 
 export function updateQueryParams(selectedCampaign, selectedCategory) {
-  const url = new URL(window.location.href)
+  const url = new URL(window.location.origin)
   if (selectedCampaign) {
     url.searchParams.set('campaign', selectedCampaign)
   } else {

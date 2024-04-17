@@ -8,7 +8,7 @@ import {
   MdPerson,
   MdBook,
   MdLibraryBooks,
-  MdDirectionsBoat
+  MdDirectionsBoat,
 } from 'react-icons/md'
 
 import {EditIcon} from '@sanity/icons'
@@ -21,7 +21,7 @@ import {useClient} from 'sanity'
 
 const today = new Date().toISOString().split('T')[0]
 
-const fetchSystemGroups = client => {
+const fetchSystemGroups = (client) => {
   return client.fetch('*[_type=="system.group"]')
 }
 
@@ -45,25 +45,25 @@ const fetchCategoriesWithPosts = (campaignId, client) => {
 }
 
 function campaignPostsByCategory(S, campaignId, client) {
-  return fetchCategoriesWithPosts(campaignId, client).then(categories => {
+  return fetchCategoriesWithPosts(campaignId, client).then((categories) => {
     return S.list()
       .title('Categories')
       .items(
         categories
-          .filter(cat => cat.publishedDocs.length > 0)
-          .map(category => {
+          .filter((cat) => cat.publishedDocs.length > 0)
+          .map((category) => {
             const {publishedDocs = [], draftDocs = []} = category
             const uniquePosts = publishedDocs.concat(
-              draftDocs.filter(doc => {
+              draftDocs.filter((doc) => {
                 const id = doc._id.replace('drafts.', '')
-                return !publishedDocs.some(doc => doc._id === id)
+                return !publishedDocs.some((doc) => doc._id === id)
               })
             )
             return S.listItem()
               .id(category._id)
               .title(`${category.title} [${uniquePosts.length}]`)
               .icon(MdFolder)
-              .child(id =>
+              .child((id) =>
                 S.documentList()
                   .title(`${category.title}s`)
                   .schemaType('post')
@@ -71,27 +71,42 @@ function campaignPostsByCategory(S, campaignId, client) {
                     ...S.documentTypeList('post').getMenuItems(),
                     S.orderingMenuItem({
                       title: 'Order ascending',
-                      by: [{field: 'order', direction: 'asc'}]
+                      by: [{field: 'order', direction: 'asc'}],
                     }),
                     S.orderingMenuItem({
                       title: 'Order descending',
-                      by: [{field: 'order', direction: 'desc'}]
-                    })
+                      by: [{field: 'order', direction: 'desc'}],
+                    }),
                   ])
                   .filter(
                     '_type == "post" && campaign._ref == $campaignId && category._ref == $categoryId'
                   )
                   .params({campaignId, categoryId: category._id})
-                  .child(documentId =>
+                  .child((documentId) =>
                     S.document()
                       .documentId(documentId)
                       .schemaType('post')
                       .views([
                         S.view.form().icon(EditIcon),
+                        S.view.component(ArticlePreview).icon(EyeOpenIcon).title('Preview'),
                         S.view
-                          .component(ArticlePreview)
-                          .icon(EyeOpenIcon)
-                          .title('Preview')
+                          .component(({document}) => (
+                            <h2>
+                              <a
+                                href={`https://adventure-source.vercel.app/post/${document.displayed.slug.current}`}
+                                target="_blank"
+                                style={{marginLeft: '10px'}}
+                              >
+                                Visit the actual website :)
+                              </a>
+                            </h2>
+                          ))
+                          .title('WWW'),
+                        S.view
+                          .component(({document}) => (
+                            <pre>{JSON.stringify(document.displayed, null, 2)}</pre>
+                          ))
+                          .title('JSON'),
                       ])
                   )
               )
@@ -100,10 +115,10 @@ function campaignPostsByCategory(S, campaignId, client) {
   })
 }
 
-export default S => {
+export default (S) => {
   const client = useClient({apiVersion: today})
 
-  return fetchSystemGroups(client).then(systemGroups => {
+  return fetchSystemGroups(client).then((systemGroups) => {
     return S.list()
       .title('Content')
       .items([
@@ -115,7 +130,7 @@ export default S => {
             S.documentTypeList('campaign')
               .title('Select campaign')
               .filter('_type == "campaign"')
-              .child(campaignId => campaignPostsByCategory(S, campaignId, client))
+              .child((campaignId) => campaignPostsByCategory(S, campaignId, client))
           ),
         S.listItem()
           .title('All posts')
@@ -124,16 +139,13 @@ export default S => {
           .child(
             S.documentTypeList('post')
               .title('Posts')
-              .child(documentId =>
+              .child((documentId) =>
                 S.document()
                   .documentId(documentId)
                   .schemaType('post')
                   .views([
                     S.view.form().icon(EditIcon),
-                    S.view
-                      .component(ArticlePreview)
-                      .icon(EyeOpenIcon)
-                      .title('Preview')
+                    S.view.component(ArticlePreview).icon(EyeOpenIcon).title('Preview'),
                   ])
               )
           ),
@@ -174,16 +186,13 @@ export default S => {
                   .child(
                     S.documentTypeList('ship')
                       .title('Ships')
-                      .child(documentId =>
+                      .child((documentId) =>
                         S.document()
                           .documentId(documentId)
                           .schemaType('ship')
                           .views([
                             S.view.form().icon(EditIcon),
-                            S.view
-                              .component(DeveloperPreview)
-                              .icon(EyeOpenIcon)
-                              .title('Preview')
+                            S.view.component(DeveloperPreview).icon(EyeOpenIcon).title('Preview'),
                           ])
                       )
                   ),
@@ -204,17 +213,14 @@ export default S => {
                   .child(S.documentTypeList('shipWeapon').title('Ship Weapon')),
                 S.listItem()
                   .title('Ship Ammo')
-                  .child(S.documentTypeList('shipAmmo').title('Ship Ammo'))
+                  .child(S.documentTypeList('shipAmmo').title('Ship Ammo')),
               ])
           ),
         S.listItem()
           .title('Settings')
           .icon(MdSettings)
           .child(
-            S.editor()
-              .id('siteSettings')
-              .schemaType('siteSettings')
-              .documentId('siteSettings')
+            S.editor().id('siteSettings').schemaType('siteSettings').documentId('siteSettings')
           ),
         S.listItem()
           .title('System Groups')
@@ -223,7 +229,7 @@ export default S => {
             S.list()
               .title(`All the groups`)
               .items(
-                systemGroups.map(systemGroup =>
+                systemGroups.map((systemGroup) =>
                   S.listItem()
                     .title(systemGroup._id)
                     .icon(MdSettings)
@@ -244,9 +250,9 @@ export default S => {
                   .intent({type: 'create', params: {type: 'mydocument'}}),
                 S.menuItem()
                   .title('Edit this Level 1 Item')
-                  .intent({type: 'edit', params: {type: 'mydocument', id: 'asdf'}})
+                  .intent({type: 'edit', params: {type: 'mydocument', id: 'asdf'}}),
               ])
-          )
+          ),
       ])
   })
 }
