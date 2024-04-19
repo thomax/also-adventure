@@ -4,7 +4,7 @@
 </script>
 
 <a
-	href={urlFor(portableText.value, {isInline: false, width: 800}).url()}
+	href={urlFor(portableText.value).url()}
 	alt="Large image"
 	target="_blank"
 	rel="noopener noreferrer"

@@ -28,6 +28,14 @@
 	})
 </script>
 
+<svelte:head>
+	<meta property="og:type" content="website" />
+	<meta property="og:url" content="https://adventure-source.vercel.app" />
+	<meta property="og:site_name" content="The Source of Adventure" />
+	<meta property="og:locale" content="nb_NO" />
+	<meta property="og:title" content="The Source of Adventure" />
+</svelte:head>
+
 <section id="widgetSection">
 	{#if campaigns.length}
 		<FilterWidget {campaigns} {categories} />

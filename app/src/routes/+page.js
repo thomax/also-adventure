@@ -12,10 +12,6 @@ export const load = async () => {
     categories = categories.filter((cat) => cat.postCount > 0)
   }
 
-  console.log('posts', posts.length)
-  console.log('campaigns', campaigns.length)
-  console.log('categories', categories.length)
-
   if (campaigns) {
     return {
       posts,
