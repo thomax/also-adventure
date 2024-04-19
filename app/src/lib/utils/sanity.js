@@ -37,7 +37,7 @@ export async function getPosts(options = {}) {
       category->{title},
       campaign->{title},
       authors[]->{_id,name},
-    } | order(order desc, _createdAt desc)
+    } | order(_updatedAt desc)
     ${limitFilter}`
   return await client.fetch(query)
 }

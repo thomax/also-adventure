@@ -7,7 +7,7 @@ const builder = imageUrlBuilder(client)
 function getWidth(options) {
   const { isInline, width } = options
   if (width) return width
-  return isInline ? 150 : 800
+  return isInline ? 150 : 750
 }
 
 export function urlFor(source, options = {}) {
