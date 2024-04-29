@@ -108,12 +108,11 @@
 	}
 
 	a.editLink {
-		opacity: 0;
-		transition: opacity 0.4s ease;
+		box-shadow: none;
+		transition: box-shadow 0.3s;
 	}
-
 	a.editLink:hover {
-		opacity: 1;
+		box-shadow: 0px 104px 70px -73px rgba(231, 166, 26, 1);
 	}
 
 	a.editLink img {
