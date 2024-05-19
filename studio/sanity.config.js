@@ -1,7 +1,8 @@
 // sanity.config.js
-import {defineConfig} from 'sanity'
-import {deskTool} from 'sanity/desk'
-import {visionTool} from '@sanity/vision'
+import { defineConfig } from 'sanity'
+import { structureTool } from 'sanity/structure'
+import { media } from 'sanity-plugin-media'
+import { visionTool } from '@sanity/vision'
 import schemas from './schemas/schema'
 import deskStructure from './src/deskStructure'
 import initialValueTempates from './src/initialValueTemplates'
@@ -11,10 +12,11 @@ export default defineConfig({
   projectId: 'sajbthd8',
   dataset: 'production',
   plugins: [
-    deskTool({
+    structureTool({
       structure: deskStructure
     }),
-    visionTool()
+    visionTool(),
+    media()
   ],
   tools: prev => {
     // 👇 Uses environment variables set by Vite in development mode
