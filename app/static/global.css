@@ -377,9 +377,12 @@ main {
 #campaignInfo .row {
   display: flex;
   margin-bottom: 10px;
-  background-color: rgba(1, 22, 109, 0.4);
-  padding: 5px;
-  color: rgb(234, 243, 225);
+  padding: 5px 7px;
+  background: rgb(187, 187, 187);
+  background: linear-gradient(to right, rgb(187, 187, 187) 60%,rgba(187, 187, 187, 0.098) 100%);
+  mix-blend-mode: screen;
+  text-shadow: 1px 1px 0 rgba(120, 118, 118, 0.29);
+  border-radius: 1px;
 }
 
 #campaignInfo .label {
