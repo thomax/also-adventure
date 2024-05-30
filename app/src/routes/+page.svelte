@@ -54,7 +54,9 @@
 			<span class="label">System</span><span class="value">{campaign.system}</span>
 		</div>
 		<div class="row">
-			<span class="label">PCs</span><span class="value">{campaign.pcNames.join(', ')}</span>
+			<span class="label">PCs</span><span class="value"
+				>{campaign.pcNames.reverse().join(', ')}</span
+			>
 		</div>
 	</section>
 {/if}
