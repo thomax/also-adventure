@@ -48,7 +48,7 @@
 		<a href={urlFor(data.mainImage).url()} rel="noopener noreferrer"
 			><img
 				class="post__cover drop-shadow-image"
-				src={urlFor(data.mainImage).width(1000).url()}
+				src={urlFor(data.mainImage).width(1000).height(500).url()}
 				alt="Cover image for {data.title}"
 			/>
 		</a>
