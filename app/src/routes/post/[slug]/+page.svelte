@@ -45,7 +45,7 @@
 
 <section class="post">
 	{#if data.mainImage}
-		<a href={mainImageUrl} rel="noopener noreferrer"
+		<a href={urlFor(data.mainImage).url()} rel="noopener noreferrer"
 			><img
 				class="post__cover drop-shadow-image"
 				src={urlFor(data.mainImage).width(1000).url()}
