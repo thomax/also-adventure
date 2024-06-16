@@ -7,15 +7,11 @@
 
 	import PortableTextImage from '../../../components/PortableTextImage.svelte'
 	export let data
-	let mainImageUrl
 	let campaignTitle
 	let categoryTitle
 	let campaignUrl
 	let categoryUrl
 
-	if (data.mainImage) {
-		mainImageUrl = urlFor(data.mainImage).width(1000).url()
-	}
 	if (data.category) {
 		campaignTitle = data.campaign.title?.toLowerCase()
 		categoryTitle = data.category.title.toLowerCase()
@@ -40,16 +36,19 @@
 	<meta property="og:site_name" content="The Source of Adventure" />
 	<meta property="og:locale" content="nb_NO" />
 	<meta property="og:title" content={data.title || 'The Source of Adventure'} />
-	<meta property="og:image" content={mainImageUrl} />
+	<meta
+		property="og:image"
+		content={data.mainImage ? urlFor(data.mainImage).width(300).url() : ''}
+	/>
 	<meta property="og:image:alt" content={data.title || 'The Source of Adventure'} />
 </svelte:head>
 
 <section class="post">
-	{#if mainImageUrl}
+	{#if data.mainImage}
 		<a href={mainImageUrl} rel="noopener noreferrer"
 			><img
 				class="post__cover drop-shadow-image"
-				src={mainImageUrl}
+				src={urlFor(data.mainImage).width(1000).url()}
 				alt="Cover image for {data.title}"
 			/>
 		</a>
