@@ -14,7 +14,7 @@
 	let categoryUrl
 
 	if (data.mainImage) {
-		mainImageUrl = urlFor(data.mainImage, {with: 1000}).url()
+		mainImageUrl = urlFor(data.mainImage).width(1000).url()
 	}
 	if (data.category) {
 		campaignTitle = data.campaign.title?.toLowerCase()
