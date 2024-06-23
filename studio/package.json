@@ -15,6 +15,7 @@
   },
   "dependencies": {
     "@portabletext/react": "^3.0.0",
+    "@sanity/block-content-to-markdown": "^0.0.5",
     "@sanity/icons": "^2.11.8",
     "@sanity/ui": "^2.1.10",
     "@sanity/vision": "^3.42.1",

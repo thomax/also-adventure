@@ -13,13 +13,29 @@ import {
 
 import {EditIcon} from '@sanity/icons'
 import {EyeOpenIcon} from '@sanity/icons'
+import toMarkdown from '@sanity/block-content-to-markdown'
 import ArticlePreview from './previews/article/ArticlePreview'
 //import SpaceshipSummary from './previews/spaceship/SpaceshipSummary'
 import DeveloperPreview from './previews/spaceship/DeveloperPreview'
 
 import {useClient} from 'sanity'
 
+const markdownSerializers = {
+  types: {
+    code: props => '```' + props.node.language + '\n' + props.node.code + '\n```'
+  }
+}
+
 const today = new Date().toISOString().split('T')[0]
+
+const copyToClipboard = () => {
+  const text = document.getElementById('documentAsMarkdown').innerText
+  navigator.clipboard.writeText(text).then(() => {
+    console.log('Async: Copying to clipboard was successful!')
+  }, (err) => {
+    console.error('Async: Could not copy text: ', err)
+  })
+}
 
 const fetchSystemGroups = (client) => {
   return client.fetch('*[_type=="system.group"]')
@@ -107,6 +123,22 @@ function campaignPostsByCategory(S, campaignId, client) {
                             <pre>{JSON.stringify(document.displayed, null, 2)}</pre>
                           ))
                           .title('JSON'),
+                        S.view
+                          .component(({document}) => (
+                            <div>
+                              <button onClick={copyToClipboard}>Copy MD to clipboard</button>
+                              <pre id="documentAsMarkdown">{
+                                  toMarkdown(document.displayed.body, {
+                                  serializers: markdownSerializers,
+                                  imageOptions: {w: 320, h: 240, fit: 'max'},
+                                  projectId: 'sajbthd8',
+                                  dataset: 'production'
+                                })
+                              }
+                              </pre>
+                            </div>
+                          ))
+                          .title('Markdown'),
                       ])
                   )
               )
