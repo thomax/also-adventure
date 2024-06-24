@@ -10,6 +10,12 @@ export default {
       type: 'string'
     },
     {
+      title: 'Main Image',
+      name: 'mainImage',
+      type: 'image',
+      options: { hotspot: true }
+    },
+    {
       title: 'Body',
       name: 'body',
       type: 'blockContent'
@@ -27,19 +33,13 @@ export default {
       title: 'Category',
       name: 'category',
       type: 'reference',
-      to: [{type: 'category'}]
+      to: [{ type: 'category' }]
     },
     {
       title: 'Campaign',
       name: 'campaign',
       type: 'reference',
-      to: [{type: 'campaign'}]
-    },
-    {
-      title: 'Main Image',
-      name: 'mainImage',
-      type: 'image',
-      options: {hotspot: true}
+      to: [{ type: 'campaign' }]
     },
     {
       title: 'Order',
@@ -51,7 +51,7 @@ export default {
       title: 'Authors',
       name: 'authors',
       type: 'array',
-      of: [{type: 'reference', to: [{type: 'user'}]}]
+      of: [{ type: 'reference', to: [{ type: 'user' }] }]
     },
     {
       title: 'Secret',
@@ -63,7 +63,7 @@ export default {
       title: 'Comments',
       name: 'comments',
       type: 'array',
-      of: [{type: 'comment'}]
+      of: [{ type: 'comment' }]
     }
   ],
   preview: {
@@ -74,7 +74,7 @@ export default {
       order: 'order',
       campaignSlug: 'campaign.slug.current'
     },
-    prepare({title, category, image, campaignSlug, order}) {
+    prepare({ title, category, image, campaignSlug, order }) {
       return {
         title: title || 'untitled',
         subtitle: [campaignSlug, category, order].filter(Boolean).join('/'),
