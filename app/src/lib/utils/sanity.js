@@ -31,13 +31,13 @@ export async function getPosts(options = {}) {
       && !(_id in path('drafts.**'))
       ${campaignFilter}
       ${categoryFilter}
-    ]
+    ] | order(order desc, _updatedAt desc)
     {
       ...,
       category->{title},
       campaign->{title},
       authors[]->{_id,name},
-    } | order(_updatedAt desc)
+    }
     ${limitFilter}`
   return await client.fetch(query)
 }

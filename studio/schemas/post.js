@@ -45,7 +45,7 @@ export default {
       title: 'Order',
       name: 'order',
       type: 'number',
-      description: 'A number. Use needed if this article is a session'
+      description: 'A number. Use this if document is a session'
     },
     {
       title: 'Authors',
@@ -57,7 +57,7 @@ export default {
       title: 'Secret',
       name: 'isSecret',
       type: 'boolean',
-      description: 'Secret posts are only readable by the GM'
+      description: 'Not in use. The ideas was that secret documents are only readable by the GM'
     },
     {
       title: 'Comments',
