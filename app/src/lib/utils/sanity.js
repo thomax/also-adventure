@@ -23,7 +23,7 @@ export async function getPosts(options = {}) {
   const campaignFilter = campaignSlug ? ` && campaign._ref in *[_type =="campaign" && slug.current == "${campaignSlug}"]._id` : ''
   const categoryFilter = category ? ` && category._ref in *[_type =="category" && singular == "${category}"]._id` : ''
   // Limit to 10 posts if no campaign or category is selected
-  const limitFilter = (!campaignSlug && !category) ? '[0...10]' : ''
+  const limitFilter = !campaignSlug ? '[0...10]' : ''
 
   const query = groq`*[
       _type == "post"
@@ -31,7 +31,7 @@ export async function getPosts(options = {}) {
       && !(_id in path('drafts.**'))
       ${campaignFilter}
       ${categoryFilter}
-    ] | order(order desc, _updatedAt desc)
+    ] | order(defined(order) desc, order desc, _updatedAt desc)
     {
       ...,
       category->{title},
