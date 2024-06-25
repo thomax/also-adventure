@@ -1,6 +1,6 @@
 <script>
-	import {getSelectedSlugs} from '../lib/utils/urlAccess'
-	const {selectedCampaign, selectedCategory} = getSelectedSlugs()
+	import {getUrlParams} from '../lib/utils/urlAccess'
+	const {selectedCampaign, selectedCategory} = getUrlParams()
 </script>
 
 <div class="welcome__container">

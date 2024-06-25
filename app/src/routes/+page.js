@@ -1,9 +1,9 @@
 import { getPosts, getCampaigns, getCategories } from "../lib/utils/sanity.js"
-import { getSelectedSlugs } from "../lib/utils/urlAccess.js"
+import { getUrlParams } from "../lib/utils/urlAccess.js"
 import { error } from "@sveltejs/kit"
 
 export const load = async () => {
-  const { selectedCampaign, selectedCategory } = getSelectedSlugs()
+  const { selectedCampaign, selectedCategory } = getUrlParams()
 
   const posts = await getPosts({ campaignSlug: selectedCampaign, category: selectedCategory })
   const campaigns = await getCampaigns()

@@ -3,9 +3,9 @@
 	import Post from '../components/Post.svelte'
 	import FilterWidget from '../components/FilterWidget.svelte'
 	import NoData from '../components/NoData.svelte'
-	import {getSelectedSlugs} from '../lib/utils/urlAccess'
+	import {getUrlParams} from '../lib/utils/urlAccess'
 	export let data
-	const {selectedCampaign, selectedCategory} = getSelectedSlugs()
+	const {selectedCampaign, selectedCategory} = getUrlParams()
 	let campaigns = []
 	let categories = []
 	let campaign
@@ -23,8 +23,10 @@
 	}
 
 	onMount(() => {
-		campaignInfo.style.background = `url('${campaign.mainImage.asset.url}')  no-repeat top center`
-		campaignInfo.style.backgroundSize = 'cover'
+		if (campaignInfo) {
+			campaignInfo.style.background = `url('${campaign.mainImage.asset.url}') no-repeat top center`
+			campaignInfo.style.backgroundSize = 'cover'
+		}
 	})
 </script>
 

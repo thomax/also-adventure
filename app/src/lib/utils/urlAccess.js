@@ -17,7 +17,7 @@ export function updateQueryParams(selectedCampaign, selectedCategory) {
 
 export function getSelectionIndices(campaigns, categories) {
   if (!browser) return {} // no sense in parsing a URL on the server
-  const { selectedCampaign, selectedCategory } = getSelectedSlugs()
+  const { selectedCampaign, selectedCategory } = getUrlParams()
   const campaignIndex = campaigns.findIndex((campaign) => campaign.slug === selectedCampaign)
   const categoryIndex = categories.findIndex((category) => category.singular === selectedCategory)
   return {
@@ -26,7 +26,7 @@ export function getSelectionIndices(campaigns, categories) {
   }
 }
 
-export function getSelectedSlugs() {
+export function getUrlParams() {
   if (!browser) return {} // no sense in parsing a URL on the server
   const url = new URL(window.location.href)
   return {

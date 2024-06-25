@@ -19,11 +19,12 @@ export const client = createClient({
 })
 
 export async function getPosts(options = {}) {
-  const { campaignSlug, category } = options
+  const { campaignSlug, category, limit } = options
   const campaignFilter = campaignSlug ? ` && campaign._ref in *[_type =="campaign" && slug.current == "${campaignSlug}"]._id` : ''
   const categoryFilter = category ? ` && category._ref in *[_type =="category" && singular == "${category}"]._id` : ''
-  // Limit to 10 posts if no campaign or category is selected
-  const limitFilter = !campaignSlug ? '[0...10]' : ''
+  // Limit to 10 posts if no campaign is selected
+  const maxLimit = limit ? limit : '10'
+  const limitFilter = !campaignSlug ? `[0...${maxLimit}]` : ''
 
   const query = groq`*[
       _type == "post"
