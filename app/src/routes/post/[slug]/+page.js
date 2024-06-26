@@ -1,12 +1,12 @@
-import { error } from "@sveltejs/kit";
+import { error } from "@sveltejs/kit"
 
-import { getPost } from "../../../lib/utils/sanity.js";
+import { getPost } from "../../../lib/utils/sanity.js"
 
-export const ssr = false;
+export const ssr = false
 
 export const load = async ({ params }) => {
-  const post = await getPost(params.slug);
-  if (post) return post;
+  const post = await getPost({ slug: params.slug })
+  if (post) return post
 
-  error(404, "Not found");
+  error(404, "Not found")
 };
