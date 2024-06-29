@@ -5,7 +5,6 @@ import { getPost } from "../../../../lib/utils/sanity.js"
 export const ssr = false
 
 export const load = async ({ params }) => {
-  console.log('gonna log', params)
   const { campaign, category, identifier } = params
   if (campaign && category && identifier) {
     const queryOptions = { campaignSlug: campaign, category }
@@ -15,7 +14,6 @@ export const load = async ({ params }) => {
     } else {
       queryOptions.slug = identifier
     }
-    console.log('asking for', queryOptions)
     const post = await getPost(queryOptions)
     if (post) return post
     error(404, "Not found")

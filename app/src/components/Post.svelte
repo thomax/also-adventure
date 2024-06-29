@@ -2,6 +2,20 @@
 	import {formatDate} from '$lib/utils'
 	import {urlFor} from '$lib/utils/image'
 	export let post
+
+	function urlForPost(post) {
+		console.log('post', post)
+		let url = `/post/${post.slug.current}`
+		if (post.campaign && post.category) {
+			url = `/${post.campaign.slug.current}/${post.category.singular}`
+			if (!isNaN(post.order)) {
+				url = `${url}/${post.order}`
+			} else {
+				url = `${url}/${post.slug.current}`
+			}
+		}
+		return url.toLowerCase()
+	}
 </script>
 
 <div class="card">
@@ -17,7 +31,7 @@
 
 	<div class="card__container">
 		<h3 class="card__title">
-			<a class="card__link" href={`/post/${post.slug.current}`}>
+			<a class="card__link" href={urlForPost(post)}>
 				{post.title}
 			</a>
 		</h3>

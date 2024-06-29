@@ -38,8 +38,8 @@ export async function getPosts(options = {}) {
     ] | ${sortOrder}
     {
       ...,
-      category->{title},
-      campaign->{title},
+      category->{title, singular},
+      campaign->{title, slug},
       authors[]->{_id,name},
     }
     ${limitFilter}`
