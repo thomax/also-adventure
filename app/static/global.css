@@ -200,7 +200,7 @@ main {
 .footer {
   display: flex;
   justify-content: flex-end;
-  padding: 0 var(--space-3);
+  padding: var(--space-4) var(--space-3);
 }
 
 .footer .footer__text {
