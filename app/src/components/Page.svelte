@@ -17,19 +17,6 @@
 		campaignUrl = `/?campaign=${data.campaign.slug}`
 		categoryUrl = `${campaignUrl}&category=${data.category.title.toLowerCase()}`
 	}
-
-	function onClickCampagin(event) {
-		event.preventDefault()
-		navigateWithUpdatedUrl(window.location.search, {selectedCampaign: data.campaign.slug})
-	}
-
-	function onClickCategory(event) {
-		event.preventDefault()
-		navigateWithUpdatedUrl(window.location.search, {
-			selectedCampaign: data.campaign.slug,
-			selectedCategory: data.category.title.toLowerCase()
-		})
-	}
 </script>
 
 <svelte:head>
@@ -60,10 +47,11 @@
 	<div class="post__container">
 		<h1 class="post__title">{data.title}</h1>
 		<p class="card__excerpt nav-link-box">
-			<a class="nav-link" href={campaignUrl} on:click={onClickCampagin}>{campaignTitle}</a>
+			<a class="nav-link" href={campaignUrl}>{campaignTitle}</a>
 			/
-			<a class="nav-link" href={categoryUrl} on:click={onClickCategory}>{categoryTitle}</a
-			>{data.order ? ` / ${data.order}` : ''}
+			<a class="nav-link" href={categoryUrl}>{categoryTitle}</a>{data.order
+				? ` / ${data.order}`
+				: ''}
 		</p>
 		<p class="card__date">
 			{data.authors ? data.authors.map((author) => author.name).join(', ') : 'Anonymous'} - {formatDate(
