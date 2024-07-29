@@ -1,29 +1,26 @@
 <script>
-	import {browser} from '$app/environment'
+	import {page} from '$app/stores'
+
 	import Select from './Select.svelte'
-	import {getSelectionIndices, updateQueryParams} from '$lib/utils/urlAccess'
+	import {getSelectionIndices, navigateWithUpdatedUrl} from '$lib/utils/urlAccess'
+	export const ssr = false
+
 	export let campaigns = []
 	export let categories = []
 
+	// There is a bug here, which kicks in when user changes campaign -> The category will keep the index and likely get a new value
 	let {selectedCampaignIndex, selectedCategoryIndex} = getSelectionIndices(campaigns, categories)
-	let previousCampaignIndex = selectedCampaignIndex
-	let previousCategoryIndex = selectedCategoryIndex
 
 	$: {
-		if (browser) {
-			const selectedCampaign = campaigns[selectedCampaignIndex].slug
-			const selectedCategory = categories[selectedCategoryIndex]?.singular
+		const selectedCampaign = campaigns[selectedCampaignIndex].slug
+		const selectedCategory = categories[selectedCategoryIndex]?.singular
+		const newState = {}
 
-			// keep track of previous choices and only update the URL if they change
-			if (
-				selectedCampaignIndex !== previousCampaignIndex ||
-				selectedCategoryIndex !== previousCategoryIndex
-			) {
-				updateQueryParams(selectedCampaign, selectedCategory)
-				previousCampaignIndex = selectedCampaignIndex
-				previousCategoryIndex = selectedCategoryIndex
-			}
-		}
+		newState.campaign = selectedCampaign && selectedCampaignIndex !== 0 ? selectedCampaign : null
+
+		newState.category = selectedCategory && selectedCategoryIndex !== 0 ? selectedCategory : null
+
+		navigateWithUpdatedUrl($page.url.searchParams, newState)
 	}
 </script>
 

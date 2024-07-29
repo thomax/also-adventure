@@ -1,23 +1,43 @@
 import { browser } from '$app/environment'
+import { goto } from '$app/navigation'
 
-export function updateQueryParams(selectedCampaign, selectedCategory) {
-  const url = new URL(window.location.origin)
-  if (selectedCampaign) {
-    url.searchParams.set('campaign', selectedCampaign)
+export function navigateWithUpdatedUrl(currentSearchParams, newState) {
+  const newParamsAsString = updateUrlParams(currentSearchParams, newState)
+  navigateWithParams(newParamsAsString)
+}
+
+export function updateUrlParams(currentSearchParams, newState) {
+  const newParams = new URLSearchParams(currentSearchParams)
+  const { campaign, category, query } = newState
+
+  if (campaign) {
+    newParams.set('campaign', campaign)
   } else {
-    url.searchParams.delete('campaign')
+    newState.hasOwnProperty('campaign') && newParams.delete('campaign')
   }
-  if (selectedCategory) {
-    url.searchParams.set('category', selectedCategory)
+  if (category) {
+    newParams.set('category', category)
   } else {
-    url.searchParams.delete('category')
+    newState.hasOwnProperty('category') && newParams.delete('category')
   }
-  window.location.href = url
+  if (query) {
+    newParams.set('query', query)
+  } else {
+    newState.hasOwnProperty('query') && newParams.delete('query')
+  }
+  return `?${newParams.toString()}`
+}
+
+export function navigateWithParams(paramsAsString) {
+  goto(paramsAsString)
 }
 
 export function getSelectionIndices(campaigns, categories) {
   if (!browser) return {} // no sense in parsing a URL on the server
-  const { selectedCampaign, selectedCategory } = getUrlParams()
+  const url = new URL(window.location.href)
+  const selectedCampaign = url.searchParams.get('campaign')
+  const selectedCategory = url.searchParams.get('category')
+
   const campaignIndex = campaigns.findIndex((campaign) => campaign.slug === selectedCampaign)
   const categoryIndex = categories.findIndex((category) => category.singular === selectedCategory)
   return {
@@ -25,12 +45,3 @@ export function getSelectionIndices(campaigns, categories) {
     selectedCategoryIndex: categoryIndex < 0 ? 0 : categoryIndex
   }
 }
-
-export function getUrlParams() {
-  if (!browser) return {} // no sense in parsing a URL on the server
-  const url = new URL(window.location.href)
-  return {
-    selectedCampaign: url.searchParams.get('campaign'),
-    selectedCategory: url.searchParams.get('category')
-  }
-} 

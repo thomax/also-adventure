@@ -1,7 +1,9 @@
+<script>
+	import Header from './header.svelte'
+</script>
+
 <div class="container">
-	<header class="header">
-		<a class="header__title" href="/">The Source of Adventure</a>
-	</header>
+	<Header />
 	<main>
 		<slot />
 	</main>

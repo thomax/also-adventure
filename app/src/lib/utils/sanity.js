@@ -19,9 +19,11 @@ export const client = createClient({
 })
 
 export async function getPosts(options = {}) {
-  const { campaignSlug, category, limit } = options
+  const { campaignSlug, category, query, limit } = options
   const campaignFilter = campaignSlug ? ` && campaign._ref in *[_type =="campaign" && slug.current == "${campaignSlug}"]._id` : ''
   const categoryFilter = category ? ` && category._ref in *[_type =="category" && singular == "${category}"]._id` : ''
+  // query string wildcard filter
+  const queryFilter = query ? `&& [title, pt::text(body)] match "*${query}*"` : ''
   // Limit to 10 posts if no campaign is selected
   const maxLimit = limit ? limit : '20'
   // if no campaign is selected, limit number of posts
@@ -29,12 +31,13 @@ export async function getPosts(options = {}) {
   // if no campaign is selected, sort by updatedAt
   const sortOrder = !campaignSlug ? 'order(_updatedAt desc)' : 'order(defined(order) desc, order desc, _updatedAt desc)'
 
-  const query = groq`*[
+  const groqQuery = groq`*[
       _type == "post"
       && defined(slug.current)
       && !(_id in path('drafts.**'))
       ${campaignFilter}
       ${categoryFilter}
+      ${queryFilter}
     ] | ${sortOrder}
     {
       ...,
@@ -43,8 +46,7 @@ export async function getPosts(options = {}) {
       authors[]->{_id,name},
     }
     ${limitFilter}`
-
-  return await client.fetch(query)
+  return await client.fetch(groqQuery)
 }
 
 export async function getPost(options = {}) {

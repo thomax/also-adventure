@@ -1,33 +1,29 @@
 <script>
-	import {onMount} from 'svelte'
+	import {page, navigating} from '$app/stores'
+	import {SyncLoader} from 'svelte-loading-spinners'
 	import Post from '../components/Post.svelte'
+	import CampaignInfo from '../components/CampaignInfo.svelte'
 	import FilterWidget from '../components/FilterWidget.svelte'
 	import NoData from '../components/NoData.svelte'
-	import {getUrlParams} from '../lib/utils/urlAccess'
+
 	export let data
-	const {selectedCampaign, selectedCategory} = getUrlParams()
+	let selectedCampaign = $page.url.searchParams.get('campaign')
+
 	let campaigns = []
 	let categories = []
 	let campaign
-	let campaignInfo
 
 	$: {
-		if (data.campaigns.length) {
+		selectedCampaign = $page.url.searchParams.get('campaign')
+		if (data.campaigns?.length) {
 			campaigns = [{title: 'All', slug: ''}, ...data.campaigns]
 			campaign = campaigns.find((campaign) => campaign.slug === selectedCampaign)
 		}
-		if (data.categories.length) {
+		if (data.categories?.length) {
 			const postCount = data.categories.reduce((acc, category) => acc + category.postCount, 0)
 			categories = [{title: 'All', slug: '', postCount}, ...data.categories]
 		}
 	}
-
-	onMount(() => {
-		if (campaignInfo) {
-			campaignInfo.style.background = `url('${campaign.mainImage.asset.url}') no-repeat top center`
-			campaignInfo.style.backgroundSize = 'cover'
-		}
-	})
 </script>
 
 <svelte:head>
@@ -47,30 +43,16 @@
 </section>
 
 {#if campaign}
-	<section id="campaignInfo" bind:this={campaignInfo}>
-		<div class="row">
-			<span class="label">Campaign</span><span class="value">{campaign.title}</span>
-		</div>
-		<div class="row"><span class="label">GM</span><span class="value">{campaign.gm}</span></div>
-		<div class="row">
-			<span class="label">System</span><span class="value">{campaign.system}</span>
-		</div>
-		<div class="row">
-			<span class="label">PCs</span><span class="value"
-				>{campaign.pcNames.reverse().join(', ')}</span
-			>
-		</div>
-	</section>
+	<CampaignInfo {campaign} />
 {/if}
 
 <section>
-	{#if data.posts.length}
+	{#if $navigating}
+		<SyncLoader size="100" color="#000" unit="px" duration="1s" />
+	{:else if data.posts?.length}
 		{#each data.posts as post}
 			<Post {post} />
 		{/each}
-		{#if !selectedCampaign && !selectedCategory}
-			<div id="pleaseApplyFilter">Please select campaign and/or category to see more posts</div>
-		{/if}
 	{:else}
 		<NoData />
 	{/if}

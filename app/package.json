@@ -14,7 +14,8 @@
 	"dependencies": {
 		"@sanity/client": "^6.0.0",
 		"@sanity/image-url": "^1.0.2",
-		"groq": "^3.8.1"
+		"groq": "^3.8.1",
+		"svelte-loading-spinners": "^0.3.6"
 	},
 	"devDependencies": {
 		"@portabletext/svelte": "^2.1.3",

@@ -3,7 +3,7 @@
 	import {formatDate} from '$lib/utils'
 	import {urlFor} from '$lib/utils/image'
 	import editIcon from '$lib/assets/icons8-edit-64.png'
-	import {updateQueryParams} from '$lib/utils/urlAccess'
+	import {navigateWithUpdatedUrl} from '$lib/utils/urlAccess'
 	import PortableTextImage from './PortableTextImage.svelte'
 	export let data
 	let campaignTitle
@@ -20,12 +20,15 @@
 
 	function onClickCampagin(event) {
 		event.preventDefault()
-		updateQueryParams(data.campaign.slug)
+		navigateWithUpdatedUrl(window.location.search, {selectedCampaign: data.campaign.slug})
 	}
 
 	function onClickCategory(event) {
 		event.preventDefault()
-		updateQueryParams(data.campaign.slug, data.category.title.toLowerCase())
+		navigateWithUpdatedUrl(window.location.search, {
+			selectedCampaign: data.campaign.slug,
+			selectedCategory: data.category.title.toLowerCase()
+		})
 	}
 </script>
 

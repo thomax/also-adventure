@@ -348,6 +348,21 @@ main {
   margin-bottom: 1.3rem;
 }
 
+#searchInputSection {
+  padding: 9px;
+  padding-bottom: 12px;
+  border: 1px solid #ced2d9;
+  border-radius: 3px;
+  margin: 0.2rem 0 0.3rem 2rem;
+}
+
+.seachInputField, on:focus {
+  outline: none;
+  border: none;
+  font-size: 1.5em;
+  width: 100%;
+}
+
 #pleaseApplyFilter {
   font-size: 1.2rem;
   font-weight: 600;
@@ -380,9 +395,8 @@ main {
   padding: 5px 7px;
   background: rgb(187, 187, 187);
   background: linear-gradient(to right, rgb(187, 187, 187) 60%,rgba(187, 187, 187, 0.098) 100%);
-  mix-blend-mode: screen;
-  text-shadow: 1px 1px 0 rgba(120, 118, 118, 0.29);
   border-radius: 1px;
+  color: rgba(48, 48, 48, 0.766);
 }
 
 #campaignInfo .label {

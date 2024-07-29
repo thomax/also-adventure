@@ -1,23 +1,39 @@
 import { getPosts, getCampaigns, getCategories } from "../lib/utils/sanity.js"
-import { getUrlParams } from "../lib/utils/urlAccess.js"
 import { error } from "@sveltejs/kit"
+export const ssr = false
 
-export const load = async () => {
-  const { selectedCampaign, selectedCategory } = getUrlParams()
+let previousQuery = ''
+let cachedResult = {}
 
-  const posts = await getPosts({ campaignSlug: selectedCampaign, category: selectedCategory })
+export async function load({ url }) {
+
+  const campaign = url.searchParams.get('campaign')
+  const category = url.searchParams.get('category')
+  const queryParam = url.searchParams.get('query')
+
+  // only perform new fetch if query has changed and is longer than 2 characters
+  const query = queryParam?.length > 2 ? queryParam : null
+  const currentQuery = [campaign, category, query].join('')
+  if (currentQuery === previousQuery) {
+    return cachedResult
+  }
+  previousQuery = currentQuery
+
+  // fetch data
+  const posts = await getPosts({ campaignSlug: campaign, category: category, query })
   const campaigns = await getCampaigns()
-  let categories = await getCategories({ campaignSlug: selectedCampaign })
-  if (selectedCampaign) {
+  let categories = await getCategories({ campaignSlug: campaign })
+  if (campaign) {
     categories = categories.filter((cat) => cat.postCount > 0)
   }
 
   if (campaigns) {
-    return {
+    cachedResult = {
       posts,
       campaigns,
       categories
     }
+    return cachedResult
   }
 
   error(404, "Not found, possibly error while fetching data");

@@ -4,7 +4,6 @@
 	export let post
 
 	function urlForPost(post) {
-		console.log('post', post)
 		let url = `/post/${post.slug.current}`
 		if (post.campaign && post.category) {
 			url = `/${post.campaign.slug.current}/${post.category.singular}`
