@@ -2,7 +2,7 @@ import { getPosts, getCampaigns, getCategories } from "../lib/utils/sanity.js"
 import { error } from "@sveltejs/kit"
 export const ssr = false
 
-let previousQuery = ''
+let previousQuery = 'xyzzy' // unique string to force initial fetch
 let cachedResult = {}
 
 export async function load({ url }) {
