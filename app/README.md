@@ -1,6 +1,6 @@
-# Website, the source of adventure (better title tba)
+# Frontend; the source of adventure
 
 Svelte-kit, vite, sanity
 
 ## TODO
-moar responsiver
+Moar responsiveness
