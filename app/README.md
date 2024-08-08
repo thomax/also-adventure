@@ -1,7 +1,6 @@
 # Website, the source of adventure (better title tba)
 
-Svelte-kit, vite
+Svelte-kit, vite, sanity
 
 ## TODO
-placeholder for missing mainImage?
-link from studio to app
+moar responsiver
