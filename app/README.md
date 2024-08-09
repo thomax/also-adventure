@@ -5,3 +5,4 @@ Svelte-kit, vite, sanity
 ## TODO
 - Moar responsiveness
 - Enable other types of content (blog, random generators)
+- Access 3rd party endpoints
