@@ -6,4 +6,4 @@ Svelte-kit, vite, sanity
 - Moar responsiveness
 - Enable other types of content (blog, random generators)
 - Access 3rd party endpoints
-- Fun starting page
+- Interesting starting page
