@@ -3,4 +3,5 @@
 Svelte-kit, vite, sanity
 
 ## TODO
-Moar responsiveness
+- Moar responsiveness
+- Enable other types of content (blog, random generators)
