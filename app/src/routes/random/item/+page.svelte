@@ -1,5 +1,4 @@
 <script>
-	import {navigating} from '$app/stores'
 	import { invalidateAll } from '$app/navigation';
 	import {SyncLoader} from 'svelte-loading-spinners'
 	export let data
