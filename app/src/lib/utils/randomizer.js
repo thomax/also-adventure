@@ -1,5 +1,5 @@
 import {allTables} from './randomTables'
-import {createImages, generateResponseFromPrompt} from '$lib/utils/openAi.js'
+import {createImages, generateResponseFromPrompt} from '$lib/utils/openAi.server.js'
 
 const defaultInput = '[item-type][power][flavor][effects]'
 const chanceOfAdditionalEffect = 0.4

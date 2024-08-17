@@ -26,11 +26,15 @@
 		<h3>{item.name}</h3>
 		<p>{item.description}</p>
 		<p>{item.mechanics}</p>
-		<pre>{JSON.stringify(data.itemAsKeywords, null, 2)}</pre>
-		<pre>{JSON.stringify(data.prompt, null, 2)}</pre>
-		<pre>{JSON.stringify(data.imagePrompt, null, 2)}</pre>
 	{/if}
 </section>
+{#if data}
+	<!-- debug info -->
+	<h5>Debug info</h5>
+	<pre>{JSON.stringify(data.itemAsKeywords, null, 2)}</pre>
+	<pre>{JSON.stringify(data.prompt, null, 2)}</pre>
+	<pre>{JSON.stringify(data.imagePrompt, null, 2)}</pre>
+{/if}
 
 <style>
 	pre {

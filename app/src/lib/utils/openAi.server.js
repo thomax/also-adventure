@@ -1,12 +1,11 @@
 import OpenAI from 'openai'
 import {zodResponseFormat} from 'openai/helpers/zod'
 import {z} from 'zod'
-
-import {env} from '$env/dynamic/private'
+import {OPENAI_API_KEY} from '$env/static/private'
 
 // Set up OpenAI client
 const openai = new OpenAI({
-	apiKey: env.OPENAI_API_KEY
+	apiKey: OPENAI_API_KEY
 })
 const systemPrompt1 =
 	"You are a professional Game Master and an expert in creating unique and engaging magical items. You're response comes in JSON format, with three keys: Name: A short and memorable name of the item. Description: An extremely short description of what the item looks like. Mechanics: A no-nonsense, purely mechanical, breakdown of how the item works."
@@ -20,7 +19,7 @@ const MagicItemSchema = z.object({
 export const generateResponseFromPrompt = async prompt => {
 	const completion = await openai.chat.completions.create({
 		model: 'gpt-4o-mini',
-		temperature: 1.2,
+		temperature: 1.1,
 		response_format: zodResponseFormat(MagicItemSchema, 'item'),
 		messages: [
 			{
