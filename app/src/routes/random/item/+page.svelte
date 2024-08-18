@@ -13,19 +13,20 @@
 	}
 </script>
 
+<p><button name="reroll" on:click={reroll} disabled={!data}>🎲</button></p>
+
 <section id="widgetSection">
-	<h2>Random items</h2>
-	<h4><button name="reroll" on:click={reroll} disabled={!data}>Reroll</button></h4>
 
 	{#if !data}
 		<SyncLoader size="100" color="#000" unit="px" duration="1s" />
 	{:else if data}
-		{#each data.imageUrls as url}
-			<img src={url} alt={item.name}/>	
-		{/each}
-		<h3>{item.name}</h3>
+		<h4>{item.name}</h4>
 		<p>{item.description}</p>
-		<p>{item.mechanics}</p>
+			{#each data.imageUrls as url}
+				<img src={url} alt={item.name}/>	
+			{/each}
+			<h4>Mechanics</h4>
+			<p>{item.mechanics}</p>
 	{/if}
 </section>
 {#if data}
@@ -48,4 +49,30 @@
 		height: 30vh;
 		border-radius: 3px;
 	}
+	button {
+		font-size: 1.5em;
+	}
+
+	button:hover {
+  /* Start the shake animation and make the animation last for 0.5 seconds */
+  animation: shake 0.5s;
+
+  /* When the animation is finished, start again */
+  animation-iteration-count: infinite;
+}
+
+@keyframes shake {
+  0% { transform: translate(1px, 1px) rotate(0deg); }
+  10% { transform: translate(-1px, -2px) rotate(-1deg); }
+  20% { transform: translate(-3px, 0px) rotate(1deg); }
+  30% { transform: translate(3px, 2px) rotate(0deg); }
+  40% { transform: translate(1px, -1px) rotate(1deg); }
+  50% { transform: translate(-1px, 2px) rotate(-1deg); }
+  60% { transform: translate(-3px, 1px) rotate(0deg); }
+  70% { transform: translate(3px, 1px) rotate(-1deg); }
+  80% { transform: translate(-1px, -1px) rotate(1deg); }
+  90% { transform: translate(1px, 2px) rotate(0deg); }
+  100% { transform: translate(1px, -2px) rotate(-1deg); }
+}
+
 </style>

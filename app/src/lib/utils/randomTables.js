@@ -2,7 +2,18 @@
 
 export const allTables = {
 	power: ['Insignificant', 'Minor', 'Adequate', 'Major', 'Legendary'],
-	flavor: ['High fantasy', 'Low fantasy', 'Devious', 'Dark', 'Funny'],
+	flavor: [
+		'High fantasy',
+		'Low fantasy',
+		'Devious',
+		'Dark',
+		'Humorous',
+		'Pirate',
+		'Lovecraftian',
+		'Howardian',
+		'Silly',
+		'Grimdark'
+	],
 	cost: [
 		"Lose a memory each time it's used",
 		'Age with every activation',

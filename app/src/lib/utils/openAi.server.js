@@ -37,6 +37,7 @@ export const generateResponseFromPrompt = async prompt => {
 
 export const createImages = async (input, imageCount = 1) => {
 	const image = await openai.images.generate({
+		model: 'dall-e-2',
 		prompt: input,
 		style: 'natural',
 		size: '512x512',
