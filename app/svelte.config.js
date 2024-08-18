@@ -7,11 +7,14 @@ const config = {
 	// for more information about preprocessors
 	preprocess: vitePreprocess(),
 	kit: {
-		maxDuration: 60,
 		// adapter-auto only supports some environments, see https://kit.svelte.dev/docs/adapter-auto for a list.
 		// If your environment is not supported or you settled on a specific environment, switch out the adapter.
 		// See https://kit.svelte.dev/docs/adapters for more information about adapters.
-		adapter: adapter()
+		adapter: adapter({
+			// Extend the timeout for serverless functions to 60 seconds
+			runtime: 'nodejs20.x', // Specify the runtime version
+			maxDuration: 60 // Set the maximum duration to 60 seconds
+		})
 	}
 }
 
