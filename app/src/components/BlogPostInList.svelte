@@ -28,7 +28,7 @@
 		</h3>
 		<p class="card__date">
 			{blogPost.authors ? blogPost.authors.map((author) => author.name).join(', ') : 'Anonymous'} - {formatDate(
-				blogPost._createdAt
+				blogPost.publishAt
 			)}
 		</p>
 	</div>

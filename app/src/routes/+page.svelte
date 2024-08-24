@@ -28,10 +28,10 @@
 
 <svelte:head>
 	<meta property="og:type" content="website" />
-	<meta property="og:url" content="https://adventure-source.vercel.app" />
-	<meta property="og:site_name" content="The Source of Adventure" />
+	<meta property="og:url" content="https://alsoadventure.org" />
+	<meta property="og:site_name" content="Also, adventure" />
 	<meta property="og:locale" content="nb_NO" />
-	<meta property="og:title" content="The Source of Adventure" />
+	<meta property="og:title" content="Also, adventure - index" />
 </svelte:head>
 
 <section id="widgetSection">

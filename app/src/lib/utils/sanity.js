@@ -1,7 +1,5 @@
 import {createClient} from '@sanity/client'
-
 import groq from 'groq'
-
 import {PUBLIC_SANITY_DATASET, PUBLIC_SANITY_PROJECT_ID} from '$env/static/public'
 
 if (!PUBLIC_SANITY_PROJECT_ID || !PUBLIC_SANITY_DATASET) {

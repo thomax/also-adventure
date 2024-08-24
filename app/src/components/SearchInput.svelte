@@ -3,6 +3,7 @@
 	import {page} from '$app/stores'
 	import {beforeNavigate, afterNavigate} from '$app/navigation'
 	import {updateUrlParams, navigateWithParams} from '$lib/utils/urlAccess'
+
 	const wait = 500
 	let searchInput
 	let focused
@@ -40,7 +41,6 @@
 </script>
 
 <section id="searchInputSection">
-	Looking for
 	<input
 		class="seachInputField"
 		bind:value={searchInput}

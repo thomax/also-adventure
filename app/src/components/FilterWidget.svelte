@@ -2,6 +2,8 @@
 	import {page} from '$app/stores'
 
 	import Select from './Select.svelte'
+	import SearchInput from './SearchInput.svelte'
+
 	import {getSelectionIndices, navigateWithUpdatedUrl} from '$lib/utils/urlAccess'
 	export const ssr = false
 
@@ -24,43 +26,40 @@
 	}
 </script>
 
-<div class="filter-widget-container">
-	<div class="div1">Campaign</div>
-	<div class="div2">Category</div>
-	<div class="div3">
+<div class="filterWidgetContainer">
+	<div>
+		<h4 class="filterHeader">Campaign</h4>
 		{#if campaigns.length}
 			<Select options={campaigns} bind:value={selectedCampaignIndex} />
 		{:else}
 			No matching data
 		{/if}
 	</div>
-	<div class="div4">
+	<div>
+		<h4 class="filterHeader">Category</h4>
 		{#if categories.length}
 			<Select options={categories} bind:value={selectedCategoryIndex} />
 		{:else}
 			No categories found for this campaign
 		{/if}
 	</div>
+	<div>
+		<h4 class="filterHeader">Looking for</h4>
+		<SearchInput />
+	</div>
 </div>
 
 <style>
-	.filter-widget-container {
+	.filterWidgetContainer {
 		display: grid;
-		grid-template-columns: repeat(2, 1fr);
-		grid-template-rows: repeat(2, 1fr);
+		grid-template-columns: 1fr;
+		grid-template-rows: repeat(3, 1fr);
 		grid-column-gap: 0px;
 		grid-row-gap: 0px;
 	}
-	.div1 {
-		grid-area: 1 / 1 / 2 / 2;
-	}
-	.div2 {
-		grid-area: 1 / 2 / 2 / 3;
-	}
-	.div3 {
-		grid-area: 2 / 1 / 3 / 2;
-	}
-	.div4 {
-		grid-area: 2 / 2 / 3 / 3;
+	.filterHeader {
+		margin: 0;
+		padding: 0;
+		font-size: 1rem;
 	}
 </style>

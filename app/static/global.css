@@ -349,18 +349,17 @@ main {
 }
 
 #searchInputSection {
-	padding: 9px;
-	padding-bottom: 12px;
+	padding: 9px 9px 12px 9px;
 	border: 1px solid #ced2d9;
-	border-radius: 3px;
-	margin: 0.2rem 0 0.3rem 2rem;
+	border-radius: 0px;
+	margin: 0.2rem 0 0.3rem 0rem;
 }
 
 .seachInputField,
 on:focus {
 	outline: none;
 	border: none;
-	font-size: 1.5em;
+	font-size: 1em;
 	width: 100%;
 }
 
@@ -373,6 +372,8 @@ on:focus {
 
 .dropdownSelect {
 	height: 40px;
+	max-width: 50vw;
+	min-width: 30vw;
 	font-size: 1rem;
 	padding: 5px 10px; /* Padding inside the dropdown */
 	border: 1px solid #ccc;
