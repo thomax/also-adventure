@@ -1,4 +1,5 @@
 import blockContent from './blockContent'
+import blogPost from './blogPost'
 import campaign from './campaign'
 import category from './category'
 import post from './post'
@@ -18,23 +19,23 @@ import shipyard from './ships/shipyard'
 
 import talent from './talents/talent'
 
-
 export default [
-    post,
-    blockContent,
-    campaign,
-    category,
-    comment,
-    siteSettings,
-    user,
-    ship,
-    shipFeature,
-    shipModule,
-    shipTemplate,
-    shipyard,
-    shipWeapon,
-    shipAmmo,
-    talent,
-    ammoElement,
-    bonus
-  ]
+  blogPost,
+  post,
+  blockContent,
+  campaign,
+  category,
+  comment,
+  siteSettings,
+  user,
+  ship,
+  shipFeature,
+  shipModule,
+  shipTemplate,
+  shipyard,
+  shipWeapon,
+  shipAmmo,
+  talent,
+  ammoElement,
+  bonus,
+]

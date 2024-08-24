@@ -3,19 +3,12 @@
 	import {formatDate} from '$lib/utils'
 	import {urlFor} from '$lib/utils/image'
 	import editIcon from '$lib/assets/icons8-edit-64.png'
-	import {navigateWithUpdatedUrl} from '$lib/utils/urlAccess'
 	import PortableTextImage from './PortableTextImage.svelte'
-	export let data
-	let campaignTitle
-	let categoryTitle
-	let campaignUrl
-	let categoryUrl
 
-	if (data.category) {
-		campaignTitle = data.campaign.title?.toLowerCase()
-		categoryTitle = data.category.title.toLowerCase()
-		campaignUrl = `/?campaign=${data.campaign.slug}`
-		categoryUrl = `${campaignUrl}&category=${data.category.title.toLowerCase()}`
+	export let data
+	let categories
+	$: {
+		categories = data.categories ? data.categories.map(cat => cat.singular).join(', ') : ''
 	}
 </script>
 
@@ -46,20 +39,14 @@
 	{/if}
 	<div class="post__container">
 		<h1 class="post__title">{data.title}</h1>
-		<p class="card__excerpt nav-link-box">
-			<a class="nav-link" href={campaignUrl}>{campaignTitle}</a>
-			/
-			<a class="nav-link" href={categoryUrl}>{categoryTitle}</a>{data.order
-				? ` / ${data.order}`
-				: ''}
-		</p>
+		<p class="card__date">Categories: {categories}</p>
 		<p class="card__date">
 			{data.authors ? data.authors.map((author) => author.name).join(', ') : 'Anonymous'} - {formatDate(
 				data._createdAt
 			)}
 			<a
 				class="editLink"
-				href="https://alsoadventure.sanity.studio/structure/allPosts;{data._id}"
+				href="https://alsoadventure.sanity.studio/structure/blogPosts;{data._id}"
 				target="_blank"><img src={editIcon} alt="Edit post" /></a
 			>
 		</p>

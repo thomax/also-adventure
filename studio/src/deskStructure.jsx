@@ -22,19 +22,22 @@ import {useClient} from 'sanity'
 
 const markdownSerializers = {
   types: {
-    code: props => '```' + props.node.language + '\n' + props.node.code + '\n```'
-  }
+    code: (props) => '```' + props.node.language + '\n' + props.node.code + '\n```',
+  },
 }
 
 const today = new Date().toISOString().split('T')[0]
 
 const copyToClipboard = () => {
   const text = document.getElementById('documentAsMarkdown').innerText
-  navigator.clipboard.writeText(text).then(() => {
-    console.log('Async: Copying to clipboard was successful!')
-  }, (err) => {
-    console.error('Async: Could not copy text: ', err)
-  })
+  navigator.clipboard.writeText(text).then(
+    () => {
+      console.log('Async: Copying to clipboard was successful!')
+    },
+    (err) => {
+      console.error('Async: Could not copy text: ', err)
+    },
+  )
 }
 
 const fetchSystemGroups = (client) => {
@@ -73,7 +76,7 @@ function campaignPostsByCategory(S, campaignId, client) {
               draftDocs.filter((doc) => {
                 const id = doc._id.replace('drafts.', '')
                 return !publishedDocs.some((doc) => doc._id === id)
-              })
+              }),
             )
             return S.listItem()
               .id(category._id)
@@ -95,7 +98,7 @@ function campaignPostsByCategory(S, campaignId, client) {
                     }),
                   ])
                   .filter(
-                    '_type == "post" && campaign._ref == $campaignId && category._ref == $categoryId'
+                    '_type == "post" && campaign._ref == $campaignId && category._ref == $categoryId',
                   )
                   .params({campaignId, categoryId: category._id})
                   .child((documentId) =>
@@ -127,22 +130,21 @@ function campaignPostsByCategory(S, campaignId, client) {
                           .component(({document}) => (
                             <div>
                               <button onClick={copyToClipboard}>Copy MD to clipboard</button>
-                              <pre id="documentAsMarkdown">{
-                                  toMarkdown(document.displayed.body, {
+                              <pre id="documentAsMarkdown">
+                                {toMarkdown(document.displayed.body, {
                                   serializers: markdownSerializers,
                                   imageOptions: {w: 320, h: 240, fit: 'max'},
                                   projectId: 'sajbthd8',
-                                  dataset: 'production'
-                                })
-                              }
+                                  dataset: 'production',
+                                })}
                               </pre>
                             </div>
                           ))
                           .title('Markdown'),
-                      ])
-                  )
+                      ]),
+                  ),
               )
-          })
+          }),
       )
   })
 }
@@ -162,7 +164,7 @@ export default (S) => {
             S.documentTypeList('campaign')
               .title('Select campaign')
               .filter('_type == "campaign"')
-              .child((campaignId) => campaignPostsByCategory(S, campaignId, client))
+              .child((campaignId) => campaignPostsByCategory(S, campaignId, client)),
           ),
         S.listItem()
           .title('All posts')
@@ -178,8 +180,8 @@ export default (S) => {
                   .views([
                     S.view.form().icon(EditIcon),
                     S.view.component(ArticlePreview).icon(EyeOpenIcon).title('Preview'),
-                  ])
-              )
+                  ]),
+              ),
           ),
         S.listItem()
           .title('Campaigns')
@@ -196,6 +198,11 @@ export default (S) => {
           .icon(MdFolder)
           .schemaType('category')
           .child(S.documentTypeList('category').title('Categories')),
+        S.listItem()
+          .title('Blog Posts')
+          .icon(MdBook)
+          .schemaType('blogPost')
+          .child(S.documentTypeList('blogPost').title('Blog Posts')),
         S.listItem()
           .title('Images')
           .icon(MdPalette)
@@ -225,8 +232,8 @@ export default (S) => {
                           .views([
                             S.view.form().icon(EditIcon),
                             S.view.component(DeveloperPreview).icon(EyeOpenIcon).title('Preview'),
-                          ])
-                      )
+                          ]),
+                      ),
                   ),
                 S.listItem()
                   .title('Shipyards')
@@ -246,13 +253,13 @@ export default (S) => {
                 S.listItem()
                   .title('Ship Ammo')
                   .child(S.documentTypeList('shipAmmo').title('Ship Ammo')),
-              ])
+              ]),
           ),
         S.listItem()
           .title('Settings')
           .icon(MdSettings)
           .child(
-            S.editor().id('siteSettings').schemaType('siteSettings').documentId('siteSettings')
+            S.editor().id('siteSettings').schemaType('siteSettings').documentId('siteSettings'),
           ),
         S.listItem()
           .title('System Groups')
@@ -271,10 +278,10 @@ export default (S) => {
                         .component(
                           `<div>
                             <pre>{JSON.stringify(systemGroup, null, 2)}</pre>
-                          </div>`
-                        )
-                    )
-                )
+                          </div>`,
+                        ),
+                    ),
+                ),
               )
               .menuItems([
                 S.menuItem()
@@ -283,7 +290,7 @@ export default (S) => {
                 S.menuItem()
                   .title('Edit this Level 1 Item')
                   .intent({type: 'edit', params: {type: 'mydocument', id: 'asdf'}}),
-              ])
+              ]),
           ),
       ])
   })

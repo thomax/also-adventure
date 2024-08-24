@@ -1,6 +1,6 @@
 <script>
-	import Page from '../../../components/Page.svelte'
+	import Post from '../../../components/Post.svelte'
 	export let data
 </script>
 
-<Page {data} />
+<Post {data} />

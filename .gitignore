@@ -1,12 +1,10 @@
-# Mac files
-.DS_Store
-
-scripts
+/wp-content
 
 # Dependency directories
 /node_modules
-web/node_modules
-web_old/node_modules
+app/node_modules
+studio/node_modules
+wp-to-sanity/node_modules
 
 # lerna files
 /lerna-debug.log
@@ -15,3 +13,5 @@ web_old/node_modules
 /package-lock.json
 /yarn.lock
 
+# Mac files
+.DS_Store

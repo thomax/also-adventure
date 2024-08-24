@@ -1,7 +1,7 @@
 <script>
 	import {page, navigating} from '$app/stores'
 	import {SyncLoader} from 'svelte-loading-spinners'
-	import Post from '../components/Post.svelte'
+	import PostInList from '../components/PostInList.svelte'
 	import CampaignInfo from '../components/CampaignInfo.svelte'
 	import FilterWidget from '../components/FilterWidget.svelte'
 	import NoData from '../components/NoData.svelte'
@@ -51,7 +51,7 @@
 		<SyncLoader size="100" color="#000" unit="px" duration="1s" />
 	{:else if data.posts?.length}
 		{#each data.posts as post}
-			<Post {post} />
+			<PostInList {post} />
 		{/each}
 	{:else}
 		<NoData />
