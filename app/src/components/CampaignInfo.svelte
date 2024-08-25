@@ -5,7 +5,7 @@
 	let campaignInfoElement
 
 	$: {
-		if (campaignInfoElement) {
+		if (campaignInfoElement && campaign.mainImage) {
 			campaignInfoElement.style.background = `url('${campaign.mainImage.asset.url}') no-repeat top center`
 			campaignInfoElement.style.backgroundSize = 'cover'
 		}

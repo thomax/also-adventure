@@ -58,11 +58,14 @@ export async function getBlogPosts(options = {}) {
 	const limitFilter = `[0...${maxLimit}]`
 	// sort by publishAt
 	const sortOrder = 'order(publishAt desc)'
+	// query string wildcard filter
+	const queryFilter = query ? `&& [title, pt::text(body)] match "*${query}*"` : ''
 
 	const groqQuery = groq`*[
       _type == "blogPost"
       && defined(slug.current)
       && !(_id in path('drafts.**'))
+      ${queryFilter}
     ] | ${sortOrder}
     {
       ...,
