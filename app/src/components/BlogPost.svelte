@@ -39,7 +39,6 @@
 	{/if}
 	<div class="post__container">
 		<h1 class="post__title">{data.title}</h1>
-		<p class="card__date">Categories: {categories}</p>
 		<p class="card__date">
 			{data.authors ? data.authors.map((author) => author.name).join(', ') : 'Anonymous'} - {formatDate(
 				data._createdAt

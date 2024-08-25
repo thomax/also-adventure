@@ -29,7 +29,6 @@
 	{#if $navigating}
 		<SyncLoader size="100" color="#000" unit="px" duration="1s" />
 	{:else if data.blogPosts?.length}
-		<div>{data.categories.filter(onlyUnique).join(', ')}</div>
 		{#each data.blogPosts as blogPost}
 			<BlogPostInList {blogPost} />
 		{/each}

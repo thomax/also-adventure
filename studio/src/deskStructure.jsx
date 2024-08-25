@@ -112,7 +112,7 @@ function campaignPostsByCategory(S, campaignId, client) {
                           .component(({document}) => (
                             <h2>
                               <a
-                                href={`https://adventure-source.vercel.app/post/${document.displayed.slug.current}`}
+                                href={`https://www.alsoadventure.org/post/${document.displayed.slug.current}`}
                                 target="_blank"
                                 style={{marginLeft: '10px'}}
                               >
@@ -121,11 +121,6 @@ function campaignPostsByCategory(S, campaignId, client) {
                             </h2>
                           ))
                           .title('WWW'),
-                        S.view
-                          .component(({document}) => (
-                            <pre>{JSON.stringify(document.displayed, null, 2)}</pre>
-                          ))
-                          .title('JSON'),
                         S.view
                           .component(({document}) => (
                             <div>
