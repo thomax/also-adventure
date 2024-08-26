@@ -195,7 +195,8 @@ main {
 	margin: var(--space-3) 0px var(--space-3) 0px;
 	text-decoration: none;
 	color: var(--white);
-	letter-spacing: 0.05rem;
+	letter-spacing: 0.3rem;
+	text-transform: uppercase;
 }
 
 .footer {
