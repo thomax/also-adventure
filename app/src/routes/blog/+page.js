@@ -7,17 +7,20 @@ let cachedResult = {}
 
 export async function load({url}) {
 	const queryParam = url.searchParams.get('query')
+	const limitParam = url.searchParams.get('limit')
 
 	// only perform new fetch if query has changed and is longer than 2 characters
 	const query = queryParam?.length > 2 ? queryParam : null
-	const currentQuery = [query].join('')
+	const limit = limitParam ? parseInt(limitParam) : 20
+	const queryOptions = {query, limit}
+	const currentQuery = JSON.stringify(queryOptions)
 	if (currentQuery === previousQuery) {
 		return cachedResult
 	}
 	previousQuery = currentQuery
 
 	// fetch data
-	const blogPosts = await getBlogPosts({query})
+	const blogPosts = await getBlogPosts(queryOptions)
 	const categories = blogPosts.map(blogPost => blogPost.categories.map(cat => cat.singular)).flat()
 	cachedResult = {blogPosts, categories}
 	return cachedResult
