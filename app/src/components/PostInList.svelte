@@ -15,6 +15,7 @@
 		}
 		return url.toLowerCase()
 	}
+
 </script>
 
 <div class="card">

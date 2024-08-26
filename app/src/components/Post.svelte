@@ -46,23 +46,23 @@
 	{/if}
 	<div class="post__container">
 		<h1 class="post__title">{data.title}</h1>
-		<p class="card__excerpt nav-link-box">
-			<a class="nav-link" href={campaignUrl}>{campaignTitle}</a>
-			/
-			<a class="nav-link" href={categoryUrl}>{categoryTitle}</a>{data.order
-				? ` / ${data.order}`
-				: ''}
-		</p>
-		<p class="card__date">
-			{data.authors ? data.authors.map((author) => author.name).join(', ') : 'Anonymous'} - {formatDate(
-				data._createdAt
-			)}
-			<a
-				class="editLink"
-				href="https://alsoadventure.sanity.studio/structure/allPosts;{data._id}"
-				target="_blank"><img src={editIcon} alt="Edit post" /></a
-			>
-		</p>
+
+		<ul class="card__excerpt nav-link-box">
+			<li>
+				<a class="nav-link" href={campaignUrl}>{campaignTitle}</a>
+				/
+				<a class="nav-link" href={categoryUrl}>{categoryTitle}</a>{data.order
+					? ` / ${data.order}`
+					: ''}
+			</li>
+			<li>
+				{data.authors ? data.authors.map((author) => author.name).join(', ') : 'Anonymous'} - {formatDate(
+					data._createdAt
+				)}
+				<a class="editLink" href="https://alsoadventure.sanity.studio/structure/allPosts;{data._id}" target="_blank"><img src={editIcon} alt="Edit post" /></a>		
+			</li>
+		</ul>
+
 		<div class="post__content">
 			<PortableText
 				value={data.body}
@@ -73,39 +73,3 @@
 		</div>
 	</div>
 </section>
-
-<style>
-	.drop-shadow-image {
-		box-shadow: 0 1px 1px rgba(0, 0, 0, 0.12), 0 2px 2px rgba(0, 0, 0, 0.12),
-			0 4px 4px rgba(0, 0, 0, 0.12), 0 8px 8px rgba(0, 0, 0, 0.12), 0 16px 16px rgba(0, 0, 0, 0.12);
-	}
-
-	.nav-link-box {
-		padding: 10px;
-		margin-right: 10px;
-		box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
-	}
-
-	.nav-link {
-		color: black;
-		transition: 400ms;
-		text-decoration: none;
-		border-bottom: 2px solid transparent;
-	}
-	.nav-link:hover {
-		border-color: black;
-	}
-
-	a.editLink {
-		box-shadow: none;
-		transition: box-shadow 0.3s;
-	}
-	a.editLink:hover {
-		box-shadow: 0px 104px 70px -73px rgba(231, 166, 26, 1);
-	}
-
-	a.editLink img {
-		margin-top: 5px;
-		height: 1.2rem;
-	}
-</style>

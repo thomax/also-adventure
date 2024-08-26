@@ -11,8 +11,8 @@
 	--space-8: 136px;
 	--space-9: 220px;
 
-	--font-family-sans: Inter;
-	--font-family-serif: PT Serif;
+	--font-family-sans: Raleway;
+	--font-family-serif: Crimson Text;
 	--font-family-mono: IMB Plex Mono;
 
 	--font-size-0: 12px;
@@ -91,7 +91,7 @@ body {
 	font-weight: 400;
 	font-size: var(--font-size-4);
 	line-height: var(--line-height-5);
-	letter-spacing: -0.02em;
+	letter-spacing: -0.005em;
 	margin-top: var(--space-6);
 
 	/* Targeting tags in PortableText */
@@ -144,7 +144,7 @@ body {
 		font-size: var(--font-size-10);
 		line-height: var(--line-height-10);
 		margin: var(--space-6) 0 0;
-		letter-spacing: -0.025em;
+		letter-spacing: -0.02em;
 	}
 
 	.post .post__excerpt {
@@ -195,6 +195,7 @@ main {
 	margin: var(--space-3) 0px var(--space-3) 0px;
 	text-decoration: none;
 	color: var(--white);
+	letter-spacing: 0.05rem;
 }
 
 .footer {
@@ -206,6 +207,7 @@ main {
 
 .footer .footer__text {
 	font-size: var(--font-size-1);
+	letter-spacing: 0.1rem;
 	line-height: var(--line-height-1);
 	display: flex;
 	align-items: right;
@@ -230,7 +232,7 @@ main {
 
 	.header .header__title {
 		font-size: var(--font-size-7);
-		margin: var(--space-3) 0 var(--space-2);
+		margin: var(--space-3) 0 var(--space-2) 0;
 	}
 
 	.footer {
@@ -323,6 +325,50 @@ on:focus {
 	flex-grow: 1;
 }
 
+.drop-shadow-image {
+	box-shadow:
+		0 1px 1px rgba(0, 0, 0, 0.12),
+		0 2px 2px rgba(0, 0, 0, 0.12),
+		0 4px 4px rgba(0, 0, 0, 0.12),
+		0 8px 8px rgba(0, 0, 0, 0.12),
+		0 16px 16px rgba(0, 0, 0, 0.12);
+}
+
+.nav-link-box {
+	padding: 10px;
+	margin-right: 10px;
+	box-shadow:
+		rgba(0, 0, 0, 0.05) 0px 6px 24px 0px,
+		rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+}
+
+ul.nav-link-box {
+	list-style-type: none;
+}
+
+.nav-link {
+	color: black;
+	transition: 400ms;
+	text-decoration: none;
+	border-bottom: 2px solid transparent;
+}
+.nav-link:hover {
+	border-color: black;
+}
+
+a.editLink {
+	box-shadow: none;
+	transition: box-shadow 0.3s;
+}
+a.editLink:hover {
+	box-shadow: 0px 104px 70px -73px rgba(231, 166, 26, 1);
+}
+
+a.editLink img {
+	margin-top: 5px;
+	height: 1.2rem;
+}
+
 /* Card */
 
 .card {
@@ -356,7 +402,7 @@ on:focus {
 	font-weight: 800;
 	font-size: var(--font-size-7);
 	line-height: var(--line-height-6);
-	letter-spacing: -0.025em;
+	letter-spacing: -0.005em;
 	margin: var(--space-3) 0;
 }
 
