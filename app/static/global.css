@@ -171,31 +171,30 @@ body {
 }
 
 main {
-	margin-top: 71px;
+	margin-top: var(--space-3);
 }
 
 .header {
 	display: flex;
 	justify-content: space-between;
 	flex-direction: column;
-	padding: var(--space-2) var(--space-1) var(--space-2) var(--space-3);
+	align-items: center;
+	padding: 0;
 	border-bottom: 1px solid #ced2d9;
 	z-index: 10;
-	background-color: rgba(164, 192, 203, 0.937);
-	position: fixed;
-	left: 0;
-	right: 0;
-	top: 0;
+	/* Make the header wider than it's parent container */
+	width: 100vw;
+	margin-left: calc((100vw - 100%) / -2);
+	margin-right: calc((100vw - 100%) / -2);
 }
 
 .header .header__title {
 	font-weight: 800;
 	font-size: var(--font-size-5);
 	line-height: var(--line-height-2);
-	padding-left: 0;
 	margin: var(--space-3) 0px var(--space-3) 0px;
 	text-decoration: none;
-	color: var(--black);
+	color: var(--white);
 }
 
 .footer {
@@ -221,21 +220,17 @@ main {
 		padding: 0 var(--space-4);
 	}
 
-	main {
-		margin-top: unset;
-	}
-
 	.header {
-		position: unset;
 		border-bottom: none;
-		margin: 0 0 var(--space-3) 0;
-		padding: var(--space-4) 0;
 		background-color: unset;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
 	}
 
 	.header .header__title {
-		margin: var(--space-3) 0 var(--space-2);
 		font-size: var(--font-size-7);
+		margin: var(--space-3) 0 var(--space-2);
 	}
 
 	.footer {
