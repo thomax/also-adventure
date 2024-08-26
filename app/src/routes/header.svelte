@@ -32,14 +32,13 @@
 <style>
 
 	#titleContainer {
-		margin: 0.8rem 0px 0.8rem 0px;
+		margin: 50px 0px 50px 0px;
 		background-color: rgba(75, 75, 75, 0.547);
 		text-align: center; /* Center the title text */
 		display: flex;
 		justify-content: center; /* Center the content horizontally */
 		align-items: center;
 		padding: 5px 20px;
-		border-radius: 3px;
 	}
 
 	@media (min-width: 575px) {
@@ -51,7 +50,7 @@
 	#mainNavigation {
 		display: flex;
 		justify-content: center; /* Center the navigation links */
-		margin: 0.8rem 0px 0px 0px;
+		margin: 0;
 		padding: 0.5rem 0px;
 		background-color: rgba(34, 34, 34, 0.858);
 		width: 100%;

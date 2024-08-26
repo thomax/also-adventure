@@ -18,7 +18,7 @@ const MagicItemSchema = z.object({
 
 export const generateResponseFromPrompt = async prompt => {
 	const completion = await openai.chat.completions.create({
-		model: 'gpt-4o',
+		model: 'gpt-4o-mini',
 		temperature: 1.1,
 		response_format: zodResponseFormat(MagicItemSchema, 'item'),
 		messages: [
