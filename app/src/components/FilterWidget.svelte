@@ -1,9 +1,9 @@
 <script>
 	import {page} from '$app/stores'
+	import {onMount} from 'svelte'
 
 	import Select from './Select.svelte'
 	import SearchInput from './SearchInput.svelte'
-
 	import {getSelectionIndices, navigateWithUpdatedUrl} from '$lib/utils/urlAccess'
 	export const ssr = false
 
@@ -11,23 +11,37 @@
 	export let categories = []
 	const enableSelection = $page.url.pathname === '/'
 	const enableSearch = $page.url.pathname === '/' || $page.url.pathname === '/blog'
+	let currentSearchParams
+	let previousSearchParams
+	let selectedCampaignIndex = 0
+	let selectedCategoryIndex = 0
 
-	// There is a bug here, which kicks in when user changes campaign -> The category will keep the index and likely get a new value
-	let {selectedCampaignIndex, selectedCategoryIndex} = getSelectionIndices(campaigns, categories)
-
+	function haveSearchParamsChanged(options = {}) {
+		currentSearchParams = JSON.stringify(options, null, 0)
+		return previousSearchParams !== currentSearchParams
+	}
+		
 	$: {
-		const newState = {}
-		if (campaigns?.length) {
-			const selectedCampaign = campaigns[selectedCampaignIndex].slug
-			newState.campaign = selectedCampaign && selectedCampaignIndex !== 0 ? selectedCampaign : null
+		const options = {selectedCampaignIndex, selectedCategoryIndex, query: $page.url.searchParams.get('query')}
+		// This check is necessary to avoid an infinite loop
+		if (haveSearchParamsChanged(options)) {
+			const newState = {} 
+			if (campaigns?.length) {
+				const selectedCampaign = campaigns[selectedCampaignIndex].slug
+				newState.campaign = selectedCampaign && selectedCampaignIndex !== 0 ? selectedCampaign : null
+			}
+			if (categories?.length) {
+				const selectedCategory = categories[selectedCategoryIndex]?.singular
+				newState.category = selectedCategory && selectedCategoryIndex !== 0 ? selectedCategory : null
+			}
+			previousSearchParams = currentSearchParams
+			navigateWithUpdatedUrl($page.url.searchParams, newState)
 		}
-		if (categories?.length) {
-			const selectedCategory = categories[selectedCategoryIndex]?.singular
-			newState.category = selectedCategory && selectedCategoryIndex !== 0 ? selectedCategory : null
-		}
-		navigateWithUpdatedUrl($page.url.searchParams, newState)
 	}
 
+	onMount(() => {
+		({selectedCampaignIndex, selectedCategoryIndex} = getSelectionIndices(campaigns, categories))
+	})
 </script>
 
 <div class="filterWidgetContainer">

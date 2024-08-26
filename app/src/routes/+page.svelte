@@ -35,11 +35,7 @@
 </svelte:head>
 
 <section id="widgetSection">
-	{#if campaigns.length}
-		<FilterWidget {campaigns} {categories} />
-	{:else}
-		Waiting for data...
-	{/if}
+	<FilterWidget {campaigns} {categories} />
 </section>
 
 {#if campaign}

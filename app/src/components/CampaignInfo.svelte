@@ -1,6 +1,4 @@
 <script lang="javascript">
-	import {onMount} from 'svelte'
-
 	export let campaign
 	let campaignInfoElement
 

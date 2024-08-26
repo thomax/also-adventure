@@ -119,7 +119,7 @@ export async function composeItemFrom(input = randomInput()) {
 	const prompt = transformToPrompt(result)
 	const itemAsJson = await generateResponseFromPrompt(prompt)
 	const imagePrompt = `${result['item-type']}: ${itemAsJson.description} The image clearly shows the whole item, and nothing else. No background. Muted palette.`
-	const imageUrls = await createImages(imagePrompt, 3)
+	const imageUrls = await createImages(imagePrompt, 2)
 	const data = {
 		itemAsKeywords: result,
 		prompt,
