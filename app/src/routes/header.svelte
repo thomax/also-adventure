@@ -24,7 +24,7 @@
 	<div id="mainNavigation">
 		<a class:selected={currentPath === '/'} href="/">Posts</a>
 		<a class:selected={currentPath === '/blog'} href="/blog">Blog</a>
-		<a class:selected={currentPath === '/random/item'} href="/random/item">A random item</a>
+		<a class:selected={currentPath === '/random/item'} href="/random/item">Random item</a>
 	</div>
 </header>
 

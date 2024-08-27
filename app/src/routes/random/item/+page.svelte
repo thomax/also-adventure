@@ -1,32 +1,37 @@
 <script>
-	import { invalidateAll } from '$app/navigation';
+	import { invalidateAll } from '$app/navigation'
 	import {SyncLoader} from 'svelte-loading-spinners'
+
 	export let data
+
 	let item
+
 	$: {
 		item = data?.itemAsJson
 	}
 
-	function reroll() {
+	async function reroll() {
 		data = null
 		invalidateAll()
 	}
 </script>
 
-<p><button name="reroll" on:click={reroll} disabled={!data}>🎲</button></p>
+<p>
+	<button id="roll" name="reroll" on:click={reroll} disabled={!data}>🎲</button>
+</p>
 
 <section id="widgetSection">
 
-	{#if !data}
-		<SyncLoader size="100" color="#000" unit="px" duration="1s" />
-	{:else if data}
+	{#if item}
 		<h4>{item.name}</h4>
 		<p>{item.description}</p>
-			{#each data.imageUrls as url}
-				<img src={url} alt={item.name}/>	
-			{/each}
-			<h4>Mechanics</h4>
-			<p>{item.mechanics}</p>
+		{#each data.imageUrls as url}
+			<img src={url} alt={item.name}/>	
+		{/each}
+		<h4>Mechanics</h4>
+		<p>{item.mechanics}</p>
+	{:else}
+		<SyncLoader size="100" color="#000" unit="px" duration="1s" />
 	{/if}
 </section>
 {#if data}
@@ -49,13 +54,14 @@
 		height: 30vh;
 		border-radius: 3px;
 	}
+
 	button {
 		font-size: 1.5em;
 	}
 
-	button:hover {
+	#roll:hover {
   /* Start the shake animation and make the animation last for 0.5 seconds */
-  animation: shake 0.5s;
+  animation: shake 0.9s;
 
   /* When the animation is finished, start again */
   animation-iteration-count: infinite;
