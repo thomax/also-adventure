@@ -6,11 +6,14 @@
 	import NoData from '../../components/NoData.svelte'
 
 	export let data
+	let categories = []
 
-	function onlyUnique(value, index, array) {
-		return array.indexOf(value) === index
+	$: {
+		if (data.categories?.length) {
+			const postCount = data.categories.reduce((acc, category) => acc + category.postCount, 0)
+			categories = [{title: 'All', slug: '', postCount}, ...data.categories]
+		}
 	}
-
 </script>
 
 <svelte:head>
@@ -22,7 +25,7 @@
 </svelte:head>
 
 <section id="widgetSection">
-	<FilterWidget campaigns={null} categories={null} />
+	<FilterWidget campaigns={null} {categories} />
 </section>
 
 <section>

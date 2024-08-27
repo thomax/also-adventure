@@ -19,13 +19,12 @@ export async function load({ url }) {
   }
   previousQuery = currentQuery
 
-  // fetch data
-  const posts = await getPosts({ campaignSlug: campaign, category: category, query })
-  const campaigns = await getCampaigns()
-  let categories = await getCategories({ campaignSlug: campaign })
-  if (campaign) {
-    categories = categories.filter((cat) => cat.postCount > 0)
-  }
+  // fetch data in parallel
+  const [posts, campaigns, categories] = await Promise.all([
+    getPosts({ campaignSlug: campaign, category: category, query }),
+    getCampaigns(),
+    getCategories({ campaignSlug: campaign, documentType: 'post' })
+  ])
 
   if (campaigns) {
     cachedResult = {

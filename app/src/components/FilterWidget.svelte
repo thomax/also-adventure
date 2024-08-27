@@ -9,7 +9,8 @@
 
 	export let campaigns = []
 	export let categories = []
-	const enableSelection = $page.url.pathname === '/'
+	const enableSelectCampaign = $page.url.pathname === '/'
+	const enableSelectCategory = $page.url.pathname === '/' || $page.url.pathname === '/blog'
 	const enableSearch = $page.url.pathname === '/' || $page.url.pathname === '/blog'
 	let currentSearchParams
 	let previousSearchParams
@@ -20,19 +21,25 @@
 		currentSearchParams = JSON.stringify(options, null, 0)
 		return previousSearchParams !== currentSearchParams
 	}
-		
+
 	$: {
-		const options = {selectedCampaignIndex, selectedCategoryIndex, query: $page.url.searchParams.get('query')}
+		const options = {
+			selectedCampaignIndex,
+			selectedCategoryIndex,
+			query: $page.url.searchParams.get('query')
+		}
 		// This check is necessary to avoid an infinite loop
 		if (haveSearchParamsChanged(options)) {
-			const newState = {} 
+			const newState = {}
 			if (campaigns?.length) {
 				const selectedCampaign = campaigns[selectedCampaignIndex].slug
-				newState.campaign = selectedCampaign && selectedCampaignIndex !== 0 ? selectedCampaign : null
+				newState.campaign =
+					selectedCampaign && selectedCampaignIndex !== 0 ? selectedCampaign : null
 			}
 			if (categories?.length) {
 				const selectedCategory = categories[selectedCategoryIndex]?.singular
-				newState.category = selectedCategory && selectedCategoryIndex !== 0 ? selectedCategory : null
+				newState.category =
+					selectedCategory && selectedCategoryIndex !== 0 ? selectedCategory : null
 			}
 			previousSearchParams = currentSearchParams
 			navigateWithUpdatedUrl($page.url.searchParams, newState)
@@ -40,18 +47,18 @@
 	}
 
 	onMount(() => {
-		({selectedCampaignIndex, selectedCategoryIndex} = getSelectionIndices(campaigns, categories))
+		;({selectedCampaignIndex, selectedCategoryIndex} = getSelectionIndices(campaigns, categories))
 	})
 </script>
 
 <div class="filterWidgetContainer">
-	{#if enableSelection && campaigns.length}
+	{#if enableSelectCampaign && campaigns.length}
 		<div>
 			<h4 class="filterHeader">Campaign</h4>
 			<Select options={campaigns} bind:value={selectedCampaignIndex} />
 		</div>
 	{/if}
-	{#if enableSelection && categories.length}
+	{#if enableSelectCategory && categories.length}
 		<div>
 			<h4 class="filterHeader">Category</h4>
 			<Select options={categories} bind:value={selectedCategoryIndex} />

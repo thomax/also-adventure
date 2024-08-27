@@ -8,21 +8,21 @@
 	export let data
 	let categories
 	$: {
-		categories = data.categories ? data.categories.map(cat => cat.singular).join(', ') : ''
+		categories = data.categories || []
 	}
 </script>
 
 <svelte:head>
 	<meta property="og:type" content="website" />
-	<meta property="og:url" content="https://adventure-source.vercel.app" />
-	<meta property="og:site_name" content="The Source of Adventure" />
+	<meta property="og:url" content="https://alsoadventure.org" />
+	<meta property="og:site_name" content="Also, adventure" />
 	<meta property="og:locale" content="nb_NO" />
-	<meta property="og:title" content={data.title || 'The Source of Adventure'} />
+	<meta property="og:title" content={data.title || 'Also, adventure'} />
 	<meta
 		property="og:image"
 		content={data.mainImage ? urlFor(data.mainImage).width(300).url() : ''}
 	/>
-	<meta property="og:image:alt" content={data.title || 'The Source of Adventure'} />
+	<meta property="og:image:alt" content={data.title || 'Also, adventure'} />
 </svelte:head>
 
 <section class="post">
@@ -39,16 +39,27 @@
 	{/if}
 	<div class="post__container">
 		<h1 class="post__title">{data.title}</h1>
-		<p class="card__date">
-			{data.authors ? data.authors.map((author) => author.name).join(', ') : 'Anonymous'} - {formatDate(
-				data._createdAt
-			)}
-			<a
-				class="editLink"
-				href="https://alsoadventure.sanity.studio/structure/blogPosts;{data._id}"
-				target="_blank"><img src={editIcon} alt="Edit post" /></a
-			>
-		</p>
+
+		<ul class="card__excerpt nav-link-box">
+			<li>
+				Published {formatDate(data.publishAt)} by {data.authors
+					? data.authors.map(author => author.name).join(', ')
+					: 'Anonymous'}
+				<a
+					class="editLink"
+					href="https://alsoadventure.sanity.studio/structure/blogPosts;{data._id}"
+					target="_blank"><img src={editIcon} alt="Edit blogPost" /></a
+				>
+			</li>
+			<li>
+				Categories:
+				{#each categories as category, index}
+					<a class="nav-link" href="/blog?category={category.singular}">{category.singular}</a
+					>{index < categories.length - 1 ? ', ' : ''}
+				{/each}
+			</li>
+		</ul>
+
 		<div class="post__content">
 			<PortableText
 				value={data.body}

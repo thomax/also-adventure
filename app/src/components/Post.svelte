@@ -3,7 +3,6 @@
 	import {formatDate} from '$lib/utils'
 	import {urlFor} from '$lib/utils/image'
 	import editIcon from '$lib/assets/icons8-edit-64.png'
-	import {navigateWithUpdatedUrl} from '$lib/utils/urlAccess'
 	import PortableTextImage from './PortableTextImage.svelte'
 	export let data
 	let campaignTitle
@@ -21,15 +20,15 @@
 
 <svelte:head>
 	<meta property="og:type" content="website" />
-	<meta property="og:url" content="https://adventure-source.vercel.app" />
-	<meta property="og:site_name" content="The Source of Adventure" />
+	<meta property="og:url" content="https://alsoadventure.org" />
+	<meta property="og:site_name" content="Also, adventure" />
 	<meta property="og:locale" content="nb_NO" />
-	<meta property="og:title" content={data.title || 'The Source of Adventure'} />
+	<meta property="og:title" content="Also, adventure - {data.title}" />
 	<meta
 		property="og:image"
 		content={data.mainImage ? urlFor(data.mainImage).width(300).url() : ''}
 	/>
-	<meta property="og:image:alt" content={data.title || 'The Source of Adventure'} />
+	<meta property="og:image:alt" content={data.title || 'Also, adventure'} />
 </svelte:head>
 
 <section class="post">
@@ -56,10 +55,14 @@
 					: ''}
 			</li>
 			<li>
-				{data.authors ? data.authors.map((author) => author.name).join(', ') : 'Anonymous'} - {formatDate(
+				{data.authors ? data.authors.map(author => author.name).join(', ') : 'Anonymous'} - {formatDate(
 					data._createdAt
 				)}
-				<a class="editLink" href="https://alsoadventure.sanity.studio/structure/allPosts;{data._id}" target="_blank"><img src={editIcon} alt="Edit post" /></a>		
+				<a
+					class="editLink"
+					href="https://alsoadventure.sanity.studio/structure/allPosts;{data._id}"
+					target="_blank"><img src={editIcon} alt="Edit post" /></a
+				>
 			</li>
 		</ul>
 

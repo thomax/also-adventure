@@ -1,5 +1,5 @@
-import {allTables} from './randomTables'
-import {createImages, generateResponseFromPrompt} from '$lib/utils/openAi.server.js'
+import { allTables } from './randomTables'
+import { createImages, generateResponseFromPrompt } from '$lib/utils/openAi.server.js'
 
 const defaultInput = '[item-type][power][flavor][effects]'
 const chanceOfAdditionalEffect = 0.4
@@ -96,7 +96,7 @@ function handleItem(item, returnObject = true) {
 	} else {
 		// Not an effect, just get a random entry
 		const entry = randomFromArray(allTables[key])
-		return returnObject ? {[key]: entry} : entry
+		return returnObject ? { [key]: entry } : entry
 	}
 }
 
@@ -118,7 +118,7 @@ export async function composeItemFrom(input = randomInput()) {
 	})
 	const prompt = transformToPrompt(result)
 	const itemAsJson = await generateResponseFromPrompt(prompt)
-	const imagePrompt = `${result['item-type']}: ${itemAsJson.description} The image clearly shows the whole item, and nothing else. No background. Muted palette.`
+	const imagePrompt = `${result['item-type']}: ${itemAsJson.description} The image clearly shows the whole item, and nothing else. No background. Muted palette. Photo-realistic.`
 	const imageUrls = await createImages(imagePrompt, 2)
 	const data = {
 		itemAsKeywords: result,
