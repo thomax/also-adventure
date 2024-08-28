@@ -15,6 +15,7 @@
 		const mousePosX = e.clientX
 		const mousePosY = e.clientY
 		if (mousePosX > x && mousePosX < width && mousePosY > y && mousePosY < height) {
+			// Move the background image slightly, based on the mouse position
 			const x = (-1 * (width / 2 - e.clientX)) / 30
 			const y = (-1 * (height / 2 - e.clientY)) / 30
 			headerElement.style.backgroundPosition = `${x}px ${y}px`
@@ -22,10 +23,8 @@
 	}
 
 	onMount(() => {
-		headerElement.style.background = `url('${bannerImage}') no-repeat top center`
+		headerElement.style.background = `url('${bannerImage}') repeat top center`
 		headerElement.style.backgroundSize = 'cover'
-		headerElement.style.backgroundAttachment = 'fixed'
-		headerElement.style.transform = 'scale(1.3)'
 		headerElement.style.transition = 'background-position 0.1s'
 
 		window.addEventListener('mousemove', handleMouseMove)
