@@ -54,7 +54,10 @@
 		'A pretense',
 		'A purveyor of fine merchandise',
 		'Parking',
-		'A plan',
+		'The red pill',
+		'Swordfish trombones',
+		'A vegan-skin pill-box hat',
+		'Empty calories',
 		'🥦',
 		'🌈',
 		'🧻'

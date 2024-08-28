@@ -1,7 +1,7 @@
 <script>
-  import { page } from '$app/stores'
+	import {page} from '$app/stores'
 	import bannerImage from '$lib/assets/banner.jpg'
-	import {onMount} from 'svelte'
+	import {onMount, onDestroy} from 'svelte'
 
 	let headerElement
 	let currentPath = '/'
@@ -10,9 +10,29 @@
 		currentPath = $page.url.pathname
 	}
 
+	function handleMouseMove(e) {
+		const {x, y, width, height} = headerElement.getBoundingClientRect()
+		const mousePosX = e.clientX
+		const mousePosY = e.clientY
+		if (mousePosX > x && mousePosX < width && mousePosY > y && mousePosY < height) {
+			const x = (-1 * (width / 2 - e.clientX)) / 30
+			const y = (-1 * (height / 2 - e.clientY)) / 30
+			headerElement.style.backgroundPosition = `${x}px ${y}px`
+		}
+	}
+
 	onMount(() => {
 		headerElement.style.background = `url('${bannerImage}') no-repeat top center`
 		headerElement.style.backgroundSize = 'cover'
+		headerElement.style.backgroundAttachment = 'fixed'
+		headerElement.style.transform = 'scale(1.3)'
+		headerElement.style.transition = 'background-position 0.1s'
+
+		window.addEventListener('mousemove', handleMouseMove)
+	})
+
+	onDestroy(() => {
+		window.removeEventListener('mousemove', handleMouseMove)
 	})
 </script>
 
@@ -51,10 +71,10 @@
 		justify-content: center; /* Center the navigation links */
 		margin: 0;
 		padding: 0.5rem 0px 0.4rem 0px;
-		background-color: rgba(34, 34, 34, 0.858);
+		background-color: rgba(34, 34, 34, 0.7);
 		width: 100%;
 	}
-	
+
 	#mainNavigation > a {
 		color: white;
 		font-size: 1.1rem;
@@ -67,7 +87,7 @@
 	}
 
 	#mainNavigation > a:hover {
-		border-color: white
+		border-color: white;
 	}
 
 	.selected {
