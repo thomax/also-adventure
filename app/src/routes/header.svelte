@@ -1,10 +1,12 @@
 <script>
 	import {page} from '$app/stores'
-	import bannerImage from '$lib/assets/banner.jpg'
+	import {afterNavigate} from '$app/navigation'
 	import {onMount, onDestroy} from 'svelte'
+	import bannerImage from '$lib/assets/banner.jpg'
 
 	let headerElement
 	let currentPath = '/'
+	let selectedMenuItem = 'root'
 
 	$: {
 		currentPath = $page.url.pathname
@@ -21,6 +23,27 @@
 			headerElement.style.backgroundPosition = `${x}px ${y}px`
 		}
 	}
+
+	function isSelected(menu) {
+		console.log(menu, currentPath)
+		if (menu === 'blog') {
+			return currentPath.startsWith('/blog')
+		} else if (menu === 'random item') {
+			return currentPath.startsWith('/random/item')
+		} else {
+			return true
+		}
+	}
+
+	afterNavigate(() => {
+		if (currentPath.startsWith('/blog')) {
+			selectedMenuItem = 'blog'
+		} else if (currentPath.startsWith('/random/item')) {
+			selectedMenuItem = 'random item'
+		} else {
+			selectedMenuItem = 'root'
+		}
+	})
 
 	onMount(() => {
 		headerElement.style.background = `url('${bannerImage}') repeat top center`
@@ -41,9 +64,9 @@
 		<span class="subtitle">rpg morsels for the picking</span>
 	</div>
 	<div id="mainNavigation">
-		<a class:selected={currentPath === '/'} href="/">Posts</a>
-		<a class:selected={currentPath === '/blog'} href="/blog">Blog</a>
-		<a class:selected={currentPath === '/random/item'} href="/random/item">Random item</a>
+		<a class:selected={selectedMenuItem === 'root'} href="/">Posts</a>
+		<a class:selected={selectedMenuItem === 'blog'} href="/blog">Blog</a>
+		<a class:selected={selectedMenuItem === 'random item'} href="/random/item">Random item</a>
 	</div>
 </header>
 
