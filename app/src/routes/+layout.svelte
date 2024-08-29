@@ -1,5 +1,9 @@
 <script>
+	import {dev} from '$app/environment'
+	import {inject} from '@vercel/analytics'
 	import Header from './header.svelte'
+
+	inject({mode: dev ? 'development' : 'production'})
 </script>
 
 <div class="container">
