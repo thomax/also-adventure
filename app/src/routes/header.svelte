@@ -12,27 +12,12 @@
 		currentPath = $page.url.pathname
 	}
 
-	function handleMouseMove(e) {
-		const {x, y, width, height} = headerElement.getBoundingClientRect()
-		const mousePosX = e.clientX
-		const mousePosY = e.clientY
-		if (mousePosX > x && mousePosX < width && mousePosY > y && mousePosY < height) {
-			// Move the background image slightly, based on the mouse position
-			const x = (-1 * (width / 2 - e.clientX)) / 30
-			const y = (-1 * (height / 2 - e.clientY)) / 30
-			headerElement.style.backgroundPosition = `${x}px ${y}px`
-		}
-	}
-
-	function isSelected(menu) {
-		console.log(menu, currentPath)
-		if (menu === 'blog') {
-			return currentPath.startsWith('/blog')
-		} else if (menu === 'random item') {
-			return currentPath.startsWith('/random/item')
-		} else {
-			return true
-		}
+	function handleMouseMove(event) {
+		const {width, height} = headerElement.getBoundingClientRect()
+		// Move the background image slightly, based on the mouse position
+		const dx = (-1 * (width / 2 - event.clientX)) / 30
+		const dy = (-1 * (height / 2 - event.clientY)) / 30
+		headerElement.style.backgroundPosition = `${dx}px ${dy}px`
 	}
 
 	afterNavigate(() => {
@@ -50,11 +35,11 @@
 		headerElement.style.backgroundSize = 'cover'
 		headerElement.style.transition = 'background-position 0.1s'
 
-		window.addEventListener('mousemove', handleMouseMove)
+		headerElement.addEventListener('mousemove', handleMouseMove)
 	})
 
 	onDestroy(() => {
-		window.removeEventListener('mousemove', handleMouseMove)
+		headerElement.removeEventListener('mousemove', handleMouseMove)
 	})
 </script>
 
