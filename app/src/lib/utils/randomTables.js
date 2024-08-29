@@ -7,12 +7,9 @@ export const allTables = {
 		'Low fantasy',
 		'Devious',
 		'Dark',
-		'Humorous',
 		'Pirate',
 		'Lovecraftian',
-		'Howardian',
-		'Silly',
-		'Grimdark'
+		'Silly'
 	],
 	cost: [
 		"Lose a memory each time it's used",
