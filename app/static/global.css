@@ -64,6 +64,10 @@ body {
 	margin: 0;
 }
 
+h1, h2, h3, h4, h5, h6 {
+	font-family: var(--font-family-sans);
+}
+
 /* Post page */
 .post {
 	width: 100%;
@@ -90,8 +94,7 @@ body {
 	font-family: var(--font-family-serif);
 	font-weight: 400;
 	font-size: var(--font-size-4);
-	line-height: var(--line-height-5);
-	letter-spacing: -0.005em;
+	line-height: var(--line-height-4);
 	margin-top: var(--space-6);
 
 	/* Targeting tags in PortableText */
