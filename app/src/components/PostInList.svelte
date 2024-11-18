@@ -15,7 +15,6 @@
 		}
 		return url.toLowerCase()
 	}
-
 </script>
 
 <div class="card">
@@ -41,7 +40,7 @@
 				: ''}
 		</p>
 		<p class="card__date">
-			{post.authors ? post.authors.map((author) => author.name).join(', ') : 'Anonymous'} - {formatDate(
+			{post.authors ? post.authors.map(author => author.name).join(', ') : 'Anonymous'} - {formatDate(
 				post._createdAt
 			)}
 		</p>

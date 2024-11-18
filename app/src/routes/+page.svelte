@@ -2,11 +2,13 @@
 	import {page, navigating} from '$app/stores'
 	import {SyncLoader} from 'svelte-loading-spinners'
 	import PostInList from '../components/PostInList.svelte'
+	import MarkdownCollection from '../components/MarkdownCollection.svelte'
 	import CampaignInfo from '../components/CampaignInfo.svelte'
 	import FilterWidget from '../components/FilterWidget.svelte'
 	import NoData from '../components/NoData.svelte'
 
 	export let data
+	const renderMode = $page.url.searchParams.get('render') || 'web'
 	let selectedCampaign = $page.url.searchParams.get('campaign')
 
 	let campaigns = []
@@ -17,7 +19,7 @@
 		selectedCampaign = $page.url.searchParams.get('campaign')
 		if (data.campaigns?.length) {
 			campaigns = [{title: 'All', slug: ''}, ...data.campaigns]
-			campaign = campaigns.find((campaign) => campaign.slug === selectedCampaign)
+			campaign = campaigns.find(campaign => campaign.slug === selectedCampaign)
 		}
 		if (data.categories?.length) {
 			const postCount = data.categories.reduce((acc, category) => acc + category.postCount, 0)
@@ -46,9 +48,16 @@
 	{#if $navigating}
 		<SyncLoader size="100" color="#000" unit="px" duration="1s" />
 	{:else if data.posts?.length}
-		{#each data.posts as post}
-			<PostInList {post} />
-		{/each}
+		{#if renderMode === 'markdown'}
+			<MarkdownCollection posts={data.posts} />
+		{:else}
+			{#each data.posts as post}
+				<PostInList {post} />
+			{/each}
+			{#each data.posts as post}
+				<PostInList {post} />
+			{/each}
+		{/if}
 	{:else}
 		<NoData />
 	{/if}
