@@ -55,9 +55,6 @@
 			{#each reverseOrder ? data.posts.reverse() : data.posts as post}
 				<PostInList {post} />
 			{/each}
-			{#each data.posts as post}
-				<PostInList {post} />
-			{/each}
 		{/if}
 	{:else}
 		<NoData />
