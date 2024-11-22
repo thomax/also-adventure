@@ -9,6 +9,7 @@
 
 	export let data
 	const renderMode = $page.url.searchParams.get('render') || 'web'
+	let reverseOrder = $page.url.searchParams.get('reverse') === 'true'
 	let selectedCampaign = $page.url.searchParams.get('campaign')
 
 	let campaigns = []
@@ -51,7 +52,7 @@
 		{#if renderMode === 'markdown'}
 			<MarkdownCollection posts={data.posts} />
 		{:else}
-			{#each data.posts as post}
+			{#each reverseOrder ? data.posts.reverse() : data.posts as post}
 				<PostInList {post} />
 			{/each}
 			{#each data.posts as post}
