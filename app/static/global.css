@@ -64,7 +64,12 @@ body {
 	margin: 0;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
 	font-family: var(--font-family-sans);
 }
 
@@ -189,6 +194,7 @@ main {
 	width: 100vw;
 	margin-left: calc((100vw - 100%) / -2);
 	margin-right: calc((100vw - 100%) / -2);
+	margin-bottom: 25px;
 }
 
 .header .header__title {
@@ -330,20 +336,14 @@ on:focus {
 }
 
 .drop-shadow-image {
-	box-shadow:
-		0 1px 1px rgba(0, 0, 0, 0.12),
-		0 2px 2px rgba(0, 0, 0, 0.12),
-		0 4px 4px rgba(0, 0, 0, 0.12),
-		0 8px 8px rgba(0, 0, 0, 0.12),
-		0 16px 16px rgba(0, 0, 0, 0.12);
+	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.12), 0 2px 2px rgba(0, 0, 0, 0.12),
+		0 4px 4px rgba(0, 0, 0, 0.12), 0 8px 8px rgba(0, 0, 0, 0.12), 0 16px 16px rgba(0, 0, 0, 0.12);
 }
 
 .nav-link-box {
 	padding: 10px;
 	margin-right: 10px;
-	box-shadow:
-		rgba(0, 0, 0, 0.05) 0px 6px 24px 0px,
-		rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+	box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
 }
 
 ul.nav-link-box {

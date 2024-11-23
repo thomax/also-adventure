@@ -137,6 +137,7 @@ export async function getCampaigns(options = {}) {
     "gm": gm->name,
     "slug": slug.current,
     "mainImage": mainImage{asset->{path,url}},
+    body,
     "postCount": count(
       *[
         _type == "post"
