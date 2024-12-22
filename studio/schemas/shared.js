@@ -9,7 +9,7 @@ export default {
     { title: 'Pathfinder', value: 'pathfinder' },
     { title: 'Pathfinder 2', value: 'pathfinder2' },
     { title: 'Punk Apocalyptic', value: 'punk-apocalyptic' },
-    { title: 'Savage Worlds (AE)', value: 'swade' },
+    { title: 'Savage Worlds', value: 'swade' },
     { title: 'Shadow of the Demon Lord', value: 'sotdl' },
     { title: 'Shadow of the Weird Wizard', value: 'sotww' },
     { title: 'Starfinder', value: 'starfinder' },
