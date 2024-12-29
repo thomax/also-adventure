@@ -15,13 +15,13 @@
 		width = isInline ? 200 : 735
 		// random shadow variant
 		shadowVariant = shadowVariants[Math.floor(Math.random() * shadowVariants.length)]
-		classes = [shadowVariant, isInline ? 'float-right' : 'block'].join(' ')
+		classes = ['responsive-image', shadowVariant, isInline ? 'float-right' : 'block'].join(' ')
 	}
 </script>
 
-<a href={urlFor(ptImage).url()} alt="Large image" target="_blank" rel="noopener noreferrer"
-	><img src={urlFor(ptImage, {isInline, width}).url()} alt="" class={classes} /></a
->
+<a href={urlFor(ptImage).url()} alt="Large image" target="_blank" rel="noopener noreferrer">
+	<img src={urlFor(ptImage, {isInline, width}).url()} alt="" class={classes} />
+</a>
 
 <style>
 	.v1 {
@@ -42,7 +42,11 @@
 
 	.float-right {
 		float: right;
-
 		margin: 5px 0px 5px 10px;
+	}
+
+	.responsive-image {
+		max-width: 100%;
+		height: auto;
 	}
 </style>
