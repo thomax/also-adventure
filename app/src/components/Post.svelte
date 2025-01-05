@@ -4,6 +4,9 @@
 	import {urlFor} from '$lib/utils/image'
 	import editIcon from '$lib/assets/icons8-edit-64.png'
 	import PortableTextImage from './PortableTextImage.svelte'
+	import PortableTextLink from './PortableTextLink.svelte'
+	import PortableTextInternalLink from './PortableTextInternalLink.svelte'
+
 	export let data
 	let campaignTitle
 	let categoryTitle
@@ -70,7 +73,11 @@
 			<PortableText
 				value={data.body}
 				components={{
-					types: {image: PortableTextImage}
+					types: {image: PortableTextImage},
+					marks: {
+						link: PortableTextLink,
+						internalLink: PortableTextInternalLink
+					}
 				}}
 			/>
 		</div>

@@ -103,7 +103,20 @@ export async function getPost(options = {}) {
       "slug": slug.current,
       category->{title},
       campaign->{title, "slug": slug.current},
-      authors[]->{name}
+      authors[]->{name},
+      body[]{
+        ...,
+        markDefs[]{
+          ...,
+          _type == "internalLink" => {
+            "slug": @.reference->slug.current,
+            "campaignSlug": @.reference->campaign->slug.current,
+            "category": @.reference->category->singular,
+            "targetDocumentType": @.reference->_type,
+            "targetDocumentId": @.reference->_id
+          }
+        }
+      }
     }`
   )
 }

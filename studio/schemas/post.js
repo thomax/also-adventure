@@ -57,7 +57,7 @@ export default {
       title: 'Secret',
       name: 'isSecret',
       type: 'boolean',
-      description: 'Not in use. The ideas was that secret documents are only readable by the GM'
+      description: 'Not in use. The idea was that secret documents are only readable by the GM'
     },
     {
       title: 'Comments',
