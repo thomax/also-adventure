@@ -13,7 +13,7 @@ export default {
       title: 'Main Image',
       name: 'mainImage',
       type: 'image',
-      options: {hotspot: true},
+      options: { hotspot: true },
     },
     {
       title: 'Publish At',
@@ -33,6 +33,7 @@ export default {
       title: 'Slug',
       name: 'slug',
       type: 'slug',
+      validation: (Rule) => Rule.required(),
       options: {
         source: 'title',
         maxLength: 96,
@@ -42,19 +43,19 @@ export default {
       title: 'Categories',
       name: 'categories',
       type: 'array',
-      of: [{type: 'reference', to: [{type: 'category'}]}],
+      of: [{ type: 'reference', to: [{ type: 'category' }] }],
     },
     {
       title: 'Authors',
       name: 'authors',
       type: 'array',
-      of: [{type: 'reference', to: [{type: 'user'}]}],
+      of: [{ type: 'reference', to: [{ type: 'user' }] }],
     },
     {
       title: 'Comments',
       name: 'comments',
       type: 'array',
-      of: [{type: 'comment'}],
+      of: [{ type: 'comment' }],
     },
   ],
   preview: {
@@ -63,7 +64,7 @@ export default {
       category: 'category.singular',
       image: 'mainImage',
     },
-    prepare({title, category, image}) {
+    prepare({ title, category, image }) {
       return {
         title: title || 'untitled',
         subtitle: category,
