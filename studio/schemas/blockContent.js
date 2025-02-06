@@ -1,5 +1,6 @@
 //import linkIcon from 'react-icons/lib/fa/paperclip'
-import {FaPaperclip} from 'react-icons/fa'
+import { HiExternalLink } from "react-icons/hi"
+import { HiLink } from "react-icons/hi"
 
 export default {
   title: 'Block Content',
@@ -8,53 +9,55 @@ export default {
   of: [
     {
       type: 'image',
-      options: {hotspot: true}
+      options: { hotspot: true }
     },
     {
       title: 'Block',
       type: 'block',
-      of: [{type: 'image'}],
+      of: [{ type: 'image' }],
       styles: [
-        {title: 'Normal', value: 'normal'},
-        {title: 'H1', value: 'h1'},
-        {title: 'H2', value: 'h2'},
-        {title: 'H3', value: 'h3'},
-        {title: 'Quote', value: 'blockquote'}
+        { title: 'Normal', value: 'normal' },
+        { title: 'H1', value: 'h1' },
+        { title: 'H2', value: 'h2' },
+        { title: 'H3', value: 'h3' },
+        { title: 'Quote', value: 'blockquote' }
       ],
-      lists: [{title: 'Bullet', value: 'bullet'}],
+      lists: [{ title: 'Bullet', value: 'bullet' }],
       marks: {
         decorators: [
-          {title: 'Strong', value: 'strong'},
-          {title: 'Emphasis', value: 'em'}
+          { title: 'Strong', value: 'strong' },
+          { title: 'Emphasis', value: 'em' }
         ],
         annotations: [
           {
             title: 'URL',
             name: 'link',
             type: 'object',
+            icon: HiExternalLink,
             fields: [
               {
                 title: 'URL',
                 name: 'href',
                 type: 'url',
-                validation: Rule => Rule.uri({allowRelative: true, scheme: ['https', 'http']})
+                validation: Rule => Rule.uri({ allowRelative: true, scheme: ['https', 'http'] })
               }
             ]
           },
           {
+            title: 'Internal link',
             name: 'internalLink',
             type: 'object',
-            title: 'Internal link',
+            icon: HiLink,
             fields: [
               {
                 name: 'reference',
                 type: 'reference',
                 title: 'Reference',
-                to: [{type: 'post'}],
+                to: [{ type: 'post' }],
                 weak: true,
                 options: {
-                  filter: ({document}) => {
-                    const {campaign} = document
+                  filter: ({ document }) => {
+                    const { campaign } = document
                     if (!campaign) {
                       return {
                         filter: 'true'
