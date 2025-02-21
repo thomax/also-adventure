@@ -10,6 +10,16 @@ export default {
       type: 'string'
     },
     {
+      title: 'Slug',
+      name: 'slug',
+      type: 'slug',
+      validation: (Rule) => Rule.required(),
+      options: {
+        source: 'title',
+        maxLength: 96
+      }
+    },
+    {
       title: 'Main Image',
       name: 'mainImage',
       type: 'image',
@@ -19,16 +29,6 @@ export default {
       title: 'Body',
       name: 'body',
       type: 'blockContent'
-    },
-    {
-      title: 'Slug',
-      name: 'slug',
-      type: 'slug',
-      validation: (Rule) => Rule.required(),
-      options: {
-        source: 'title',
-        maxLength: 96
-      }
     },
     {
       title: 'Category',
