@@ -37,10 +37,11 @@
 	<pre id="postsAsMarkdown">
 		{#each posts as post}
 			<!--// prettier-ignore-->
-Campaign:&nbsp;{post.campaign.title}
-{post.category.title}{post.order
+# {post.category.title}{post.order
 				? ` ${post.order}`
 				: ''}: {post.title}
+Campaign:&nbsp;{post.campaign
+				.title}
 <!--// prettier-ignore-->
 &nbsp;
 {bodyToMarkdown(
