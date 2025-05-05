@@ -116,7 +116,7 @@ h6 {
 }
 
 .post .post__content p {
-	margin-top: var(--space-2);
+	margin-top: var(--space-4);
 }
 
 .post .post__title {
