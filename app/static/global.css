@@ -71,6 +71,7 @@ h4,
 h5,
 h6 {
 	font-family: var(--font-family-sans);
+	margin-bottom: var(--space-2);
 }
 
 /* Post page */
@@ -101,8 +102,6 @@ h6 {
 	font-size: var(--font-size-4);
 	line-height: var(--line-height-4);
 	margin-top: var(--space-6);
-
-	/* Targeting tags in PortableText */
 }
 
 .post .post__content blockquote {
@@ -114,6 +113,10 @@ h6 {
 .post .post__content a {
 	color: var(--blue-600);
 	text-decoration: none;
+}
+
+.post .post__content p {
+	margin-top: var(--space-2);
 }
 
 .post .post__title {
