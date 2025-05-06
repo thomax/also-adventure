@@ -12,14 +12,6 @@
 		currentPath = $page.url.pathname
 	}
 
-	function handleMouseMove(event) {
-		const {width, height} = headerElement.getBoundingClientRect()
-		// Move the background image slightly, based on the mouse position
-		const dx = (-1 * (width / 2 - event.clientX)) / 30
-		const dy = (-1 * (height / 2 - event.clientY)) / 30
-		headerElement.style.backgroundPosition = `${dx}px ${dy}px`
-	}
-
 	afterNavigate(() => {
 		if (currentPath.startsWith('/blog')) {
 			selectedMenuItem = 'blog'
@@ -34,12 +26,6 @@
 		headerElement.style.background = `url('${bannerImage}') repeat top center`
 		headerElement.style.backgroundSize = 'cover'
 		headerElement.style.transition = 'background-position 0.1s'
-
-		headerElement.addEventListener('mousemove', handleMouseMove)
-	})
-
-	onDestroy(() => {
-		headerElement.removeEventListener('mousemove', handleMouseMove)
 	})
 </script>
 

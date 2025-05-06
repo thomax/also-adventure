@@ -1,7 +1,7 @@
 import OpenAI from 'openai'
-import {zodResponseFormat} from 'openai/helpers/zod'
-import {z} from 'zod'
-import {OPENAI_API_KEY} from '$env/static/private'
+import { zodResponseFormat } from 'openai/helpers/zod'
+import { z } from 'zod'
+import { OPENAI_API_KEY } from '$env/static/private'
 
 // Set up OpenAI client
 const openai = new OpenAI({
@@ -36,12 +36,13 @@ export const generateResponseFromPrompt = async prompt => {
 }
 
 export const createImages = async (input, imageCount = 1) => {
-	const image = await openai.images.generate({
-		model: 'dall-e-2',
-		prompt: input,
-		style: 'natural',
-		size: '512x512',
-		n: imageCount
-	})
+	const image = await openai.images.generate(
+		{
+			model: "dall-e-2",
+			prompt: input,
+			n: imageCount,
+			size: '512x512',
+		}
+	)
 	return image.data
 }
