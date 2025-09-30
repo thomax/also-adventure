@@ -12,6 +12,7 @@
 <div class="welcome__container">
 	No posts based on filters:
 	<table id="noDataTable">
+		<tbody>
 		<tr>
 			<th>Campaign</th><td>{selectedCampaign}</td>
 		</tr>
@@ -21,6 +22,7 @@
 		<tr>
 			<th>Query</th><td>{query}</td>
 		</tr>
+	</tbody>
 	</table>
 </div>
 
