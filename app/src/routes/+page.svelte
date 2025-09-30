@@ -1,19 +1,14 @@
 <script>
 	import {page, navigating} from '$app/stores'
 	import {SyncLoader} from 'svelte-loading-spinners'
-	import PostInList from '../components/PostInList.svelte'
-	import MarkdownCollection from '../components/MarkdownCollection.svelte'
-	import CampaignInfo from '../components/CampaignInfo.svelte'
 	import FilterWidget from '../components/FilterWidget.svelte'
 	import NoData from '../components/NoData.svelte'
+	import DashboardSection from '../components/DashboardSection.svelte'
 
 	export let data
-	const renderMode = $page.url.searchParams.get('render') || 'web'
-	let reverseOrder = $page.url.searchParams.get('reverse') === 'true'
 	let selectedCampaign = $page.url.searchParams.get('campaign')
 
 	let campaigns = []
-	let categories = []
 	let campaign
 
 	$: {
@@ -22,11 +17,35 @@
 			campaigns = [{title: 'All', slug: ''}, ...data.campaigns]
 			campaign = campaigns.find(campaign => campaign.slug === selectedCampaign)
 		}
-		if (data.categories?.length) {
-			const postCount = data.categories.reduce((acc, category) => acc + category.postCount, 0)
-			categories = [{title: 'All', slug: '', postCount}, ...data.categories]
-		}
 	}
+
+	// Configure dashboard sections
+	$: dashboardSections = [
+		{
+			title: 'Karakterer',
+			icon: '👤',
+			posts: data.characterPosts || [],
+      isCategoryVisible: false
+		},
+		{
+			title: 'Oppsummeringer',
+			icon: '📖',
+			posts: data.sessionPosts || [],
+      isCategoryVisible: false
+		},
+		{
+			title: 'Bakgrunn',
+			icon: '🗺️',
+			posts: data.loreAndPlacePosts || [],
+      isCategoryVisible: false
+		},
+		{
+			title: 'Homebrew',
+			icon: '⚗️',
+			posts: data.homebrewPosts || [],
+      isCategoryVisible: true
+    }
+	]
 </script>
 
 <svelte:head>
@@ -34,29 +53,74 @@
 	<meta property="og:url" content="https://alsoadventure.org" />
 	<meta property="og:site_name" content="Also, adventure" />
 	<meta property="og:locale" content="nb_NO" />
-	<meta property="og:title" content="Also, adventure - index" />
+	<meta property="og:title" content="Also, adventure - Min Kampanje-Wiki" />
 </svelte:head>
 
 <section id="widgetSection">
-	<FilterWidget {campaigns} {categories} />
+	<FilterWidget {campaigns} categories={[]} />
 </section>
 
 {#if campaign}
-	<CampaignInfo {campaign} />
+
+  <h1 class="header">{campaign.title}</h1>
+
+  <section class="dashboard">
+    {#if $navigating}
+      <div class="loading-container">
+        <SyncLoader size="100" color="#000" unit="px" duration="1s" />
+      </div>
+    {:else if selectedCampaign}
+      <div class="dashboard-grid">
+        {#each dashboardSections as section}
+          <DashboardSection {section} />
+        {/each}
+      </div>
+    {:else}
+      <div class="no-campaign">
+        <NoData />
+        <p>Velg en kampanje for å se wiki-innholdet</p>
+      </div>
+    {/if}
+    
+  </section>
+{:else}
+  Velg kampanje
 {/if}
 
-<section>
-	{#if $navigating}
-		<SyncLoader size="100" color="#000" unit="px" duration="1s" />
-	{:else if data.posts?.length}
-		{#if renderMode === 'markdown'}
-			<MarkdownCollection posts={data.posts} />
-		{:else}
-			{#each reverseOrder ? data.posts.reverse() : data.posts as post}
-				<PostInList {post} />
-			{/each}
-		{/if}
-	{:else}
-		<NoData />
-	{/if}
-</section>
+<style>
+  .header {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+	.dashboard-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+		gap: 1rem;
+	}
+
+	.loading-container {
+		display: flex;
+		justify-content: center;
+		padding: 4rem;
+	}
+
+	.no-campaign {
+		text-align: center;
+		padding: 4rem;
+		color: #666;
+	}
+
+	@media (max-width: 768px) {
+		.header {
+			flex-direction: column;
+			gap: 1rem;
+			text-align: centers;
+		}
+
+		.dashboard-grid {
+			grid-template-columns: 1fr;
+			padding: 0.5rem;
+		}
+	}
+</style>

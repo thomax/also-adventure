@@ -19,21 +19,55 @@ export async function load({ url }) {
   }
   previousQuery = currentQuery
 
-  // fetch data in parallel
-  const [posts, campaigns, categories] = await Promise.all([
-    getPosts({ campaignSlug: campaign, category: category, query }),
-    getCampaigns(),
-    getCategories({ campaignSlug: campaign, documentType: 'post' })
-  ])
-
-  if (campaigns) {
+  // If no campaign is selected, return basic data structure
+  if (!campaign) {
+    const campaigns = await getCampaigns()
     cachedResult = {
-      posts,
       campaigns,
-      categories
+      characterPosts: [],
+      sessionPosts: [],
+      loreAndPlacePosts: [],
+      homebrewPosts: []
     }
     return cachedResult
   }
 
-  error(404, "Not found, possibly error while fetching data");
+  // fetch data in parallel for dashboard sections
+  const [
+    campaigns,
+    characterPosts,
+    sessionPosts,
+    gmNotePosts,
+    placePosts,
+    homebrewPosts
+  ] = await Promise.all([
+    getCampaigns(),
+    getPosts({ campaignSlug: campaign, category: 'pc' }),
+    getPosts({ campaignSlug: campaign, category: 'session' }),
+    getPosts({ campaignSlug: campaign, category: 'gm-note' }),
+    getPosts({ campaignSlug: campaign, category: 'place' }),
+    getPosts({ campaignSlug: campaign, category: null }) // Get all other categories for homebrew
+  ])
+
+  if (campaigns) {
+    // Combine gm-note and place posts for the third section
+    const loreAndPlacePosts = [...gmNotePosts, ...placePosts]
+
+    // Filter homebrew posts to exclude the categories we already have
+    const excludeCategories = ['pc', 'session', 'gm-note', 'place']
+    const filteredHomebrewPosts = homebrewPosts.filter(post =>
+      !excludeCategories.includes(post.category?.singular)
+    )
+
+    cachedResult = {
+      campaigns,
+      characterPosts,
+      sessionPosts,
+      loreAndPlacePosts,
+      homebrewPosts: filteredHomebrewPosts
+    }
+    return cachedResult
+  }
+
+  error(404, "Not found, possibly error while fetching data")
 }
