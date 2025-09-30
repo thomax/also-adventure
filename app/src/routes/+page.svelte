@@ -23,25 +23,25 @@
 	$: dashboardSections = [
 		{
 			title: 'Karakterer',
-			icon: '👤',
+			icon: '/characters.svg',
 			posts: data.characterPosts || [],
       isCategoryVisible: false
 		},
 		{
-			title: 'Oppsummeringer',
-			icon: '📖',
+			title: 'Historien',
+			icon: '/story.svg',
 			posts: data.sessionPosts || [],
       isCategoryVisible: false
 		},
 		{
 			title: 'Bakgrunn',
-			icon: '🗺️',
+			icon: '/background.svg',
 			posts: data.loreAndPlacePosts || [],
       isCategoryVisible: false
 		},
 		{
 			title: 'Homebrew',
-			icon: '⚗️',
+			icon: '/homebrew.svg',
 			posts: data.homebrewPosts || [],
       isCategoryVisible: true
     }

@@ -20,9 +20,8 @@
 </script>
 
 <div class="dashboard-section">
-	<div class="section-header">
+	<div class="section-header" style="background-image: url({section.icon});">
 		<h2>
-			<span class="section-icon">{section.icon}</span>
 			{section.title}
 		</h2>
 	</div>
@@ -37,10 +36,10 @@
                 {post.order}&nbsp;-&nbsp;
               {/if}
               {post.title || 'Untitled'}
-              {#if section.isCategoryVisible}
-                &nbsp;[{post.category.singular}]
-              {/if}
 						</a>
+            {#if section.isCategoryVisible}
+              <span class="post-category">{post.category.singular}</span>
+            {/if}
 					</div>
 				{/each}
 			</div>
@@ -65,26 +64,24 @@
 	}
 
 	.section-header {
-		padding: 1.5rem 1.5rem 1rem;
+		padding: 2.5rem 1.5rem 1rem 1rem;
 		border-bottom: 1px solid #f0f0f0;
+		background-repeat: no-repeat;
+		background-position: right -0.1rem center;
+		background-size: auto 110%;
+		background-color: rgba(250, 250, 250, 0.7);
+		background-blend-mode: lighten;
 	}
 
 	.section-header h2 {
 		margin: 0;
 		font-size: 1.25rem;
 		color: #333;
-		display: flex;
-		align-items: center;
-		gap: 0.5rem;
-	}
-
-	.section-icon {
-		font-size: 1.5rem;
 	}
 
 	.section-content {
 		flex: 1;
-		padding: 1rem 1.5rem;
+		padding: 1rem 1rem;
 	}
 
 	.posts-list {
@@ -110,6 +107,11 @@
 		color: #007acc;
 		text-decoration: underline;
 	}
+
+  .post-category {
+    font-size: 0.85rem;
+    color: #444;
+  }
 
 
 	.no-posts {
