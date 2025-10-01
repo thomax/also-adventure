@@ -11,11 +11,11 @@
 	export let categories = []
 	const enableSelectCampaign = $page.url.pathname === '/'
 	const enableSelectCategory = $page.url.pathname === '/' || $page.url.pathname === '/blog'
-	const enableSearch = $page.url.pathname === '/' || $page.url.pathname === '/blog'
 	let currentSearchParams
 	let previousSearchParams
 	let selectedCampaignIndex = 0
 	let selectedCategoryIndex = 0
+	const enableSearch = selectedCampaignIndex > 0 && ($page.url.pathname === '/' || $page.url.pathname === '/blog')
 
 	function haveSearchParamsChanged(options = {}) {
 		currentSearchParams = JSON.stringify(options, null, 0)

@@ -30,13 +30,13 @@
 	}
 </script>
 
-<section id="widgetSection">
-	<FilterWidget {campaigns} {categories} />
-</section>
-
 {#if selectedCampaign}
 	<ViewToggle />
 {/if}
+
+<section id="widgetSection">
+	<FilterWidget {campaigns} {categories} />
+</section>
 
 {#if campaign}
 	<CampaignInfo {campaign} />

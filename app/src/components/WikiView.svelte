@@ -59,8 +59,6 @@
 
 
 {#if campaign}
-  <h1 class="header">{campaign.title}</h1>
-
   <section class="dashboard">
     {#if $navigating}
       <div class="loading-container">

@@ -25,7 +25,7 @@
 			class:active={!isWikiView}
 			on:click={() => !isWikiView || toggleView()}
 		>
-			Lista
+			Liste
 		</button>
 		<button 
 			class="toggle-option" 
@@ -46,7 +46,7 @@
 
 	.toggle-container {
 		display: flex;
-		background: #00684edd;
+		background: rgba(0, 48, 36, 0.9);
 		border-radius: 25px;
 		padding: 4px;
 		gap: 2px;
@@ -67,7 +67,7 @@
 
 	.toggle-option.active {
 		background: white;
-		color: #00684edd;
+		color: rgba(0, 48, 36, 0.9);
 		opacity: 1;
 		font-weight: 600;
 	}
@@ -78,6 +78,6 @@
 
 	.toggle-option:focus {
 		outline: none;
-		box-shadow: 0 0 0 2px rgba(0, 104, 78, 0.5)
+		box-shadow: 0 0 0 2px rgba(0, 48, 36, 0.5)
 	}
 </style>
