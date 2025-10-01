@@ -1,4 +1,6 @@
 <script>
+	import {urlFor} from '$lib/utils/image'
+	
 	export let section
 	
 	function urlForPost(post) {
@@ -30,17 +32,17 @@
 		{#if section.posts?.length}
 			<div class="posts-list">
 				{#each section.posts as post}
-					<div class="post-item">
-						<a href={urlForPost(post)} class="post-link">
+					<a href={urlForPost(post)} class="post-item" style="{post.mainImage ? `--bg-image: url(${urlFor(post.mainImage).width(400).height(200).url()})` : ''}">
+						<div class="post-title">
               {#if post.order && !isNaN(post.order)}
                 {post.order}&nbsp;-&nbsp;
               {/if}
               {post.title || 'Untitled'}
-						</a>
+						</div>
             {#if section.isCategoryVisible}
-              <span class="post-category">{post.category.singular}</span>
+              <div class="post-category">{post.category.singular}</div>
             {/if}
-					</div>
+					</a>
 				{/each}
 			</div>
 		{:else}
@@ -69,7 +71,7 @@
 		background-repeat: no-repeat;
 		background-position: right -0.1rem center;
 		background-size: auto 110%;
-		background-color: rgba(250, 250, 250, 0.7);
+		background-color: rgba(250, 250, 250, 0.92);
 		background-blend-mode: lighten;
 	}
 
@@ -94,23 +96,94 @@
 		display: flex;
 		flex-direction: column;
 		gap: 0.25rem;
-	}
-
-	.post-link {
-		color: #333;
+		position: relative;
+		padding: 0.75rem;
+		border-radius: 3px;
+		transition: transform 0.2s ease, box-shadow 0.3s ease;
+		overflow: hidden;
 		text-decoration: none;
-		font-weight: 500;
-		line-height: 1.3;
+		cursor: pointer;
 	}
 
-	.post-link:hover {
-		color: #007acc;
-		text-decoration: underline;
+	/* Over-exposed blurred background image */
+	.post-item::before {
+		content: '';
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		background-image: var(--bg-image);
+		background-size: cover;
+		background-position: center;
+		background-repeat: no-repeat;
+		filter: blur(1.5px) brightness(2.2) contrast(0.7) saturate(0.5);
+		transition: filter 0.2s ease;
+		z-index: 0;
+	}
+
+	/* Light overlay for washed-out effect */
+	.post-item::after {
+		content: '';
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		background: rgba(255, 255, 255, 0.7);
+		transition: background 0.2s ease;
+		z-index: 1;
+	}
+
+	.post-item:hover {
+		transform: scale(1.1);
+		box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    z-index: 2;
+	}
+
+	.post-item:hover::before {
+		filter: blur(0.3px) brightness(1.3) contrast(1.1) saturate(1.2);
+	}
+
+	.post-item:hover::after {
+		background: rgba(255, 255, 255, 0.2);
+	}
+
+	/* Trigger text shadow changes on item hover */
+	.post-item:hover .post-title {
+		text-shadow: 
+			0 0 3px rgba(255, 255, 255, 0.9),
+			0 0 6px rgba(255, 255, 255, 0.7),
+			1px 1px 0 rgba(255, 255, 255, 0.8),
+			-1px -1px 0 rgba(255, 255, 255, 0.8),
+			1px -1px 0 rgba(255, 255, 255, 0.8),
+			-1px 1px 0 rgba(255, 255, 255, 0.8);
+	}
+
+	.post-title {
+		color: #333;
+		line-height: 1.3;
+		position: relative;
+		z-index: 2;
+		font-weight: 700;
+		text-shadow: 
+			0 0 2px rgba(255, 255, 255, 0.8),
+			1px 1px 0 rgba(255, 255, 255, 0.6),
+			-1px -1px 0 rgba(255, 255, 255, 0.6);
+		transition: all 0.2s ease;
 	}
 
   .post-category {
     font-size: 0.85rem;
-    color: #444;
+		font-weight: 700;
+    color: #555;
+    position: relative;
+    z-index: 2;
+    text-shadow: 
+      0 0 2px rgba(255, 255, 255, 0.9),
+      1px 1px 0 rgba(255, 255, 255, 0.7),
+      -1px -1px 0 rgba(255, 255, 255, 0.7);
+    transition: color 0.2s ease;
   }
 
 
