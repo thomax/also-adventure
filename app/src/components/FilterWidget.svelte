@@ -15,7 +15,11 @@
 	let previousSearchParams
 	let selectedCampaignIndex = 0
 	let selectedCategoryIndex = 0
-	const enableSearch = selectedCampaignIndex > 0 && ($page.url.pathname === '/' || $page.url.pathname === '/blog')
+	let isWikiView = $page.url.searchParams.get('view') === 'wiki'
+
+	let enableSearch = selectedCampaignIndex > 0 && !isWikiView && ($page.url.pathname === '/' || $page.url.pathname === '/blog')
+
+
 
 	function haveSearchParamsChanged(options = {}) {
 		currentSearchParams = JSON.stringify(options, null, 0)
@@ -28,6 +32,9 @@
 			selectedCategoryIndex,
 			query: $page.url.searchParams.get('query')
 		}
+
+		enableSearch = selectedCampaignIndex > 0 && !isWikiView && ($page.url.pathname === '/' || $page.url.pathname === '/blog')
+
 		// This check is necessary to avoid an infinite loop
 		if (haveSearchParamsChanged(options)) {
 			const newState = {}
