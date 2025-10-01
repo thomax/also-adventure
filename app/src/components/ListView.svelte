@@ -1,11 +1,12 @@
 <script>
 	import {page, navigating} from '$app/stores'
 	import {SyncLoader} from 'svelte-loading-spinners'
-	import PostInList from '../components/PostInList.svelte'
-	import MarkdownCollection from '../components/MarkdownCollection.svelte'
-	import CampaignInfo from '../components/CampaignInfo.svelte'
-	import FilterWidget from '../components/FilterWidget.svelte'
-	import NoData from '../components/NoData.svelte'
+	import PostInList from './PostInList.svelte'
+	import MarkdownCollection from './MarkdownCollection.svelte'
+	import CampaignInfo from './CampaignInfo.svelte'
+	import FilterWidget from './FilterWidget.svelte'
+	import NoData from './NoData.svelte'
+	import ViewToggle from './ViewToggle.svelte'
 
 	export let data
 	const renderMode = $page.url.searchParams.get('render') || 'web'
@@ -29,17 +30,13 @@
 	}
 </script>
 
-<svelte:head>
-	<meta property="og:type" content="website" />
-	<meta property="og:url" content="https://alsoadventure.org" />
-	<meta property="og:site_name" content="Also, adventure" />
-	<meta property="og:locale" content="nb_NO" />
-	<meta property="og:title" content="Also, adventure - index" />
-</svelte:head>
-
 <section id="widgetSection">
 	<FilterWidget {campaigns} {categories} />
 </section>
+
+{#if selectedCampaign}
+	<ViewToggle />
+{/if}
 
 {#if campaign}
 	<CampaignInfo {campaign} />

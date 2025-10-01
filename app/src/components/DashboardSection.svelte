@@ -71,7 +71,7 @@
 		background-repeat: no-repeat;
 		background-position: right -0.1rem center;
 		background-size: auto 110%;
-		background-color: rgba(250, 250, 250, 0.92);
+		background-color: rgba(250, 250, 250, 0.6);
 		background-blend-mode: lighten;
 	}
 

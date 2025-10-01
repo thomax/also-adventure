@@ -10,46 +10,50 @@ export async function load({ url }) {
   const campaign = url.searchParams.get('campaign')
   const category = url.searchParams.get('category')
   const queryParam = url.searchParams.get('query')
+  const isWikiView = url.searchParams.get('view') === 'wiki'
 
   // only perform new fetch if query has changed and is longer than 2 characters
   const query = queryParam?.length > 2 ? queryParam : null
-  const currentQuery = [campaign, category, query].join('')
+  const currentQuery = [campaign, category, query, isWikiView].join('')
   if (currentQuery === previousQuery) {
     return cachedResult
   }
   previousQuery = currentQuery
 
-  // If no campaign is selected, return basic data structure
+  // Always fetch campaigns first
+  const campaigns = await getCampaigns()
+
+  // If no campaign is selected, return basic structure
   if (!campaign) {
-    const campaigns = await getCampaigns()
     cachedResult = {
       campaigns,
+      posts: [],
+      categories: [],
       characterPosts: [],
       sessionPosts: [],
       loreAndPlacePosts: [],
-      homebrewPosts: []
+      homebrewPosts: [],
+      isWikiView
     }
     return cachedResult
   }
 
-  // fetch data in parallel for dashboard sections
-  const [
-    campaigns,
-    characterPosts,
-    sessionPosts,
-    gmNotePosts,
-    placePosts,
-    homebrewPosts
-  ] = await Promise.all([
-    getCampaigns(),
-    getPosts({ campaignSlug: campaign, category: 'pc' }),
-    getPosts({ campaignSlug: campaign, category: 'session' }),
-    getPosts({ campaignSlug: campaign, category: 'gm-note' }),
-    getPosts({ campaignSlug: campaign, category: 'place' }),
-    getPosts({ campaignSlug: campaign, category: null }) // Get all other categories for homebrew
-  ])
+  if (isWikiView) {
+    // fetch data in parallel for dashboard sections (wiki view)
+    const [
+      characterPosts,
+      sessionPosts,
+      gmNotePosts,
+      placePosts,
+      homebrewPosts
+    ] = await Promise.all([
+      getPosts({ campaignSlug: campaign, category: 'pc' }),
+      getPosts({ campaignSlug: campaign, category: 'session' }),
+      getPosts({ campaignSlug: campaign, category: 'gm-note' }),
+      getPosts({ campaignSlug: campaign, category: 'place' }),
+      getPosts({ campaignSlug: campaign, category: null }) // Get all other categories for homebrew
+    ])
 
-  if (campaigns) {
     // Combine gm-note and place posts for the third section
     const loreAndPlacePosts = [...gmNotePosts, ...placePosts]
 
@@ -61,13 +65,32 @@ export async function load({ url }) {
 
     cachedResult = {
       campaigns,
+      posts: [],
+      categories: [],
       characterPosts,
       sessionPosts,
       loreAndPlacePosts,
-      homebrewPosts: filteredHomebrewPosts
+      homebrewPosts: filteredHomebrewPosts,
+      isWikiView
+    }
+    return cachedResult
+  } else {
+    // fetch data for list view (original behavior)
+    const [posts, categories] = await Promise.all([
+      getPosts({ campaignSlug: campaign, category: category, query }),
+      getCategories({ campaignSlug: campaign, documentType: 'post' })
+    ])
+
+    cachedResult = {
+      campaigns,
+      posts,
+      categories,
+      characterPosts: [],
+      sessionPosts: [],
+      loreAndPlacePosts: [],
+      homebrewPosts: [],
+      isWikiView
     }
     return cachedResult
   }
-
-  error(404, "Not found, possibly error while fetching data")
 }
