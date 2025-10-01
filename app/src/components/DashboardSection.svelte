@@ -39,9 +39,7 @@
               {/if}
               {post.title || 'Untitled'}
 						</div>
-            {#if section.isCategoryVisible}
-              <div class="post-category">{post.category.singular}</div>
-            {/if}
+						<div class="post-category">{post.category.singular}</div>
 					</a>
 				{/each}
 			</div>

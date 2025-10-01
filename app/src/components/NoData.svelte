@@ -5,7 +5,7 @@
 	const query = searchParams.get('query')
 
 	$: {
-		console.info(selectedCampaign, selectedCategory, query)
+		console.info({selectedCampaign, selectedCategory, query})
 	}
 </script>
 
