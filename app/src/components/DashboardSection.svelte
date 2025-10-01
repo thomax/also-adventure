@@ -88,7 +88,7 @@
 		display: flex;
 		flex-direction: column;
 		gap: 0.75rem;
-		padding: 0 10px 10px 0; /* Add padding to accommodate overflowing labels */
+		padding: 0 10px 10px 0;
 	}
 
 	.post-item {
@@ -97,9 +97,9 @@
 		gap: 0.25rem;
 		position: relative;
 		padding: 0.75rem;
-		border-radius: 3px;
 		transition: transform 0.2s ease, box-shadow 0.3s ease;
-		overflow: visible; /* Allow category label to overflow */
+		border-radius: 1px;
+		overflow: visible;
 		text-decoration: none;
 		cursor: pointer;
 	}
@@ -119,7 +119,6 @@
 		filter: blur(1.5px) brightness(2.2) contrast(0.7) saturate(0.5);
 		transition: filter 0.2s ease;
 		z-index: 0;
-		border-radius: 3px; /* Clip the background to the border radius */
 		overflow: hidden;
 	}
 
@@ -134,7 +133,7 @@
 		background: rgba(255, 255, 255, 0.7);
 		transition: background 0.2s ease;
 		z-index: 1;
-		border-radius: 3px; /* Clip the overlay to the border radius */
+		border-radius: 1px;
 		overflow: hidden;
 	}
 
@@ -187,7 +186,7 @@
     padding: 4px 16px 4px 12px;
     transform: rotate(-8deg);
     transform-origin: center;
-    border-radius: 2px;
+    border-radius: 1px;
     z-index: 3;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
     text-shadow: none;
@@ -200,7 +199,7 @@
 
   .post-item:hover .post-category-label {
     background: rgba(66, 135, 245, 1);
-    transform: rotate(-10deg) scale(1.05);
+    transform: rotate(-12deg) scale(1.15);
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
   }
 
