@@ -39,7 +39,7 @@
               {/if}
               {post.title || 'Untitled'}
 						</div>
-						<div class="post-category">{post.category.singular}</div>
+						<div class="post-category-label">{post.category.singular}</div>
 					</a>
 				{/each}
 			</div>
@@ -88,6 +88,7 @@
 		display: flex;
 		flex-direction: column;
 		gap: 0.75rem;
+		padding: 0 10px 10px 0; /* Add padding to accommodate overflowing labels */
 	}
 
 	.post-item {
@@ -98,7 +99,7 @@
 		padding: 0.75rem;
 		border-radius: 3px;
 		transition: transform 0.2s ease, box-shadow 0.3s ease;
-		overflow: hidden;
+		overflow: visible; /* Allow category label to overflow */
 		text-decoration: none;
 		cursor: pointer;
 	}
@@ -118,6 +119,8 @@
 		filter: blur(1.5px) brightness(2.2) contrast(0.7) saturate(0.5);
 		transition: filter 0.2s ease;
 		z-index: 0;
+		border-radius: 3px; /* Clip the background to the border radius */
+		overflow: hidden;
 	}
 
 	/* Light overlay for washed-out effect */
@@ -131,6 +134,8 @@
 		background: rgba(255, 255, 255, 0.7);
 		transition: background 0.2s ease;
 		z-index: 1;
+		border-radius: 3px; /* Clip the overlay to the border radius */
+		overflow: hidden;
 	}
 
 	.post-item:hover {
@@ -171,17 +176,32 @@
 		transition: all 0.2s ease;
 	}
 
-  .post-category {
-    font-size: 0.85rem;
-		font-weight: 700;
-    color: #555;
-    position: relative;
-    z-index: 2;
-    text-shadow: 
-      0 0 2px rgba(255, 255, 255, 0.9),
-      1px 1px 0 rgba(255, 255, 255, 0.7),
-      -1px -1px 0 rgba(255, 255, 255, 0.7);
-    transition: color 0.2s ease;
+  .post-category-label {
+    position: absolute;
+    bottom: -1px;
+    right: -8px;
+    background: rgba(57, 79, 114, 0.4);
+    color: white;
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 4px 16px 4px 12px;
+    transform: rotate(-8deg);
+    transform-origin: center;
+    border-radius: 2px;
+    z-index: 3;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    text-shadow: none;
+    transition: all 0.2s ease;
+    min-width: 60px;
+    text-align: center;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+
+  .post-item:hover .post-category-label {
+    background: rgba(66, 135, 245, 1);
+    transform: rotate(-10deg) scale(1.05);
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
   }
 
 
