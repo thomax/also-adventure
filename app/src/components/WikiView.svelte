@@ -13,6 +13,8 @@
 	let campaigns = []
 	let campaign
 	let dashboardSections = []
+	let sectionFilters = {} // Track selected categories for each section
+	let availableHomebrewCategories = [] // Dynamically discovered categories
 
 	$: {
 		selectedCampaign = $page.url.searchParams.get('campaign')
@@ -47,41 +49,109 @@
     }
 	]
 
+	// Initialize category filters - all categories selected by default
+	$: {
+		if (Object.keys(sectionFilters).length === 0) {
+			sectionFilters = dashboardConfig.reduce((acc, section) => {
+				if (section.categories.length > 0) {
+					acc[section.title] = section.categories.map(cat => ({ 
+						value: cat, 
+						label: cat.toUpperCase(), 
+						selected: true 
+					}))
+				}
+				return acc
+			}, {})
+		}
+	}
+
+	// Handle category filter changes
+	function handleCategoryFilterChange(sectionTitle, updatedOptions) {
+		// Create a new array with updated selected states
+		const newOptions = updatedOptions.map(opt => ({ ...opt }))
+		sectionFilters[sectionTitle] = newOptions
+		// Trigger reactivity
+		sectionFilters = { ...sectionFilters }
+		// Re-fetch data with new filters
+		fetchDashboardData(selectedCampaign)
+	}
+
 	// Fetch posts for each dashboard section based on categories
-	$: if (selectedCampaign) {
+	$: if (selectedCampaign && Object.keys(sectionFilters).length > 0) {
 		fetchDashboardData(selectedCampaign)
 	}
 
 	async function fetchDashboardData(campaignSlug) {
+		if (!campaignSlug) return
+
+		// First, get all posts to discover available categories for Homebrew
+		const allPosts = await getPosts({ campaignSlug })
+		
+		// Discover unique categories for Homebrew section
+		const homebrewSection = dashboardConfig.find(s => s.title === 'Homebrew')
+		if (homebrewSection) {
+			const homebrewPosts = allPosts.filter(post => 
+				!homebrewSection.excludeCategories.includes(post.category?.singular)
+			)
+			const uniqueCategories = [...new Set(homebrewPosts.map(post => post.category?.singular))]
+				.filter(cat => cat) // Remove undefined/null
+				.sort()
+			
+			availableHomebrewCategories = uniqueCategories
+			
+			// Initialize Homebrew filters if not already done
+			if (!sectionFilters['Homebrew']) {
+				sectionFilters['Homebrew'] = uniqueCategories.map(cat => ({
+					value: cat,
+					label: cat.toUpperCase(),
+					selected: true
+				}))
+				// Trigger reactivity
+				sectionFilters = { ...sectionFilters }
+			}
+		}
+
 		const sectionPromises = dashboardConfig.map(async (section) => {
+			let posts = []
+
 			if (section.categories.length > 0) {
-				// Fetch posts for specific categories
-				const categoryPromises = section.categories.map(category => 
-					getPosts({ campaignSlug, category })
-				)
-				const categoryResults = await Promise.all(categoryPromises)
-				const posts = categoryResults.flat()
+				// Get selected categories for this section
+				const sectionFilterOptions = sectionFilters[section.title]
+				let selectedCategories = section.categories
 				
-				return {
-					...section,
-					posts
+				if (sectionFilterOptions) {
+					const selectedOptions = sectionFilterOptions.filter(opt => opt.selected)
+					selectedCategories = selectedOptions.map(opt => opt.value)
+				}
+
+				if (selectedCategories.length > 0) {
+					// Fetch posts for selected categories only
+					const categoryPromises = selectedCategories.map(category => 
+						getPosts({ campaignSlug, category })
+					)
+					const categoryResults = await Promise.all(categoryPromises)
+					posts = categoryResults.flat()
 				}
 			} else if (section.excludeCategories) {
-				// Fetch all posts and exclude certain categories (for Homebrew section)
-				const allPosts = await getPosts({ campaignSlug })
-				const posts = allPosts.filter(post => 
-					!section.excludeCategories.includes(post.category?.singular)
-				)
+				// Handle Homebrew section with dynamic filtering
+				const sectionFilterOptions = sectionFilters[section.title]
+				let selectedCategories = availableHomebrewCategories
 				
-				return {
-					...section,
-					posts
+				if (sectionFilterOptions) {
+					const selectedOptions = sectionFilterOptions.filter(opt => opt.selected)
+					selectedCategories = selectedOptions.map(opt => opt.value)
 				}
+				
+				posts = allPosts.filter(post => 
+					selectedCategories.includes(post.category?.singular)
+				)
 			}
 			
 			return {
 				...section,
-				posts: []
+				posts,
+				filterOptions: sectionFilters[section.title] || [],
+				onFilterChange: (options) => handleCategoryFilterChange(section.title, options)
 			}
 		})
 

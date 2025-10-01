@@ -1,5 +1,6 @@
 <script>
 	import {urlFor} from '$lib/utils/image'
+	import MultiSelect from './MultiSelect.svelte'
 	
 	export let section
 	
@@ -39,7 +40,9 @@
               {/if}
               {post.title || 'Untitled'}
 						</div>
-						<div class="post-category-label">{post.category.singular}</div>
+						{#if post.category?.singular}
+							<div class="post-category">{post.category.singular}</div>
+						{/if}
 					</a>
 				{/each}
 			</div>
@@ -49,6 +52,16 @@
 			</div>
 		{/if}
 	</div>
+	{#if section.filterOptions && section.filterOptions.length > 0}
+		<div class="section-filter">
+			<MultiSelect 
+				options={section.filterOptions}
+				placeholder="Velg kategorier..."
+				onSelectionChange={section.onFilterChange}
+			/>
+		</div>
+	{/if}
+
 </div>
 
 <style>
@@ -77,6 +90,11 @@
 		margin: 0;
 		font-size: 1.25rem;
 		color: #333;
+		margin-bottom: 0.75rem;
+	}
+
+	.section-filter {
+		margin-top: 0.5rem;
 	}
 
 	.section-content {
@@ -175,32 +193,18 @@
 		transition: all 0.2s ease;
 	}
 
-  .post-category-label {
-    position: absolute;
-    bottom: -1px;
-    right: -8px;
-    background: rgba(57, 79, 114, 0.4);
-    color: white;
+  .post-category {
     font-size: 0.75rem;
     font-weight: 700;
-    padding: 4px 16px 4px 12px;
-    transform: rotate(-8deg);
-    transform-origin: center;
-    border-radius: 1px;
-    z-index: 3;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-    text-shadow: none;
-    transition: all 0.2s ease;
-    min-width: 60px;
-    text-align: center;
-    letter-spacing: 0.5px;
     text-transform: uppercase;
-  }
-
-  .post-item:hover .post-category-label {
-    background: rgba(66, 135, 245, 1);
-    transform: rotate(-12deg) scale(1.15);
-    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
+    color: #666;
+    position: relative;
+    z-index: 2;
+    text-shadow: 
+      0 0 2px rgba(255, 255, 255, 0.9),
+      1px 1px 0 rgba(255, 255, 255, 0.7),
+      -1px -1px 0 rgba(255, 255, 255, 0.7);
+    transition: color 0.2s ease;
   }
 
 
