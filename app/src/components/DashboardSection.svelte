@@ -147,15 +147,15 @@
 		color: #333;
 		line-height: 1.3;
 		font-weight: 700;
-		text-shadow: 0 2px 2px rgba(255, 255, 255, 0.8);
+		text-shadow: 0 2px 2px rgba(255, 255, 255, 0.7);
 		transition: text-shadow 0.2s ease;
 	}
 
 	.post-item:hover .post-title, .post-item:hover .post-category {
-		text-shadow: 2px 2px 3px rgba(255, 255, 255, 0.9), 
-			-2px -2px 3px rgba(255, 255, 255, 0.9), 
-			-2px 2px 3px rgba(255, 255, 255, 0.9), 
-			2px -2px 3px rgba(255, 255, 255, 0.9);
+		text-shadow: 2px 2px 2px rgba(255, 255, 255, 0.8), 
+			-2px -2px 2px rgba(255, 255, 255, 0.8), 
+			-2px 2px 2px rgba(255, 255, 255, 0.8), 
+			2px -2px 2px rgba(255, 255, 255, 0.8);
 	}
 
 	.post-category {
