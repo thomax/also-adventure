@@ -99,113 +99,72 @@
 
 	.section-content {
 		flex: 1;
-		padding: 1rem 1rem;
+		padding: 1rem;
+		overflow: hidden;
+		display: flex;
+		flex-direction: column;
 	}
 
 	.posts-list {
 		display: flex;
 		flex-direction: column;
 		gap: 0.75rem;
-		padding: 0 10px 10px 0;
+		padding: 0.5rem;
+		overflow-y: auto;
+		flex: 1;
+		min-height: 0;
 	}
 
 	.post-item {
 		display: flex;
 		flex-direction: column;
 		gap: 0.25rem;
-		position: relative;
 		padding: 0.75rem;
-		transition: transform 0.2s ease, box-shadow 0.3s ease;
-		border-radius: 1px;
-		overflow: visible;
+		margin: 0.15rem;
+		transition: all 0.2s ease;
+		border-radius: 3px;
 		text-decoration: none;
 		cursor: pointer;
-	}
-
-	/* Over-exposed blurred background image */
-	.post-item::before {
-		content: '';
-		position: absolute;
-		top: 0;
-		left: 0;
-		right: 0;
-		bottom: 0;
 		background-image: var(--bg-image);
 		background-size: cover;
 		background-position: center;
 		background-repeat: no-repeat;
-		filter: blur(1.5px) brightness(2.2) contrast(0.7) saturate(0.5);
-		transition: filter 0.2s ease;
-		z-index: 0;
-		overflow: hidden;
-	}
-
-	/* Light overlay for washed-out effect */
-	.post-item::after {
-		content: '';
-		position: absolute;
-		top: 0;
-		left: 0;
-		right: 0;
-		bottom: 0;
-		background: rgba(255, 255, 255, 0.7);
-		transition: background 0.2s ease;
-		z-index: 1;
-		border-radius: 1px;
-		overflow: hidden;
+		background-blend-mode: lighten;
+		background-color: rgba(255, 255, 255, 0.7);
+		box-shadow: inset 0 0 0 1000px rgba(255, 255, 255, 0.4);
 	}
 
 	.post-item:hover {
-		transform: scale(1.1);
-		box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-    z-index: 2;
-	}
-
-	.post-item:hover::before {
-		filter: blur(0.3px) brightness(1.3) contrast(1.1) saturate(1.2);
-	}
-
-	.post-item:hover::after {
-		background: rgba(255, 255, 255, 0.2);
-	}
-
-	/* Trigger text shadow changes on item hover */
-	.post-item:hover .post-title {
-		text-shadow: 
-			0 0 3px rgba(255, 255, 255, 0.9),
-			0 0 6px rgba(255, 255, 255, 0.7),
-			1px 1px 0 rgba(255, 255, 255, 0.8),
-			-1px -1px 0 rgba(255, 255, 255, 0.8),
-			1px -1px 0 rgba(255, 255, 255, 0.8),
-			-1px 1px 0 rgba(255, 255, 255, 0.8);
+		transform: scale(1.05);
+		box-shadow: 
+			inset 0 0 0 1000px rgba(255, 255, 255, 0.1),
+			0 8px 25px rgba(0, 0, 0, 0.15);
+		background-blend-mode: normal;
+		background-color: none;
 	}
 
 	.post-title {
 		color: #333;
 		line-height: 1.3;
-		position: relative;
-		z-index: 2;
 		font-weight: 700;
-		text-shadow: 
-			0 0 2px rgba(255, 255, 255, 0.8),
-			1px 1px 0 rgba(255, 255, 255, 0.6),
-			-1px -1px 0 rgba(255, 255, 255, 0.6);
-		transition: all 0.2s ease;
+		text-shadow: 0 2px 2px rgba(255, 255, 255, 0.8);
+		transition: text-shadow 0.2s ease;
 	}
 
-  .post-category {
-    font-size: 0.75rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    color: #666;
-    position: relative;
-    z-index: 2;
-    text-shadow: 
-      0 0 2px rgba(255, 255, 255, 0.9),
-      1px 1px 0 rgba(255, 255, 255, 0.7),
-      -1px -1px 0 rgba(255, 255, 255, 0.7);
-    transition: color 0.2s ease;
-  }
+	.post-item:hover .post-title, .post-item:hover .post-category {
+		text-shadow: 2px 2px 3px rgba(255, 255, 255, 0.9), 
+			-2px -2px 3px rgba(255, 255, 255, 0.9), 
+			-2px 2px 3px rgba(255, 255, 255, 0.9), 
+			2px -2px 3px rgba(255, 255, 255, 0.9);
+	}
+
+	.post-category {
+		font-size: 0.75rem;
+		font-weight: 700;
+		text-transform: uppercase;
+		color: #666;
+		text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);
+	}
 
 
 	.no-posts {
