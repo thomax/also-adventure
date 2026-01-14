@@ -10,7 +10,7 @@ export const client = createClient({
   projectId: PUBLIC_SANITY_PROJECT_ID,
   dataset: PUBLIC_SANITY_DATASET,
   useCdn: true, // `false` if you want to ensure fresh data
-  apiVersion: '2024-01-31' // date of setup
+  apiVersion: '2026-01-14' // date of setup
 })
 
 export async function getPosts(options = {}) {

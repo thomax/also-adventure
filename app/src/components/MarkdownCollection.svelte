@@ -1,22 +1,8 @@
 <script lang="javascript">
-	import {PUBLIC_SANITY_DATASET, PUBLIC_SANITY_PROJECT_ID} from '$env/static/public'
-
-	import toMarkdown from '@sanity/block-content-to-markdown'
+	import {portableTextToMarkdown} from '@portabletext/markdown'
 	export let posts
 
-	const serializers = {
-		types: {
-			code: props => '```' + props.node.language + '\n' + props.node.code + '\n```'
-		}
-	}
-
-	const bodyToMarkdown = body =>
-		toMarkdown(body, {
-			serializers,
-			imageOptions: {w: 320, h: 240, fit: 'max'},
-			projectId: 'PUBLIC_SANITY_PROJECT_ID',
-			dataset: 'PUBLIC_SANITY_DATASET'
-		})
+	const bodyToMarkdown = body => portableTextToMarkdown(body)
 
 	const copyToClipboard = () => {
 		const text = document.getElementById('postsAsMarkdown').innerText

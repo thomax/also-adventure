@@ -13,7 +13,7 @@ import {
 
 import {EditIcon} from '@sanity/icons'
 import {EyeOpenIcon} from '@sanity/icons'
-import toMarkdown from '@sanity/block-content-to-markdown'
+import toMarkdown from '@portabletext/markdown'
 import ArticlePreview from './previews/article/ArticlePreview'
 //import SpaceshipSummary from './previews/spaceship/SpaceshipSummary'
 import DeveloperPreview from './previews/spaceship/DeveloperPreview'
