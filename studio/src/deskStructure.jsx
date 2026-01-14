@@ -13,7 +13,8 @@ import {
 
 import {EditIcon} from '@sanity/icons'
 import {EyeOpenIcon} from '@sanity/icons'
-import toMarkdown from '@portabletext/markdown'
+import {portableTextToMarkdown} from '@portabletext/markdown'
+import imageUrlBuilder from '@sanity/image-url'
 import ArticlePreview from './previews/article/ArticlePreview'
 //import SpaceshipSummary from './previews/spaceship/SpaceshipSummary'
 import DeveloperPreview from './previews/spaceship/DeveloperPreview'
@@ -29,9 +30,20 @@ const client = createClient({
 })
 
 
-const markdownSerializers = {
+const builder = imageUrlBuilder(client)
+
+const markdownOptions = {
   types: {
-    code: (props) => '```' + props.node.language + '\n' + props.node.code + '\n```',
+    code: ({value = {}}) => {
+      const {language = '', code = ''} = value
+      return `\`\`\`${language}\n${code}\n\`\`\``
+    },
+    image: ({value}) => {
+      if (!value?.asset) return ''
+      const url = builder.image(value).width(320).height(240).fit('max').url()
+      const alt = value.alt || ''
+      return url ? `![${alt}](${url})` : ''
+    },
   },
 }
 
@@ -131,12 +143,7 @@ function campaignPostsByCategory(S, campaignId) {
                             <div>
                               <button onClick={copyToClipboard}>Copy MD to clipboard</button>
                               <pre id="documentAsMarkdown">
-                                {toMarkdown(document.displayed.body, {
-                                  serializers: markdownSerializers,
-                                  imageOptions: {w: 320, h: 240, fit: 'max'},
-                                  projectId: 'sajbthd8',
-                                  dataset: 'production',
-                                })}
+                                {portableTextToMarkdown(document?.displayed?.body || [], markdownOptions)}
                               </pre>
                             </div>
                           ))
