@@ -53,7 +53,7 @@
 			<li>
 				<a class="nav-link" href={campaignUrl}>{campaignTitle}</a>
 				/
-				<a class="nav-link" href={categoryUrl}>{categoryTitle}</a>{data.order
+				<a class="nav-link" href={categoryUrl}>{categoryTitle}</a>{Number.isInteger(data.order)
 					? ` / ${data.order}`
 					: ''}
 			</li>
