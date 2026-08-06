@@ -44,7 +44,7 @@
 			/>
 		</a>
 	{:else}
-		<div class="post__cover--none" />
+		<div class="post__cover--none"></div>
 	{/if}
 	<div class="post__container">
 		<h1 class="post__title">{data.title}</h1>

@@ -8,6 +8,7 @@ export default {
     { title: 'GURPS', value: 'gurps' },
     { title: 'Pathfinder', value: 'pathfinder' },
     { title: 'Pathfinder 2', value: 'pathfinder2' },
+    { title: 'Pirate Borg', value: 'pirateborg' },
     { title: 'Punk Apocalyptic', value: 'punk-apocalyptic' },
     { title: 'Savage Worlds', value: 'swade' },
     { title: 'Shadow of the Demon Lord', value: 'sotdl' },
