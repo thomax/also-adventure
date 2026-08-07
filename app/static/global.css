@@ -185,6 +185,10 @@ main {
 	margin-top: var(--space-3);
 }
 
+section {
+	margin: 1.5rem 0;
+}
+
 .header {
 	display: flex;
 	justify-content: space-between;
@@ -272,22 +276,25 @@ main {
 	padding: 9px 9px 12px 9px;
 	border: 1px solid #ced2d9;
 	border-radius: 3px;
-	margin-bottom: 1rem;
 }
 
 #searchInputSection {
-	padding: 9px 9px 12px 9px;
-	border: 1px solid #ced2d9;
-	border-radius: 0px;
-	margin: 0.2rem 0 0.3rem 0rem;
+	padding: 0;
+	border: none;
+	margin: 0;
 }
 
 .seachInputField,
-on:focus {
+.seachInputField:focus {
 	outline: none;
-	border: none;
-	font-size: 1em;
+	height: 40px;
 	width: 100%;
+	font-size: 1rem;
+	padding: 5px 10px;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+	box-sizing: border-box;
 }
 
 #pleaseApplyFilter {
@@ -312,7 +319,6 @@ on:focus {
 	padding-bottom: 0px;
 	border: 1px solid #ced2d9;
 	border-radius: 3px;
-	margin-bottom: 1rem;
 	display: flex;
 	flex-direction: column;
 }
