@@ -272,7 +272,7 @@ main {
 	padding: 9px 9px 12px 9px;
 	border: 1px solid #ced2d9;
 	border-radius: 3px;
-	margin-bottom: 1.3rem;
+	margin-bottom: 1rem;
 }
 
 #searchInputSection {
@@ -321,10 +321,9 @@ on:focus {
 	display: flex;
 	margin-bottom: 10px;
 	padding: 5px 7px;
-	background: rgb(187, 187, 187);
-	background: linear-gradient(to right, rgb(187, 187, 187) 60%, rgba(187, 187, 187, 0.098) 100%);
+	background: rgba(230, 230, 230, 0.8);
 	border-radius: 1px;
-	color: rgba(48, 48, 48, 0.766);
+	color: rgb(48, 48, 48);
 }
 
 #campaignInfo .label {
