@@ -25,7 +25,7 @@
 			alt="Cover image for {post.title}"
 		/>
 	{:else}
-		<div class="card__cover--none" />
+		<div class="card__cover--none"></div>
 	{/if}
 
 	<div class="card__container">
@@ -35,7 +35,7 @@
 			</a>
 		</h3>
 		<p class="card__excerpt">
-			{post.campaign.title?.toLowerCase()}/{post.category?.title.toLowerCase()}{post.order
+			{post.campaign.slug.current?.toLowerCase()}/{post.category?.singular}{post.order
 				? `/${post.order}`
 				: ''}
 		</p>
