@@ -7,6 +7,7 @@ import {
   MdFolder,
   MdPerson,
   MdBook,
+  MdList,
   MdLibraryBooks,
   MdDirectionsBoat,
 } from 'react-icons/md'
@@ -220,6 +221,11 @@ export default (S) => {
         .icon(MdPerson)
         .schemaType('user')
         .child(S.documentTypeList('user').title('Users')),
+      S.listItem()
+        .title('Random Tables')
+        .icon(MdList)
+        .schemaType('randomTable')
+        .child(S.documentTypeList('randomTable').title('Random Tables')),
       S.listItem()
         .title('Spaceships')
         .icon(MdDirectionsBoat)

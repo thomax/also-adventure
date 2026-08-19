@@ -18,6 +18,7 @@ import bonus from './ships/bonus'
 import shipyard from './ships/shipyard'
 
 import talent from './talents/talent'
+import randomTable from './randomTable'
 
 export default [
   blogPost,
@@ -28,6 +29,7 @@ export default [
   comment,
   siteSettings,
   user,
+  randomTable,
   ship,
   shipFeature,
   shipModule,
