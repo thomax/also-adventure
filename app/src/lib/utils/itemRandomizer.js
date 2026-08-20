@@ -1,4 +1,4 @@
-import { allTables } from './randomTables'
+import { allTables } from './itemDescriptions'
 import { createImages, generateResponseFromPrompt } from '$lib/utils/openAi.server.js'
 
 const defaultInput = '[item-type][power][flavor][effects]'

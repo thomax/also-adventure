@@ -201,3 +201,9 @@ export async function getCategories(options = {}) {
     |order(singular asc)`
   return await client.fetch(query).catch(console.error)
 }
+
+export async function getSettlementTables(options = {}) {
+
+  const query = groq`*[_type == "randomTable" && tableKey.current match "settlement-*"] | order(singular asc)`
+  return await client.fetch(query).catch(console.error)
+}
